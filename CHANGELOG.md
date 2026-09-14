@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-09-14
+### Added
+- Modular frontend project structure:
+  - `styles/dashboard.css`: Dedicated modern stylesheet with glassmorphism, responsive grid, and refined typography.
+  - `scripts/modules-data.js`: Dedicated data source module for the 7 operations categories.
+  - `scripts/dashboard.js`: Dedicated client-side UI controller with tab management and keyboard accessibility.
+  - `assets/icons/`: Dedicated assets folder with vector SVG resources.
+  - `index.html`: Clean HTML5 entry point referencing external styles and scripts.
+- Revamped single-file `gemini-code-1789376108233.html` into a clean modular layout without monolithic embedded blocks.
+- Comprehensive JSDoc and descriptive comments explaining the purpose and logic of each function and code block.
+
+### Changed
+- Refined interactive state animations, ambient card elevation on hover, and active glowing indicators.
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, and UI badges to `v2.1.0`.
+
 ## [2.0.0] - 2026-09-14
 ### Added
 - Complete architecture refactoring to **Modern Java Spring Boot Web Application (Thymeleaf MVC)**.
