@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #93c5fd;
+            margin-top: 6px;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 28px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Grid จัดเรียงปุ่ม 7 ช่อง */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* ดีไซน์ปุ่ม */
+        .card-btn {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+            outline: none;
+            min-height: 130px;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(30, 58, 138, 0.12);
+            border-color: #3b82f6;
+        }
+
+        .card-btn i {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #2563eb;
+            transition: color 0.25s ease;
+        }
+
+        .card-btn span {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        /* ปุ่มที่กำลัง Active */
+        .card-btn.active {
+            background-color: #1d4ed8;
+            border-color: #1e40af;
+            box-shadow: 0 6px 12px rgba(29, 78, 216, 0.25);
+        }
+
+        .card-btn.active i,
+        .card-btn.active span {
+            color: #ffffff;
+        }
+
+        /* กล่องแสดงผลเนื้อหาของแต่ละหมวดหมู่ */
+        .content-panel {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            min-height: 320px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .panel-header i {
+            font-size: 1.8rem;
+            color: #1d4ed8;
+        }
+
+        .panel-header h2 {
+            font-size: 1.4rem;
+            color: #0f172a;
+        }
+
+        .panel-body {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)</h1>
+        <p>ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard) <span id="app-version" class="version-badge">v1.0.1</span></p>
+    </header>
+
+    <div class="container">
+        <!-- ปุ่มกด 7 ช่อง -->
+        <div class="grid-container">
+            <!-- ช่องที่ 1: PM -->
+            <button class="card-btn active" onclick="selectMenu(0)">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span>1. PM</span>
+            </button>
+
+            <!-- ช่องที่ 2: CM -->
+            <button class="card-btn" onclick="selectMenu(1)">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>2. CM</span>
+            </button>
+
+            <!-- ช่องที่ 3: เยี่ยมเยือนทุก 3 เดือน -->
+            <button class="card-btn" onclick="selectMenu(2)">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>3. เยี่ยมเยือนทุก 3 เดือน</span>
+            </button>
+
+            <!-- ช่องที่ 4: เคลม -->
+            <button class="card-btn" onclick="selectMenu(3)">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>4. เคลม</span>
+            </button>
+
+            <!-- ช่องที่ 5: Monitor -->
+            <button class="card-btn" onclick="selectMenu(4)">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>5. Monitor</span>
+            </button>
+
+            <!-- ช่องที่ 6: วาระเจ้าหน้าที่รัฐ กรมการปกครอง -->
+            <button class="card-btn" onclick="selectMenu(5); window.open('https://wara5year.vercel.app/', '_blank');" title="เปิดไปยัง https://wara5year.vercel.app/ (แท็บใหม่)">
+                <i class="fa-solid fa-building-columns"></i>
+                <span>6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง</span>
+            </button>
+
+            <!-- ช่องที่ 7: คลัง -->
+            <button class="card-btn" onclick="selectMenu(6)">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <span>7. คลัง</span>
+            </button>
+        </div>
+
+        <!-- รายละเอียดของเมนูที่เลือก -->
+        <div class="content-panel">
+            <span class="status-badge" id="section-badge">หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน</span>
+            <div class="panel-header">
+                <i id="display-icon" class="fa-solid fa-screwdriver-wrench"></i>
+                <h2 id="display-title">1. งานบำรุงรักษาตามรอบ (Preventive Maintenance - PM)</h2>
+            </div>
+            <div class="panel-body" id="display-desc">
+                <p>ระบบบันทึกแผนงานและผลการตรวจเช็กสภาพอุปกรณ์ทวนสัญญาณ SHF ประจำรอบการทำงาน เช่น การวัดค่า VSWR, ระดับความแรงสัญญาณ RF, สถานะ Power Supply และการทำความสะอาดเสาอากาศ</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Single authoritative source for application version
+        const APP_VERSION = '1.0.1';
+        const versionEl = document.getElementById('app-version');
+        if (versionEl) {
+            versionEl.textContent = `v${APP_VERSION}`;
+        }
+
+        // ข้อมูลตัวอย่างสำหรับแต่ละช่อง
+        const menuData = [
+            {
+                badge: "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
+                icon: "fa-solid fa-screwdriver-wrench",
+                title: "1. งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM)",
+                desc: "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน"
+            },
+            {
+                badge: "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
+                icon: "fa-solid fa-triangle-exclamation",
+                title: "2. งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM)",
+                desc: "การเปิดและติดตาม Incident Ticket เมื่ออุปกรณ์ SHF เกิดขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลา SLA"
+            },
+            {
+                badge: "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
+                icon: "fa-solid fa-calendar-check",
+                title: "3. แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน",
+                desc: "ตารางนัดหมายการเข้าตรวจเยี่ยมหน่วยงานในพื้นที่ทุกไตรมาส รวบรวมข้อเสนอแนะ ปัญหาการใช้งาน และประเมินความพึงพอใจของผู้ใช้งานโครงข่าย"
+            },
+            {
+                badge: "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
+                icon: "fa-solid fa-arrows-rotate",
+                title: "4. ระบบส่งซ่อมและเคลมอุปกรณ์ (RMA / Warranty Claim)",
+                desc: "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรืออุปกรณ์ Power Unit ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่"
+            },
+            {
+                badge: "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
+                icon: "fa-solid fa-chart-line",
+                title: "5. ระบบตรวจสอบสถานะสัญญาณและโครงข่าย (Monitor / NMS)",
+                desc: "แดชบอร์ดแสดงสถานะ Uptime, ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบ Real-time หรือ Log การแจ้งเตือนต่างๆ"
+            },
+            {
+                badge: "หมวดหมู่งาน: ประสานงานราชการ",
+                icon: "fa-solid fa-building-columns",
+                title: "6. วาระประสานงานเจ้าหน้าที่รัฐ กรมการปกครอง",
+                desc: "รวบรวมวาระการประชุม บันทึกข้อตกลง (MOU), เอกสารขออนุญาตเข้าพื้นที่ว่าการอำเภอ/ท้องถิ่น และรายงานผลการดำเนินงานเสนอผู้บริหารกรมการปกครอง<div style=\"margin-top: 16px;\"><a href=\"https://wara5year.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"display: inline-flex; align-items: center; gap: 8px; background-color: #1d4ed8; color: #ffffff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 600;\"><i class=\"fa-solid fa-arrow-up-right-from-square\"></i> เปิดระบบวาระเจ้าหน้าที่รัฐ (wara5year.vercel.app)</a></div>"
+            },
+            {
+                badge: "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
+                icon: "fa-solid fa-boxes-stacked",
+                title: "7. ระบบคลังอะไหล่และอุปกรณ์คงคลัง (Inventory)",
+                desc: "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM"
+            }
+        ];
+
+        function selectMenu(index) {
+            const buttons = document.querySelectorAll('.card-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[index].classList.add('active');
+
+            const item = menuData[index];
+            document.getElementById('section-badge').innerText = item.badge;
+            document.getElementById('display-icon').className = item.icon;
+            document.getElementById('display-title').innerText = item.title;
+            document.getElementById('display-desc').innerHTML = `<p>${item.desc}</p>`;
+        }
+    </script>
+</body>
+</html>
