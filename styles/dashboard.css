@@ -325,10 +325,48 @@ body {
     transition: all var(--anim-base);
 }
 
+.card-icon-box svg,
+.ui-icon {
+    width: 26px;
+    height: 26px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: inline-block;
+    vertical-align: middle;
+    transition: all var(--anim-base);
+}
+
+.ui-icon-xs {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header-logo-container svg {
+    width: 30px;
+    height: 30px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 2;
+}
+
 .card-btn:hover .card-icon-box {
     background: var(--primary-100);
     color: var(--primary-700);
     transform: scale(1.08);
+}
+
+.card-btn:hover .card-icon-box svg {
+    transform: scale(1.06);
 }
 
 .card-label-text {
@@ -424,6 +462,17 @@ body {
     font-size: 1.75rem;
     flex-shrink: 0;
     box-shadow: var(--shadow-sm);
+}
+
+.panel-icon-circle svg,
+.panel-icon-svg-wrap svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 .panel-text-meta {

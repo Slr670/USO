@@ -1,195 +1,138 @@
 /**
  * ===================================================================
- * SHF Dashboard - Client-Side Interactive Controller
- * Version: 2.0.0
- * Description: ควบคุมการทำงานเชิงโต้ตอบ (Interactivity), การสลับหมวดหมู่งาน,
- *              และการ Redirect ไปยังระบบภายนอก (wara5year.vercel.app)
+ * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
+ * ไฟล์: src/main/resources/static/js/dashboard.js
+ * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
+ * เวอร์ชัน: 2.1.1
  * ===================================================================
  */
 
-(function () {
-    'use strict';
+const APP_VERSION = '2.1.1';
+let currentActiveIndex = 0;
 
-    /**
-     * ดึงข้อมูลแคชของโมดูลทั้งหมดที่ถูกส่งมาจากฝั่งเซิร์ฟเวอร์
-     * หรืออ่านจาก DOM Element Attributes
-     */
-    let currentActiveIndex = 0;
-    let modulesCache = [];
+document.addEventListener('DOMContentLoaded', () => {
+    initDashboard();
+});
 
-    /**
-     * เริ่มต้นการทำงานเมื่อโครงสร้าง DOM โหลดเสร็จสมบูรณ์
-     */
-    document.addEventListener('DOMContentLoaded', () => {
-        initDashboard();
+function initDashboard() {
+    renderVersionBadges();
+    selectMenu(0, false);
+    setupKeyboardNavigation();
+    console.log(`[SHF Dashboard] Initialized successfully with SVG icon system. Version: v${APP_VERSION}`);
+}
+
+function renderVersionBadges() {
+    const versionElements = document.querySelectorAll('#app-version, .app-version-text');
+    versionElements.forEach((el) => {
+        el.textContent = `v${APP_VERSION}`;
     });
+}
 
-    /**
-     * ฟังก์ชันเริ่มต้นระบบ (Dashboard Initialization)
-     * ทำการผูก Event Listener, โหลดข้อมูลโมดูล และตั้งค่าการแสดงผลเบื้องต้น
-     */
-    function initDashboard() {
-        // อ่านข้อมูลโมดูลจาก embedded json script tag หรือปุ่มที่ปรากฏบนหน้าจอ
-        extractModulesFromDOM();
-
-        // ผูก Event Listener กับปุ่มการ์ดทั้งหมด
-        bindCardEvents();
-
-        // รองรับการควบคุมผ่าน Keyboard (Accessibility)
-        bindKeyboardNavigation();
+function selectMenu(index, triggerRedirect = true) {
+    if (typeof MENU_MODULES_DATA === 'undefined') {
+        console.error('[SHF Dashboard] Error: MENU_MODULES_DATA not loaded.');
+        return;
     }
 
-    /**
-     * ดึงข้อมูลโครงสร้างของแต่ละการ์ดจาก DOM เพื่อใช้ในการสลับเนื้อหาอย่างรวดเร็ว
-     */
-    function extractModulesFromDOM() {
-        const cards = document.querySelectorAll('.card-btn');
-        modulesCache = Array.from(cards).map((card, index) => {
-            return {
-                index: index,
-                id: card.dataset.id || (index + 1),
-                shortCode: card.dataset.shortcode || card.querySelector('.card-title-text')?.textContent.trim(),
-                title: card.dataset.title || '',
-                badge: card.dataset.badge || '',
-                iconClass: card.dataset.icon || '',
-                desc: card.dataset.desc || '',
-                externalUrl: card.dataset.url || null,
-                isExternal: card.dataset.external === 'true'
-            };
-        });
+    const item = MENU_MODULES_DATA[index];
+    if (!item) {
+        console.warn(`[SHF Dashboard] Warning: No module data found for index: ${index}`);
+        return;
     }
 
-    /**
-     * ผูก Click Event ให้กับการ์ดแต่ละใบ
-     */
-    function bindCardEvents() {
-        const cards = document.querySelectorAll('.card-btn');
-        cards.forEach((card, index) => {
-            card.addEventListener('click', (event) => {
-                handleCardSelection(index, card);
-            });
-        });
+    currentActiveIndex = index;
+    updateCardStates(index);
+    renderPanelDetails(item);
+
+    if (triggerRedirect && item.isExternal && item.externalUrl) {
+        openExternalLink(item.externalUrl);
     }
+}
 
-    /**
-     * จัดการเมื่อผู้ใช้งานคลิกเลือกการ์ดโมดูล
-     *
-     * @param {number} index ลำดับของการ์ดที่ถูกคลิก (0 ถึง 6)
-     * @param {HTMLElement} cardElement โหนดการ์ดที่ถูกคลิก
-     */
-    window.handleCardSelection = function (index, cardElement) {
-        const moduleData = modulesCache[index];
-        if (!moduleData) return;
-
-        // 1. ปรับปรุงสถานะ Active บนการ์ดทั้งหมด
-        updateActiveCardUI(index);
-
-        // 2. อัปเดตเนื้อหาใน Content Panel ให้ตรงกับโมดูลที่เลือก
-        renderContentPanel(moduleData);
-
-        // 3. กรณีเป็นโมดูลที่ 6 (หรือโมดูลที่มี externalUrl):
-        //    ทำการเปิดลิงก์ไปยังระบบภายนอกในแท็บใหม่อัตโนมัติตามข้อกำหนด
-        if (moduleData.isExternal && moduleData.externalUrl) {
-            openExternalSystem(moduleData.externalUrl);
+function updateCardStates(activeIndex) {
+    const buttons = document.querySelectorAll('.card-btn');
+    buttons.forEach((btn, idx) => {
+        if (idx === activeIndex) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+        } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
         }
+    });
+}
 
-        currentActiveIndex = index;
-    };
+function renderPanelDetails(item) {
+    const badgeEl = document.getElementById('section-badge');
+    const iconEl = document.getElementById('display-icon');
+    const titleEl = document.getElementById('display-title');
+    const descEl = document.getElementById('display-desc');
+    const actionAreaEl = document.getElementById('panel-action-container');
 
-    /**
-     * ปรับปรุงสถานะภาพการแสดงผลของการ์ดที่ถูก Active
-     *
-     * @param {number} activeIndex ลำดับที่ต้อง Active
-     */
-    function updateActiveCardUI(activeIndex) {
-        const cards = document.querySelectorAll('.card-btn');
-        cards.forEach((btn, idx) => {
-            if (idx === activeIndex) {
-                btn.classList.add('active');
-                btn.setAttribute('aria-selected', 'true');
-            } else {
-                btn.classList.remove('active');
-                btn.setAttribute('aria-selected', 'false');
-            }
-        });
-    }
+    if (badgeEl) badgeEl.textContent = item.badge;
+    if (titleEl) titleEl.textContent = item.fullTitle;
+    if (descEl) descEl.textContent = item.description;
 
-    /**
-     * อัปเดตเนื้อหาในกล่อง Content Panel
-     *
-     * @param {Object} item ข้อมูลของโมดูลที่ต้องการแสดงผล
-     */
-    function renderContentPanel(item) {
-        const badgeEl = document.getElementById('panel-badge');
-        const iconEl = document.getElementById('panel-icon');
-        const titleEl = document.getElementById('panel-title');
-        const descBoxEl = document.getElementById('panel-desc-box');
-        const actionAreaEl = document.getElementById('panel-action-area');
-
-        if (badgeEl) badgeEl.textContent = item.badge;
-        if (iconEl) iconEl.className = item.iconClass;
-        if (titleEl) titleEl.textContent = item.title;
-        if (descBoxEl) descBoxEl.textContent = item.desc;
-
-        // จัดการส่วนปุ่ม Action ในกรณีที่เป็นโมดูลภายนอก
-        if (actionAreaEl) {
-            actionAreaEl.innerHTML = '';
-            if (item.isExternal && item.externalUrl) {
-                const linkBtn = document.createElement('a');
-                linkBtn.href = item.externalUrl;
-                linkBtn.target = '_blank';
-                linkBtn.rel = 'noopener noreferrer';
-                linkBtn.className = 'btn-action-primary';
-                linkBtn.innerHTML = `
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    <span>เข้าสู่ระบบ: ${item.shortCode}</span>
-                `;
-                actionAreaEl.appendChild(linkBtn);
-            }
+    if (iconEl) {
+        if (item.svgIcon) {
+            iconEl.innerHTML = item.svgIcon;
+            iconEl.className = 'panel-icon-svg-wrap';
+        } else {
+            iconEl.className = item.icon;
         }
     }
 
-    /**
-     * เปิด URL ภายนอกในแท็บใหม่อย่างปลอดภัย
-     *
-     * @param {string} url ที่อยู่เว็บไซต์ปลายทาง
-     */
-    function openExternalSystem(url) {
-        try {
-            const newWindow = window.open(url, '_blank');
-            if (newWindow) {
-                newWindow.opener = null; // ป้องกัน Reverse Tabnabbing Security Vulnerability
-            }
-        } catch (err) {
-            console.error('ไม่สามารถเปิดหน้าต่างใหม่ได้:', err);
+    if (actionAreaEl) {
+        actionAreaEl.innerHTML = '';
+        if (item.isExternal && item.externalUrl) {
+            const redirectBtn = document.createElement('a');
+            redirectBtn.href = item.externalUrl;
+            redirectBtn.target = '_blank';
+            redirectBtn.rel = 'noopener noreferrer';
+            redirectBtn.className = 'btn-action-primary';
+            const arrowIcon = (typeof ICONS !== 'undefined' && ICONS.externalArrow) 
+                ? ICONS.externalArrow 
+                : `<i class="fa-solid fa-arrow-up-right-from-square"></i>`;
+            redirectBtn.innerHTML = `
+                ${arrowIcon}
+                <span>เปิดระบบ: ${item.shortTitle} (แท็บใหม่)</span>
+            `;
+            actionAreaEl.appendChild(redirectBtn);
         }
     }
+}
 
-    /**
-     * รองรับการนำทางด้วยแป้นพิมพ์สำหรับ Accessibility (A11y)
-     */
-    function bindKeyboardNavigation() {
-        const cards = document.querySelectorAll('.card-btn');
-        cards.forEach((card, index) => {
-            card.addEventListener('keydown', (e) => {
-                let targetIndex = null;
-                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                    targetIndex = (index + 1) % cards.length;
-                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                    targetIndex = (index - 1 + cards.length) % cards.length;
-                } else if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    card.click();
-                    return;
-                }
-
-                if (targetIndex !== null) {
-                    e.preventDefault();
-                    cards[targetIndex].focus();
-                    cards[targetIndex].click();
-                }
-            });
-        });
+function openExternalLink(url) {
+    try {
+        const newTab = window.open(url, '_blank');
+        if (newTab) {
+            newTab.opener = null;
+        }
+    } catch (error) {
+        console.error('[SHF Dashboard] Failed to open external URL:', error);
     }
+}
 
-})();
+function setupKeyboardNavigation() {
+    const buttons = document.querySelectorAll('.card-btn');
+    buttons.forEach((btn, index) => {
+        btn.addEventListener('keydown', (event) => {
+            let nextIndex = null;
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                nextIndex = (index + 1) % buttons.length;
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                nextIndex = (index - 1 + buttons.length) % buttons.length;
+            } else if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                selectMenu(index, true);
+                return;
+            }
+
+            if (nextIndex !== null) {
+                event.preventDefault();
+                buttons[nextIndex].focus();
+                selectMenu(nextIndex, true);
+            }
+        });
+    });
+}

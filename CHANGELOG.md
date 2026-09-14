@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-09-14
+### Fixed
+- Resolved missing icon display issue caused by CORS/SRI restriction on local `file:///` protocol and external CDN font blocking.
+- Replaced card icons with contextually accurate, crisp inline SVG icons for all 7 topics:
+  1. **PM:** Precision tool maintenance (Wrench & Screwdriver)
+  2. **CM:** Emergency repair incident & alert (Warning Triangle with Exclamation)
+  3. **เยี่ยมเยือนทุก 3 เดือน:** Quarterly inspection calendar schedule with checkmark
+  4. **เคลม:** RMA merchandise exchange cycle arrows
+  5. **Monitor:** Real-time signal telemetry activity pulse wave
+  6. **วาระเจ้าหน้าที่รัฐ กรมการปกครอง:** Government administration landmark columns
+  7. **คลัง:** Warehouse inventory & stacked spare parts boxes
+- Updated header brand logo with dedicated SHF repeater broadcast tower SVG icon.
+- Enhanced CSS with responsive SVG rules (`.ui-icon`, `.ui-icon-xs`) ensuring 100% offline and cross-origin reliability.
+
 ## [2.1.0] - 2026-09-14
 ### Added
 - Modular frontend project structure:

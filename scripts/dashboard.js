@@ -3,7 +3,7 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/dashboard.js
  * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
- * เวอร์ชัน: 2.1.0
+ * เวอร์ชัน: 2.1.1
  * ===================================================================
  */
 
@@ -12,7 +12,7 @@
  * สอดคล้องตามมาตรฐาน Semantic Versioning (SemVer)
  * @constant {string}
  */
-const APP_VERSION = '2.1.0';
+const APP_VERSION = '2.1.1';
 
 /**
  * ดัชนีของเมนูที่กำลังเปิดใช้งานอยู่ในปัจจุบัน (0 ถึง 6)
@@ -45,7 +45,7 @@ function initDashboard() {
     // 3. ผูก Event สำหรับการควบคุมผ่าน Keyboard
     setupKeyboardNavigation();
 
-    console.log(`[SHF Dashboard] Initialized successfully. Version: v${APP_VERSION}`);
+    console.log(`[SHF Dashboard] Initialized successfully with SVG icon system. Version: v${APP_VERSION}`);
 }
 
 /**
@@ -86,7 +86,7 @@ function selectMenu(index, triggerRedirect = true) {
     // 1. ปรับปรุงสถานะภาพ Active บนปุ่มการ์ดทั้งหมด
     updateCardStates(index);
 
-    // 2. อัปเดตข้อมูลรายละเอียดใน Content Panel
+    // 2. อัปเดตข้อมูลรายละเอียดและไอคอนใน Content Panel
     renderPanelDetails(item);
 
     // 3. จัดการกรณีหมวดหมู่ที่เป็นลิงก์ภายนอก (เช่น ช่องที่ 6: wara5year.vercel.app)
@@ -115,6 +115,7 @@ function updateCardStates(activeIndex) {
 
 /**
  * แสดงผลข้อมูลของโมดูลที่เลือกลงใน Content Panel
+ * รองรับทั้ง Inline SVG Rendering และ Font Awesome Fallback
  *
  * @param {Object} item ข้อมูลของโมดูลที่เลือก
  */
@@ -126,9 +127,18 @@ function renderPanelDetails(item) {
     const actionAreaEl = document.getElementById('panel-action-container');
 
     if (badgeEl) badgeEl.textContent = item.badge;
-    if (iconEl) iconEl.className = item.icon;
     if (titleEl) titleEl.textContent = item.fullTitle;
     if (descEl) descEl.textContent = item.description;
+
+    // อัปเดตไอคอนใน Content Panel: ใช้ SVG โดยตรงเพื่อความคมชัดและไม่พึ่งพา CDN ภายนอก
+    if (iconEl) {
+        if (item.svgIcon) {
+            iconEl.innerHTML = item.svgIcon;
+            iconEl.className = 'panel-icon-svg-wrap';
+        } else {
+            iconEl.className = item.icon;
+        }
+    }
 
     // แสดงปุ่ม Action เพิ่มเติมในกรณีเป็นลิงก์ระบบภายนอก
     if (actionAreaEl) {
@@ -139,8 +149,11 @@ function renderPanelDetails(item) {
             redirectBtn.target = '_blank';
             redirectBtn.rel = 'noopener noreferrer';
             redirectBtn.className = 'btn-action-primary';
+            const arrowIcon = (typeof ICONS !== 'undefined' && ICONS.externalArrow) 
+                ? ICONS.externalArrow 
+                : `<i class="fa-solid fa-arrow-up-right-from-square"></i>`;
             redirectBtn.innerHTML = `
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                ${arrowIcon}
                 <span>เปิดระบบ: ${item.shortTitle} (แท็บใหม่)</span>
             `;
             actionAreaEl.appendChild(redirectBtn);
