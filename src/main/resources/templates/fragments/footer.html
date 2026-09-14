@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+    <!-- Footer Fragment ส่วนท้ายของระบบ -->
+    <footer th:fragment="dashboardFooter" class="dashboard-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span>&copy; 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.</span>
+            </div>
+            <div class="footer-right">
+                <span>สถาปัตยกรรมระบบ: <strong>Spring Boot 3 + Thymeleaf MVC</strong></span>
+                <span>|</span>
+                <span>เวอร์ชันระบบ: <strong th:text="'v' + ${appVersion}">v2.0.0</strong></span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+    <!-- Header Fragment ส่วนหัวของหน้าเว็บและข้อมูลแอปพลิเคชัน -->
+    <header th:fragment="dashboardHeader" class="dashboard-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <div class="header-logo-badge" title="SHF High Frequency Repeater Network">
+                    <i class="fa-solid fa-tower-broadcast"></i>
+                </div>
+                <div class="header-title-group">
+                    <div class="header-title-row">
+                        <h1 class="header-title" th:text="${appTitle}">
+                            โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
+                        </h1>
+                        <span class="version-badge" title="Authoritative System Version">
+                            <span class="version-dot"></span>
+                            <span th:text="'v' + ${appVersion}">v2.0.0</span>
+                        </span>
+                    </div>
+                    <p class="header-subtitle" th:text="${appSubtitle}">
+                        ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)
+                    </p>
+                </div>
+            </div>
+
+            <!-- สถานะการเชื่อมต่อระบบสด (Live System Status) -->
+            <div class="header-status-pill">
+                <span class="status-live-indicator"></span>
+                <span>ระบบออนไลน์ปกติ (NMS Live)</span>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
