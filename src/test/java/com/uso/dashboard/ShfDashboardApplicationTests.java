@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * และการตรวจสอบชุดข้อมูลเริ่มต้นของระบบ DashboardService
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.2.0
  */
 @SpringBootTest
 class ShfDashboardApplicationTests {
@@ -32,31 +32,43 @@ class ShfDashboardApplicationTests {
     }
 
     @Test
-    @DisplayName("ตรวจสอบว่าโมดูลมีครบถ้วนทั้ง 7 รายการตามสเปก")
+    @DisplayName("ตรวจสอบว่าโมดูลมีครบถ้วนทั้ง 8 รายการตามสเปก")
     void testAllModulesLoaded() {
         List<DashboardModule> modules = dashboardService.getAllModules();
-        assertEquals(7, modules.size(), "โมดูลในระบบจะต้องมีทั้งหมด 7 หมวดหมู่งานพอดี");
+        assertEquals(8, modules.size(), "โมดูลในระบบจะต้องมีทั้งหมด 8 หมวดหมู่งานพอดี");
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 6 (วาระเจ้าหน้าที่รัฐ กรมการปกครอง) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
+    @DisplayName("ตรวจสอบโมดูลที่ 6 (Track DOPA Agendas) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
     void testModuleSixExternalLink() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(5);
         assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 6 (Order Index 5)");
 
         DashboardModule moduleSix = moduleOpt.get();
-        assertEquals("6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง", moduleSix.getShortCode());
+        assertEquals("6. Track DOPA Agendas", moduleSix.getShortCode());
         assertTrue(moduleSix.isExternal(), "โมดูลที่ 6 จะต้องระบุเป็น External Link");
         assertEquals("https://wara5year.vercel.app/", moduleSix.getExternalUrl(), 
                 "URL ภายนอกจะต้องเป็น https://wara5year.vercel.app/");
     }
 
     @Test
-    @DisplayName("ตรวจสอบ Default Module ต้องเป็น PM (Index 0)")
+    @DisplayName("ตรวจสอบโมดูลที่ 8 (Track Assets & Equipment) ว่าถูกโหลดอย่างสมบูรณ์")
+    void testModuleEightAssetEquipment() {
+        Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(7);
+        assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 8 (Order Index 7)");
+
+        DashboardModule moduleEight = moduleOpt.get();
+        assertEquals("8. Assets & Equipment", moduleEight.getShortCode());
+        assertEquals("หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน", moduleEight.getBadge());
+        assertFalse(moduleEight.isExternal(), "โมดูลที่ 8 ค่าเริ่มต้นเป็น Internal Panel");
+    }
+
+    @Test
+    @DisplayName("ตรวจสอบ Default Module ต้องเป็น Perform PM (Index 0)")
     void testDefaultModule() {
         DashboardModule defaultModule = dashboardService.getDefaultModule();
         assertNotNull(defaultModule);
         assertEquals(0, defaultModule.getOrderIndex());
-        assertEquals("1. PM", defaultModule.getShortCode());
+        assertEquals("1. Perform PM", defaultModule.getShortCode());
     }
 }

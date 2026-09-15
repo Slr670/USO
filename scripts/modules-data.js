@@ -2,8 +2,8 @@
  * ===================================================================
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/modules-data.js
- * วัตถุประสงค์: ชุดข้อมูลคงที่และไอคอน SVG ประจำแต่ละหมวดหมู่งาน (Inline SVG Icons System)
- * เวอร์ชัน: 2.1.1
+ * วัตถุประสงค์: ชุดข้อมูลคงที่และไอคอน SVG ประจำทั้ง 8 หมวดหมู่งาน (Inline SVG Icons System)
+ * เวอร์ชัน: 2.2.0
  * ===================================================================
  */
 
@@ -64,6 +64,13 @@ const ICONS = {
         <path d="M12 22V12"/>
     </svg>`,
 
+    // 8. การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Assets & Equipment Registration Clipboard)
+    assetEquipment: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+        <path d="m9 14 2 2 4-4"/>
+    </svg>`,
+
     // ไอคอนลูกศรเปิดลิงก์แท็บใหม่ (External Arrow Up Right)
     externalArrow: `<svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -82,39 +89,39 @@ const ICONS = {
 };
 
 /**
- * ข้อมูลรายละเอียดของ 7 หมวดหมู่งาน พร้อม SVG Icons ที่ตรงตามบริบท
+ * ข้อมูลรายละเอียดของ 8 หมวดหมู่งาน พร้อม SVG Icons ที่ตรงตามบริบท
  * @constant {Array<Object>}
  */
 const MENU_MODULES_DATA = [
     {
         id: 1,
         orderIndex: 0,
-        shortTitle: "1. PM",
-        fullTitle: "1. งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM)",
+        shortTitle: "1. Perform PM",
+        fullTitle: "1. Perform PM (งานบำรุงรักษาเชิงป้องกัน — Preventive Maintenance)",
         badge: "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
         icon: "fa-solid fa-screwdriver-wrench",
         svgIcon: ICONS.pm,
         description: "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน",
-        externalUrl: null,
-        isExternal: false
+        externalUrl: "https://pm-5year.vercel.app/",
+        isExternal: true
     },
     {
         id: 2,
         orderIndex: 1,
-        shortTitle: "2. CM",
-        fullTitle: "2. งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM)",
+        shortTitle: "2. Handle CM",
+        fullTitle: "2. Handle CM (งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา — Corrective Maintenance)",
         badge: "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
         icon: "fa-solid fa-triangle-exclamation",
         svgIcon: ICONS.cm,
         description: "การเปิดและติดตาม Incident Ticket เมื่ออุปกรณ์ SHF เกิดขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลา SLA",
-        externalUrl: null,
-        isExternal: false
+        externalUrl: "https://dtrs-app-uat.forth.co.th/",
+        isExternal: true
     },
     {
         id: 3,
         orderIndex: 2,
-        shortTitle: "3. เยี่ยมเยือนทุก 3 เดือน",
-        fullTitle: "3. แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน",
+        shortTitle: "3. Quarterly Visits",
+        fullTitle: "3. Conduct Quarterly Visits (การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน)",
         badge: "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
         icon: "fa-solid fa-calendar-check",
         svgIcon: ICONS.calendar,
@@ -125,33 +132,33 @@ const MENU_MODULES_DATA = [
     {
         id: 4,
         orderIndex: 3,
-        shortTitle: "4. เคลม",
-        fullTitle: "4. ระบบส่งซ่อมและเคลมอุปกรณ์ (RMA / Warranty Claim)",
+        shortTitle: "4. Process Claims",
+        fullTitle: "4. Process Claims (การจัดการและยื่นเคลมอุปกรณ์/ประกัน)",
         badge: "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
         icon: "fa-solid fa-arrows-rotate",
         svgIcon: ICONS.claim,
         description: "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรืออุปกรณ์ Power Unit ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
-        externalUrl: null,
-        isExternal: false
+        externalUrl: "https://equipment-claims.vercel.app/",
+        isExternal: true
     },
     {
         id: 5,
         orderIndex: 4,
-        shortTitle: "5. Monitor",
-        fullTitle: "5. ระบบตรวจสอบสถานะสัญญาณและโครงข่าย (Monitor / NMS)",
+        shortTitle: "5. Monitor System",
+        fullTitle: "5. Monitor System (การตรวจสอบและเฝ้าระวังสถานะระบบ)",
         badge: "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
         icon: "fa-solid fa-chart-line",
         svgIcon: ICONS.monitor,
         description: "แดชบอร์ดแสดงสถานะ Uptime, ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบ Real-time หรือ Log การแจ้งเตือนต่างๆ",
-        externalUrl: null,
-        isExternal: false
+        externalUrl: "https://bssc-nine.vercel.app/",
+        isExternal: true
     },
     {
         id: 6,
         orderIndex: 5,
-        shortTitle: "6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง",
-        fullTitle: "6. วาระประสานงานเจ้าหน้าที่รัฐ กรมการปกครอง",
-        badge: "หมวดหมู่งาน: ประสานงานราชการ",
+        shortTitle: "6. Track DOPA Agendas",
+        fullTitle: "6. Track DOPA Agendas (วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง)",
+        badge: "หมวดหมู่งาน: ประสานงานราชการ (DOPA)",
         icon: "fa-solid fa-building-columns",
         svgIcon: ICONS.government,
         description: "รวบรวมวาระการประชุม บันทึกข้อตกลง (MOU), เอกสารขออนุญาตเข้าพื้นที่ว่าการอำเภอ/ท้องถิ่น และรายงานผลการดำเนินงานเสนอผู้บริหารกรมการปกครอง",
@@ -161,12 +168,24 @@ const MENU_MODULES_DATA = [
     {
         id: 7,
         orderIndex: 6,
-        shortTitle: "7. คลัง",
-        fullTitle: "7. ระบบคลังอะไหล่และอุปกรณ์คงคลัง (Inventory)",
+        shortTitle: "7. Manage Inventory",
+        fullTitle: "7. Manage Inventory (การบริหารจัดการคลังสินค้า/สต็อกอะไหล่)",
         badge: "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
         icon: "fa-solid fa-boxes-stacked",
         svgIcon: ICONS.inventory,
         description: "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM",
+        externalUrl: "https://www.stockflowth.online/dashboard",
+        isExternal: true
+    },
+    {
+        id: 8,
+        orderIndex: 7,
+        shortTitle: "8. Assets & Equipment",
+        fullTitle: "8. Track Assets & Equipment (การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน)",
+        badge: "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
+        icon: "fa-solid fa-clipboard-check",
+        svgIcon: ICONS.assetEquipment,
+        description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (Asset ID/Serial Number), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
         externalUrl: null,
         isExternal: false
     }

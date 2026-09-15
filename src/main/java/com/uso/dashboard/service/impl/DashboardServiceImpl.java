@@ -17,16 +17,16 @@ import java.util.Optional;
  * ไปยัง https://wara5year.vercel.app/
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.2.0
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    /** เก็บแคชของชุดข้อมูลโมดูลทั้ง 7 หมวดหมู่ */
+    /** เก็บแคชของชุดข้อมูลโมดูลทั้ง 8 หมวดหมู่ */
     private final List<DashboardModule> moduleRepository = new ArrayList<>();
 
     /**
-     * Constructor เริ่มต้นทำการ Initialize ข้อมูลทั้ง 7 หมวดหมู่งาน
+     * Constructor เริ่มต้นทำการ Initialize ข้อมูลทั้ง 8 หมวดหมู่งาน
      */
     public DashboardServiceImpl() {
         initModules();
@@ -37,38 +37,38 @@ public class DashboardServiceImpl implements DashboardService {
      * นำเข้าข้อมูลแม่นยำจากแดชบอร์ดโครงการ SHF
      */
     private void initModules() {
-        // ช่องที่ 1: งานบำรุงรักษาเชิงป้องกัน (PM)
+        // ช่องที่ 1: งานบำรุงรักษาเชิงป้องกัน (Perform PM)
         moduleRepository.add(new DashboardModule(
                 1,
                 0,
-                "1. PM",
-                "1. งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM)",
+                "1. Perform PM",
+                "1. Perform PM (งานบำรุงรักษาเชิงป้องกัน — Preventive Maintenance)",
                 "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
                 "fa-solid fa-screwdriver-wrench",
                 "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน",
-                null,
-                false
+                "https://pm-5year.vercel.app/",
+                true
         ));
 
-        // ช่องที่ 2: งานแก้ไขเหตุขัดข้อง (CM)
+        // ช่องที่ 2: งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (Handle CM)
         moduleRepository.add(new DashboardModule(
                 2,
                 1,
-                "2. CM",
-                "2. งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM)",
+                "2. Handle CM",
+                "2. Handle CM (งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา — Corrective Maintenance)",
                 "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
                 "fa-solid fa-triangle-exclamation",
                 "การเปิดและติดตาม Incident Ticket เมื่ออุปกรณ์ SHF เกิดขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลา SLA",
-                null,
-                false
+                "https://dtrs-app-uat.forth.co.th/",
+                true
         ));
 
-        // ช่องที่ 3: แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน
+        // ช่องที่ 3: แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน (Conduct Quarterly Visits)
         moduleRepository.add(new DashboardModule(
                 3,
                 2,
-                "3. เยี่ยมเยือนทุก 3 เดือน",
-                "3. แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน",
+                "3. Quarterly Visits",
+                "3. Conduct Quarterly Visits (การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน)",
                 "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
                 "fa-solid fa-calendar-check",
                 "ตารางนัดหมายการเข้าตรวจเยี่ยมหน่วยงานในพื้นที่ทุกไตรมาส รวบรวมข้อเสนอแนะ ปัญหาการใช้งาน และประเมินความพึงพอใจของผู้ใช้งานโครงข่าย",
@@ -76,54 +76,67 @@ public class DashboardServiceImpl implements DashboardService {
                 false
         ));
 
-        // ช่องที่ 4: ระบบส่งซ่อมและเคลมอุปกรณ์ (Claim / RMA)
+        // ช่องที่ 4: การจัดการและยื่นเคลมอุปกรณ์/ประกัน (Process Claims)
         moduleRepository.add(new DashboardModule(
                 4,
                 3,
-                "4. เคลม",
-                "4. ระบบส่งซ่อมและเคลมอุปกรณ์ (RMA / Warranty Claim)",
+                "4. Process Claims",
+                "4. Process Claims (การจัดการและยื่นเคลมอุปกรณ์/ประกัน)",
                 "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
                 "fa-solid fa-arrows-rotate",
                 "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรืออุปกรณ์ Power Unit ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
-                null,
-                false
+                "https://equipment-claims.vercel.app/",
+                true
         ));
 
-        // ช่องที่ 5: ระบบตรวจสอบสถานะสัญญาณและโครงข่าย (Monitor)
+        // ช่องที่ 5: การตรวจสอบและเฝ้าระวังสถานะระบบ (Monitor System)
         moduleRepository.add(new DashboardModule(
                 5,
                 4,
-                "5. Monitor",
-                "5. ระบบตรวจสอบสถานะสัญญาณและโครงข่าย (Monitor / NMS)",
+                "5. Monitor System",
+                "5. Monitor System (การตรวจสอบและเฝ้าระวังสถานะระบบ)",
                 "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
                 "fa-solid fa-chart-line",
                 "แดชบอร์ดแสดงสถานะ Uptime, ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบ Real-time หรือ Log การแจ้งเตือนต่างๆ",
-                null,
-                false
+                "https://bssc-nine.vercel.app/",
+                true
         ));
 
-        // ช่องที่ 6: วาระประสานงานเจ้าหน้าที่รัฐ กรมการปกครอง (เชื่อมโยงภายนอกไปยัง wara5year.vercel.app)
+        // ช่องที่ 6: วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Agendas)
         moduleRepository.add(new DashboardModule(
                 6,
                 5,
-                "6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง",
-                "6. วาระประสานงานเจ้าหน้าที่รัฐ กรมการปกครอง",
-                "หมวดหมู่งาน: ประสานงานราชการ",
+                "6. Track DOPA Agendas",
+                "6. Track DOPA Agendas (วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง)",
+                "หมวดหมู่งาน: ประสานงานราชการ (DOPA)",
                 "fa-solid fa-building-columns",
                 "รวบรวมวาระการประชุม บันทึกข้อตกลง (MOU), เอกสารขออนุญาตเข้าพื้นที่ว่าการอำเภอ/ท้องถิ่น และรายงานผลการดำเนินงานเสนอผู้บริหารกรมการปกครอง",
                 "https://wara5year.vercel.app/",
                 true
         ));
 
-        // ช่องที่ 7: ระบบคลังอะไหล่และอุปกรณ์คงคลัง (Inventory)
+        // ช่องที่ 7: การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (Manage Inventory)
         moduleRepository.add(new DashboardModule(
                 7,
                 6,
-                "7. คลัง",
-                "7. ระบบคลังอะไหล่และอุปกรณ์คงคลัง (Inventory)",
+                "7. Manage Inventory",
+                "7. Manage Inventory (การบริหารจัดการคลังสินค้า/สต็อกอะไหล่)",
                 "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
                 "fa-solid fa-boxes-stacked",
                 "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM",
+                "https://www.stockflowth.online/dashboard",
+                true
+        ));
+
+        // ช่องที่ 8: การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Track Assets & Equipment)
+        moduleRepository.add(new DashboardModule(
+                8,
+                7,
+                "8. Assets & Equipment",
+                "8. Track Assets & Equipment (การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน)",
+                "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
+                "fa-solid fa-clipboard-check",
+                "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (Asset ID/Serial Number), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
                 null,
                 false
         ));

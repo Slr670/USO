@@ -2,7 +2,7 @@
    โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
    ไฟล์: styles/dashboard.css
    วัตถุประสงค์: สไตล์ชีตสำหรับระบบ Dashboard (Modern UI/UX Design System)
-   เวอร์ชัน: 2.1.0
+   เวอร์ชัน: 2.2.0
    =================================================================== */
 
 /* --- 1. Design Tokens & CSS Variables --- */
@@ -253,11 +253,11 @@ body {
     color: var(--slate-400);
 }
 
-/* --- 5. Seven Cards Grid Container --- */
+/* --- 5. Eight Cards Grid Container --- */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 14px;
     margin-bottom: 28px;
 }
 
@@ -565,15 +565,17 @@ body {
 }
 
 /* --- 8. Responsive Breakpoints --- */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
     .grid-container {
         grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
     }
 }
 
 @media (max-width: 900px) {
     .grid-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
     }
 
     .header-inner {
@@ -586,7 +588,7 @@ body {
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -623,7 +625,7 @@ body {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 420px) {
     .grid-container {
         grid-template-columns: 1fr;
     }

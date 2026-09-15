@@ -3,11 +3,11 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: src/main/resources/static/js/dashboard.js
  * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
- * เวอร์ชัน: 2.1.1
+ * เวอร์ชัน: 2.2.0
  * ===================================================================
  */
 
-const APP_VERSION = '2.1.1';
+const APP_VERSION = '2.2.0';
 let currentActiveIndex = 0;
 
 document.addEventListener('DOMContentLoaded', () => {

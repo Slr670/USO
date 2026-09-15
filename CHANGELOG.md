@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-09-15
+### Added
+- Expanded operational modules structure from 7 to 8 modules:
+  1. **1. Perform PM:** Preventive Maintenance — งานบำรุงรักษาเชิงป้องกัน (`https://pm-5year.vercel.app/`)
+  2. **2. Handle CM:** Corrective Maintenance — งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (`https://dtrs-app-uat.forth.co.th/`)
+  3. **3. Conduct Quarterly Visits:** การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน
+  4. **4. Process Claims:** การจัดการและยื่นเคลมอุปกรณ์/ประกัน (`https://equipment-claims.vercel.app/`)
+  5. **5. Monitor System:** การตรวจสอบและเฝ้าระวังสถานะระบบ (`https://bssc-nine.vercel.app/`)
+  6. **6. Track DOPA Agendas:** วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง — Department of Provincial Administration (`https://wara5year.vercel.app/`)
+  7. **7. Manage Inventory:** การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (`https://www.stockflowth.online/dashboard`)
+  8. **8. Track Assets & Equipment:** การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน
+- Added dedicated inline SVG icon for `Track Assets & Equipment` (Clipboard with Checkmark and Asset Tag) compliant with UI Icon Policy.
+- Seeded module 8 in Spring Boot `DashboardServiceImpl` and expanded unit tests in `ShfDashboardApplicationTests`.
+
+### Changed
+- Refactored `.grid-container` to symmetrical 8-column layout on desktop, smoothly transitioning to 4x2 on laptop, 2x4 on tablet/mobile, and 1 column on small screens.
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `index.html`, and UI badges to `v2.2.0`.
+
 ## [2.1.1] - 2026-09-14
 ### Fixed
 - Resolved missing icon display issue caused by CORS/SRI restriction on local `file:///` protocol and external CDN font blocking.

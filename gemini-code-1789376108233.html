@@ -38,7 +38,7 @@
                         <h1 class="header-main-title">โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)</h1>
                         <span id="app-version" class="version-badge" title="Authoritative System Version">
                             <span class="version-indicator-dot"></span>
-                            <span>v2.1.1</span>
+                            <span>v2.2.0</span>
                         </span>
                     </div>
                     <p class="header-sub-title">ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation &amp; Maintenance Dashboard)</p>
@@ -69,21 +69,21 @@
             </div>
         </div>
 
-        <!-- กริดแสดงปุ่มการ์ดทั้ง 7 หมวดหมู่งาน (Interactive Cards Grid with Contextually Accurate SVG Icons) -->
+        <!-- กริดแสดงปุ่มการ์ดทั้ง 8 หมวดหมู่งาน (Interactive Cards Grid with Contextually Accurate SVG Icons) -->
         <div class="grid-container" role="tablist" aria-label="หมวดหมู่งานโครงการ SHF">
             
-            <!-- ช่องที่ 1: PM (Preventive Maintenance - เครื่องมือซ่อมบำรุงเชิงป้องกัน) -->
-            <button type="button" class="card-btn active" onclick="selectMenu(0)" role="tab" aria-selected="true" id="btn-module-0" title="งานบำรุงรักษาเชิงป้องกัน (PM)">
+            <!-- ช่องที่ 1: Perform PM (งานบำรุงรักษาเชิงป้องกัน - Preventive Maintenance) -->
+            <button type="button" class="card-btn active" onclick="selectMenu(0)" role="tab" aria-selected="true" id="btn-module-0" title="งานบำรุงรักษาเชิงป้องกัน (1. Perform PM)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                     </svg>
                 </div>
-                <span class="card-label-text">1. PM</span>
+                <span class="card-label-text">1. Perform PM</span>
             </button>
 
-            <!-- ช่องที่ 2: CM (Corrective Maintenance - แก้ไขเหตุขัดข้องและแจ้งเตือนฉุกเฉิน) -->
-            <button type="button" class="card-btn" onclick="selectMenu(1)" role="tab" aria-selected="false" id="btn-module-1" title="งานแก้ไขเหตุขัดข้องฉุกเฉิน (CM)">
+            <!-- ช่องที่ 2: Handle CM (งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา - Corrective Maintenance) -->
+            <button type="button" class="card-btn" onclick="selectMenu(1)" role="tab" aria-selected="false" id="btn-module-1" title="งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (2. Handle CM)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
@@ -91,11 +91,11 @@
                         <line x1="12" y1="17" x2="12.01" y2="17"/>
                     </svg>
                 </div>
-                <span class="card-label-text">2. CM</span>
+                <span class="card-label-text">2. Handle CM</span>
             </button>
 
-            <!-- ช่องที่ 3: แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน (Quarterly Calendar Schedule) -->
-            <button type="button" class="card-btn" onclick="selectMenu(2)" role="tab" aria-selected="false" id="btn-module-2" title="แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน">
+            <!-- ช่องที่ 3: Conduct Quarterly Visits (การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน) -->
+            <button type="button" class="card-btn" onclick="selectMenu(2)" role="tab" aria-selected="false" id="btn-module-2" title="การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน (3. Conduct Quarterly Visits)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -105,11 +105,11 @@
                         <path d="m9 16 2 2 4-4"/>
                     </svg>
                 </div>
-                <span class="card-label-text">3. เยี่ยมเยือนทุก 3 เดือน</span>
+                <span class="card-label-text">3. Quarterly Visits</span>
             </button>
 
-            <!-- ช่องที่ 4: เคลม (RMA / Warranty Claim - ส่งซ่อม เคลม และเปลี่ยนอะไหล่) -->
-            <button type="button" class="card-btn" onclick="selectMenu(3)" role="tab" aria-selected="false" id="btn-module-3" title="ระบบส่งซ่อมและเคลมอุปกรณ์ (RMA)">
+            <!-- ช่องที่ 4: Process Claims (การจัดการและยื่นเคลมอุปกรณ์/ประกัน) -->
+            <button type="button" class="card-btn" onclick="selectMenu(3)" role="tab" aria-selected="false" id="btn-module-3" title="การจัดการและยื่นเคลมอุปกรณ์/ประกัน (4. Process Claims)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
@@ -118,20 +118,20 @@
                         <path d="M8 16H3v5"/>
                     </svg>
                 </div>
-                <span class="card-label-text">4. เคลม</span>
+                <span class="card-label-text">4. Process Claims</span>
             </button>
 
-            <!-- ช่องที่ 5: Monitor (Network Monitoring / NMS - สัญญาณและสถานะโครงข่ายแบบ Real-time) -->
-            <button type="button" class="card-btn" onclick="selectMenu(4)" role="tab" aria-selected="false" id="btn-module-4" title="ระบบตรวจสอบสถานะสัญญาณและโครงข่าย">
+            <!-- ช่องที่ 5: Monitor System (การตรวจสอบและเฝ้าระวังสถานะระบบ) -->
+            <button type="button" class="card-btn" onclick="selectMenu(4)" role="tab" aria-selected="false" id="btn-module-4" title="การตรวจสอบและเฝ้าระวังสถานะระบบ (5. Monitor System)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                     </svg>
                 </div>
-                <span class="card-label-text">5. Monitor</span>
+                <span class="card-label-text">5. Monitor System</span>
             </button>
 
-            <!-- ช่องที่ 6: วาระเจ้าหน้าที่รัฐ กรมการปกครอง (Government Landmark Columns - ลิงก์ไปยัง wara5year.vercel.app) -->
+            <!-- ช่องที่ 6: Track DOPA Agendas (วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง) -->
             <button type="button" class="card-btn" onclick="selectMenu(5)" role="tab" aria-selected="false" id="btn-module-5" title="เปิดไปยัง https://wara5year.vercel.app/ (แท็บใหม่)">
                 <span class="external-link-pill" title="เปิดในแท็บใหม่">
                     <svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -151,11 +151,11 @@
                         <polygon points="12 2 2 7 22 7 12 2"/>
                     </svg>
                 </div>
-                <span class="card-label-text">6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง</span>
+                <span class="card-label-text">6. Track DOPA Agendas</span>
             </button>
 
-            <!-- ช่องที่ 7: คลัง (Warehouse & Inventory - คลังอะไหล่และอุปกรณ์คงคลัง) -->
-            <button type="button" class="card-btn" onclick="selectMenu(6)" role="tab" aria-selected="false" id="btn-module-6" title="ระบบคลังอะไหล่และอุปกรณ์คงคลัง">
+            <!-- ช่องที่ 7: Manage Inventory (การบริหารจัดการคลังสินค้า/สต็อกอะไหล่) -->
+            <button type="button" class="card-btn" onclick="selectMenu(6)" role="tab" aria-selected="false" id="btn-module-6" title="การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (7. Manage Inventory)">
                 <div class="card-icon-box">
                     <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
@@ -163,7 +163,19 @@
                         <path d="M12 22V12"/>
                     </svg>
                 </div>
-                <span class="card-label-text">7. คลัง</span>
+                <span class="card-label-text">7. Manage Inventory</span>
+            </button>
+
+            <!-- ช่องที่ 8: Track Assets & Equipment (การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน) -->
+            <button type="button" class="card-btn" onclick="selectMenu(7)" role="tab" aria-selected="false" id="btn-module-7" title="การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. Track Assets & Equipment)">
+                <div class="card-icon-box">
+                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                        <path d="m9 14 2 2 4-4"/>
+                    </svg>
+                </div>
+                <span class="card-label-text">8. Assets & Equipment</span>
             </button>
 
         </div>
@@ -182,7 +194,7 @@
                     </div>
                     <div class="panel-text-meta">
                         <span class="status-badge" id="section-badge">หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน</span>
-                        <h2 class="panel-main-heading" id="display-title">1. งานบำรุงรักษาตามรอบ (Preventive Maintenance - PM)</h2>
+                        <h2 class="panel-main-heading" id="display-title">1. Perform PM (งานบำรุงรักษาเชิงป้องกัน — Preventive Maintenance)</h2>
                     </div>
                 </div>
             </div>
@@ -205,7 +217,7 @@
                 &copy; 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.
             </div>
             <div>
-                โครงสร้างระบบ: <strong>Modular Web Architecture</strong> | เวอร์ชัน: <strong class="app-version-text">v2.1.1</strong>
+                โครงสร้างระบบ: <strong>Modular Web Architecture</strong> | เวอร์ชัน: <strong class="app-version-text">v2.2.0</strong>
             </div>
         </div>
     </footer>

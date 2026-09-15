@@ -3,7 +3,7 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/dashboard.js
  * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
- * เวอร์ชัน: 2.1.1
+ * เวอร์ชัน: 2.2.0
  * ===================================================================
  */
 
@@ -12,10 +12,10 @@
  * สอดคล้องตามมาตรฐาน Semantic Versioning (SemVer)
  * @constant {string}
  */
-const APP_VERSION = '2.1.1';
+const APP_VERSION = '2.2.0';
 
 /**
- * ดัชนีของเมนูที่กำลังเปิดใช้งานอยู่ในปัจจุบัน (0 ถึง 6)
+ * ดัชนีของเมนูที่กำลังเปิดใช้งานอยู่ในปัจจุบัน (0 ถึง 7)
  * ค่าเริ่มต้นคือ 0 (งานบำรุงรักษาเชิงป้องกัน - PM)
  * @type {number}
  */
@@ -66,7 +66,7 @@ function renderVersionBadges() {
  * - อัปเดตเนื้อหาใน Content Panel ให้แสดงข้อมูลของหมวดหมู่นั้นๆ
  * - หากเป็นหมวดหมู่ที่ 6 (หรือมี isExternal = true) จะทำการ Redirect ไปยัง URL ในแท็บใหม่อัตโนมัติ
  *
- * @param {number} index ลำดับของหมวดหมู่งาน (0 ถึง 6)
+ * @param {number} index ลำดับของหมวดหมู่งาน (0 ถึง 7)
  * @param {boolean} [triggerRedirect=true] สั่งให้เปิดแท็บใหม่หรือไม่ (ค่าเริ่มต้นคือ true เมื่อผู้ใช้คลิก)
  */
 function selectMenu(index, triggerRedirect = true) {
@@ -96,7 +96,7 @@ function selectMenu(index, triggerRedirect = true) {
 }
 
 /**
- * ปรับปรุงคลาส `active` และ `aria-selected` ของปุ่มการ์ดทั้ง 7 ช่อง
+ * ปรับปรุงคลาส `active` และ `aria-selected` ของปุ่มการ์ดทั้ง 8 ช่อง
  *
  * @param {number} activeIndex ลำดับของปุ่มที่ต้อง Active
  */
