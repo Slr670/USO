@@ -4,7 +4,7 @@
  * File: scripts/i18n.js
  * Purpose: Translation Engine using i18next + react-i18next
  *          Supports 100% English UI (Default) with Thai localization option
- * Version: 2.4.3
+ * Version: 2.4.4
  * ===================================================================
  */
 
@@ -65,7 +65,7 @@ const I18N_RESOURCES = {
                     shortTitle: "6. DOPA Tenure",
                     fullTitle: "6. Track DOPA Officials' Tenure",
                     badge: "Category: DOPA Tenure Tracking",
-                    description: "Track and calculate the remaining tenure and term expiration dates of DOPA officials across 181 USO stations.",
+                    description: "Track the remaining tenure and operational missions of DOPA officials across the 181 USO stations network.",
                     tooltip: "Track DOPA Officials' Tenure (6. DOPA Tenure)"
                 },
                 m7: {
@@ -82,24 +82,6 @@ const I18N_RESOURCES = {
                     description: "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
                     tooltip: "Asset & Equipment Registry Management (8. Assets & Equipment)"
                 }
-            },
-            calculator: {
-                mainTitle: "DOPA Officials' Remaining Tenure Calculator",
-                subTitle: "Term Expiration Tracking for 181 USO Stations",
-                badgeDopa: "181 USO Stations Tracking System",
-                box1Heading: "Term Expiration Tracking",
-                startDateLabel: "Tenure Start Date:",
-                termDurationLabel: "Term Duration:",
-                termOpt5: "5 Years (Standard 181 Stations Term)",
-                termOpt4: "4 Years (Local Administration Term)",
-                termOpt3: "3 Years",
-                termOpt2: "2 Years",
-                termExpLabel: "Term Expiration Date:",
-                termStatusLabel: "Remaining Tenure Status:",
-                termExpired: "Term Expired",
-                termRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
-                termProgressLabel: "Term Elapsed Progress:",
-                emptyDateHint: "Please select a valid start date"
             },
             actions: {
                 openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
@@ -168,10 +150,10 @@ const I18N_RESOURCES = {
                 },
                 m6: {
                     shortTitle: "6. DOPA Tenure",
-                    fullTitle: "6. ติดตามและคำนวณวาระเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Tenure)",
+                    fullTitle: "6. ติดตามวาระเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Tenure)",
                     badge: "หมวดหมู่งาน: วาระคงเหลือ (DOPA)",
-                    description: "ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี 181 สถานี USO",
-                    tooltip: "ติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง (6. DOPA Tenure)"
+                    description: "ระบบติดตามวาระและภารกิจของเจ้าหน้าที่รัฐ กรมการปกครอง ประจำสถานีเครือข่าย USO รวม 181 สถานี",
+                    tooltip: "ติดตามวาระเจ้าหน้าที่รัฐ กรมการปกครอง (6. DOPA Tenure)"
                 },
                 m7: {
                     shortTitle: "7. Manage Inventory",
@@ -187,24 +169,6 @@ const I18N_RESOURCES = {
                     description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (รหัสทรัพย์สิน/หมายเลขประจำเครื่อง), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
                     tooltip: "การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. Assets & Equipment)"
                 }
-            },
-            calculator: {
-                mainTitle: "เครื่องมือติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง",
-                subTitle: "ระบบคำนวณวันหมดวาระการดำรงตำแหน่ง 181 สถานี USO",
-                badgeDopa: "ระบบติดตาม 181 สถานี USO",
-                box1Heading: "คำนวณวันหมดวาระการดำรงตำแหน่ง",
-                startDateLabel: "วันที่เริ่มดำรงตำแหน่ง:",
-                termDurationLabel: "ระยะเวลาของวาระ:",
-                termOpt5: "5 ปี (วาระตามโครงการ 181 สถานี)",
-                termOpt4: "4 ปี (วาระผู้บริหารท้องถิ่น)",
-                termOpt3: "3 ปี",
-                termOpt2: "2 ปี",
-                termExpLabel: "วันครบกำหนดวาระ:",
-                termStatusLabel: "สถานะวาระคงเหลือ:",
-                termExpired: "สิ้นสุดวาระแล้ว",
-                termRemaining: "คงเหลือ {{years}} ปี {{months}} เดือน {{days}} วัน",
-                termProgressLabel: "ความคืบหน้าของวาระ:",
-                emptyDateHint: "กรุณาระบุวันที่เริ่มต้น"
             },
             actions: {
                 openPrimary: "เปิดระบบหลัก: {{title}} • แดชบอร์ด 181 สถานี (แท็บใหม่)",

@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: scripts/modules-data.js
  * Purpose: Constant datasets and scalable inline SVG icons for all 8 operational modules
- * Version: 2.4.3
+ * Version: 2.4.4
  * ===================================================================
  */
 
@@ -159,10 +159,9 @@ const MENU_MODULES_DATA = [
         badge: "Category: DOPA Tenure Tracking",
         icon: "fa-solid fa-building-columns",
         svgIcon: ICONS.government,
-        description: "Track and calculate the remaining tenure and term expiration dates of DOPA officials across 181 USO stations.",
+        description: "Track the remaining tenure and operational missions of DOPA officials across the 181 USO stations network.",
         externalUrl: "https://wara5year.vercel.app/",
-        isExternal: true,
-        hasTenureCalculator: true
+        isExternal: true
     },
     {
         id: 7,

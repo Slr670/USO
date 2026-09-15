@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.4] - 2026-09-15
+### Removed
+- **DOPA Officials' Remaining Tenure Calculator Card:** Completely removed the entire embedded tenure calculation card, interactive start date / duration inputs, expiration countdown status box, progress bar, and calculation logic from Module 6 in the UI.
+- Removed obsolete calculator CSS classes (`.tenure-calculator-card`, `.calc-*`) and translation dictionary entries from `i18n.js`.
+
+### Changed
+- **Module 6 Streamlining:** Module 6 ("6. Track DOPA Officials' Tenure") now functions consistently with other external integration modules, displaying operational scope and providing a direct action button linking to the live 181 USO stations dashboard (`https://wara5year.vercel.app/`).
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `index.html`, `gemini-code-1789376108233.html`, Spring Boot backend service, and Thymeleaf templates to `v2.4.4`.
+
 ## [2.4.3] - 2026-09-15
 ### Changed
 - **Documentation & Metadata Synchronization:** Updated `README.md` to reflect the complete 8 operational modules, dual-stack architecture (Spring Boot 3 Thymeleaf MVC & Standalone Web Client), i18next + react-i18next translation system, and full-width DOPA tenure tracker.

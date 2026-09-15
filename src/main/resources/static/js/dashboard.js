@@ -3,7 +3,7 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/dashboard.js
  * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
- * เวอร์ชัน: 2.4.3
+ * เวอร์ชัน: 2.4.4
  * ===================================================================
  */
 
@@ -12,7 +12,7 @@
  * สอดคล้องตามมาตรฐาน Semantic Versioning (SemVer)
  * @constant {string}
  */
-const APP_VERSION = '2.4.3';
+const APP_VERSION = '2.4.4';
 
 /**
  * ดัชนีของเมนูที่กำลังเปิดใช้งานอยู่ในปัจจุบัน (0 ถึง 7)
@@ -144,11 +144,6 @@ function renderPanelDetails(item) {
     if (actionAreaEl) {
         actionAreaEl.innerHTML = '';
 
-        // กรณีหมวดหมู่ที่ 6 (DOPA): แสดงเครื่องมือติดตามและคำนวณวาระคงเหลือ
-        if (item.hasTenureCalculator || item.id === 6) {
-            renderTenureCalculator(actionAreaEl);
-        }
-
         if (item.isExternal && item.externalUrl) {
             const redirectBtn = document.createElement('a');
             redirectBtn.href = item.externalUrl;
@@ -168,193 +163,6 @@ function renderPanelDetails(item) {
             actionAreaEl.appendChild(redirectBtn);
         }
     }
-}
-
-/**
- * แสดงผลและควบคุมเครื่องมือคำนวณวาระคงเหลือ (DOPA Calculator)
- * 
- * @param {HTMLElement} container ตำแหน่ง Container ในการแทรกการ์ด
- */
-function renderTenureCalculator(container) {
-    const card = document.createElement('div');
-    card.className = 'tenure-calculator-card';
-
-    const tFunc = (typeof t === 'function') ? t : (k) => k;
-
-    card.innerHTML = `
-        <div class="calc-card-header">
-            <div class="calc-card-title-group">
-                <div class="calc-title-icon">
-                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                        <path d="M12 14v4"/>
-                        <path d="M10 16h4"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="calc-main-title">${tFunc('calculator.mainTitle')}</h3>
-                    <p class="calc-sub-title">${tFunc('calculator.subTitle')}</p>
-                </div>
-            </div>
-            <span class="calc-badge-dopa">${tFunc('calculator.badgeDopa')}</span>
-        </div>
-
-        <div class="calc-grid-layout calc-grid-single">
-            <!-- Term Expiration Tracking (Full Width) -->
-            <div class="calc-column-box calc-box-fullwidth">
-                <div class="calc-box-heading">
-                    <svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    <span>${tFunc('calculator.box1Heading')}</span>
-                </div>
-                <div class="calc-inputs-row">
-                    <div class="calc-field-row">
-                        <label class="calc-label" for="calc-start-date">${tFunc('calculator.startDateLabel')}</label>
-                        <input type="date" id="calc-start-date" class="calc-date-input" value="2023-10-01">
-                    </div>
-                    <div class="calc-field-row">
-                        <label class="calc-label" for="calc-term-years">${tFunc('calculator.termDurationLabel')}</label>
-                        <select id="calc-term-years" class="calc-select-input">
-                            <option value="5" selected>${tFunc('calculator.termOpt5')}</option>
-                            <option value="4">${tFunc('calculator.termOpt4')}</option>
-                            <option value="3">${tFunc('calculator.termOpt3')}</option>
-                            <option value="2">${tFunc('calculator.termOpt2')}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="calc-result-card" id="term-result-card">
-                    <!-- คำนวณผลลัพธ์แบบ Dynamic -->
-                </div>
-            </div>
-        </div>
-    `;
-
-    container.appendChild(card);
-    setupTenureCalculatorListeners();
-}
-
-/**
- * ฟังก์ชันผูก Event Listeners และสั่งคำนวณผลลัพธ์แบบอัตโนมัติ
- */
-function setupTenureCalculatorListeners() {
-    const startDateInput = document.getElementById('calc-start-date');
-    const termYearsInput = document.getElementById('calc-term-years');
-
-    function update() {
-        if (startDateInput && termYearsInput) {
-            updateTermCalculation(startDateInput.value, parseInt(termYearsInput.value, 10));
-        }
-    }
-
-    if (startDateInput) startDateInput.addEventListener('change', update);
-    if (termYearsInput) termYearsInput.addEventListener('change', update);
-
-    update();
-}
-
-/**
- * คำนวณและแสดงผลการติดตามวันหมดวาระการดำรงตำแหน่ง
- *
- * @param {string} startDateStr วันที่เริ่มต้นในรูปแบบ YYYY-MM-DD
- * @param {number} termYears จำนวนปีของวาระ
- */
-function updateTermCalculation(startDateStr, termYears) {
-    const resultBox = document.getElementById('term-result-card');
-    if (!resultBox) return;
-
-    const tFunc = (typeof t === 'function') ? t : (k, o) => k;
-
-    if (!startDateStr) {
-        resultBox.innerHTML = `<span class="calc-empty-hint">${tFunc('calculator.emptyDateHint')}</span>`;
-        return;
-    }
-
-    const startParts = startDateStr.split('-');
-    const start = new Date(parseInt(startParts[0], 10), parseInt(startParts[1], 10) - 1, parseInt(startParts[2], 10));
-    
-    const exp = new Date(start);
-    exp.setFullYear(start.getFullYear() + termYears);
-    exp.setDate(exp.getDate() - 1);
-
-    const now = new Date();
-    const diffMs = exp - now;
-    const isExpired = diffMs <= 0;
-    const totalDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-
-    const totalTermMs = exp - start;
-    const elapsedMs = Math.max(0, now - start);
-    const progressPct = totalTermMs > 0 ? Math.min(100, Math.max(0, Math.round((elapsedMs / totalTermMs) * 100))) : 100;
-
-    const yearsLeft = Math.floor(totalDays / 365);
-    const monthsLeft = Math.floor((totalDays % 365) / 30);
-    const daysLeft = totalDays % 30;
-
-    const expDateDisplay = formatLocalizedFullDate(exp);
-    const statusText = isExpired 
-        ? tFunc('calculator.termExpired') 
-        : tFunc('calculator.termRemaining', { years: yearsLeft, months: monthsLeft, days: daysLeft });
-
-    resultBox.innerHTML = `
-        <div class="calc-stat-row">
-            <span class="stat-label">${tFunc('calculator.termExpLabel')}</span>
-            <strong class="stat-highlight">${expDateDisplay}</strong>
-        </div>
-        <div class="calc-stat-row">
-            <span class="stat-label">${tFunc('calculator.termStatusLabel')}</span>
-            <span class="stat-badge-pill ${isExpired ? 'badge-expired' : 'badge-active'}">
-                ${statusText}
-            </span>
-        </div>
-        <div class="calc-progress-wrapper">
-            <div class="calc-progress-labels">
-                <span>${tFunc('calculator.termProgressLabel')}</span>
-                <strong>${progressPct}%</strong>
-            </div>
-            <div class="calc-progress-track">
-                <div class="calc-progress-bar" style="width: ${progressPct}%;"></div>
-            </div>
-        </div>
-    `;
-}
-
-/**
- * แปลง Date Object เป็นข้อความวันที่ตามภาษาปัจจุบัน (Localized Date Formatter)
- *
- * @param {Date} date วันที่ที่ต้องการแปลง
- * @returns {string} วันที่ที่จัดรูปแบบแล้ว
- */
-function formatLocalizedFullDate(date) {
-    const currentLang = (typeof i18next !== 'undefined' && i18next.language) 
-        ? i18next.language 
-        : (localStorage.getItem('shf_app_lang') || 'th');
-
-    if (currentLang === 'en') {
-        const enMonths = [
-            'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-        return `${enMonths[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-    }
-
-    const thaiMonths = [
-        'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-    ];
-    return `${date.getDate()} ${thaiMonths[date.getMonth()]} พ.ศ. ${date.getFullYear() + 543}`;
-}
-
-/**
- * ฟังก์ชันสำรองเดิมเพื่อความเข้ากันได้ย้อนหลัง
- * @deprecated ใช้ formatLocalizedFullDate แทน
- */
-function formatThaiFullDate(date) {
-    return formatLocalizedFullDate(date);
 }
 
 /**
