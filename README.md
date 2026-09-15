@@ -1,7 +1,7 @@
 # โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
 > **ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)**  
 > สถาปัตยกรรมระบบ: **Dual-Stack (Java Spring Boot 3 Thymeleaf MVC & Standalone Web Client)**  
-> เวอร์ชันระบบ: **v2.4.7**
+> เวอร์ชันระบบ: **v2.4.8**
 
 ---
 
@@ -57,10 +57,10 @@
 
 ```text
 d:\Dashboard รวม\
-├── pom.xml                                      # การตั้งค่า Maven & Dependencies (v2.4.7)
+├── pom.xml                                      # การตั้งค่า Maven & Dependencies (v2.4.8)
 ├── mvnw / mvnw.cmd                              # Maven Wrapper Scripts
 ├── .gitignore                                   # กรองไฟล์ที่ไม่จำเป็นต่อ Git
-├── README.md                                    # เอกสารคู่มือระบบฉบับสมบูรณ์ (v2.4.7)
+├── README.md                                    # เอกสารคู่มือระบบฉบับสมบูรณ์ (v2.4.8)
 ├── CHANGELOG.md                                 # บันทึกประวัติการปรับปรุงระบบ (SemVer)
 ├── index.html                                   # หน้าแดชบอร์ดหลักสำหรับ Standalone Web Client
 ├── gemini-code-1789376108233.html               # พรีวิวหน้าเว็บสำรอง
@@ -167,7 +167,7 @@ http://localhost:8080
 ### การสร้าง Executable JAR เพื่อนำไป Deploy
 ```bash
 ./mvnw clean package
-java -jar target/shf-dashboard-2.4.7.jar
+java -jar target/shf-dashboard-2.4.8.jar
 ```
 
 ---

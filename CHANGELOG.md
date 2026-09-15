@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.8] - 2026-09-15
+### Fixed
+- **Vercel Deployment Root 404 & SPA Routing Resolution:**
+  - Resolved 404 (Not Found) deployment error on the root URL (`https://uso-nine.vercel.app/`) by explicitly defining `"outputDirectory": "."` and single-page application (SPA) rewrites in `vercel.json`.
+  - Guaranteed fallback reliability by placing `index.html`, `styles/`, `scripts/`, `assets/`, `icons/`, and `favicon.ico` into the root `public/` directory in addition to project root, ensuring deployment success whether Vercel deploys from root `.` or `public/`.
+- **Video Relocation & Whitespace Removal for Vercel Streaming:**
+  - Placed the optimized H.264 video (`FORTH_MASTER_Video_Final-Additional.mp4`, 76.65 MB, safely under GitHub's 100MB limit) directly inside root `public/` directory with spaces removed from the filename to eliminate URL encoding mismatches.
+  - Configured byte-range streaming headers (`Accept-Ranges: bytes`, `Content-Type: video/mp4`) in `vercel.json` and static rewrites from legacy media paths and space-encoded URLs.
+  - Updated `<video src="...">` and `<source>` paths across `index.html`, `public/index.html`, `gemini-code-1789376108233.html`, and Thymeleaf `src/main/resources/templates/index.html`.
+
+### Changed
+- **System Version Synchronization:** Bumped authoritative SemVer system version from `v2.4.7` to `v2.4.8` across all project files (`pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, Java controllers/services/models/tests, HTML templates, and documentation).
+
 ## [2.4.7] - 2026-09-15
 ### Fixed
 - **Video 404 (Not Found) & URL Space Encoding Resolution:**
