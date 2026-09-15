@@ -128,13 +128,11 @@
 
             <!-- Responsive HTML5 Video Player -->
             <div class="video-player-wrapper">
-                <video id="forth-master-video" class="responsive-video-player" controls autoplay muted playsinline preload="metadata">
-                    <source th:src="@{/assets/media/FORTH_MASTER_Video%20Final-Additional.mp4}" src="/assets/media/FORTH_MASTER_Video%20Final-Additional.mp4" type="video/mp4">
-                    <source th:src="@{/assets/media/FORTH_MASTER_Video_Final-Additional.mp4}" src="/assets/media/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
-                    <source th:src="@{/media/FORTH_MASTER_Video%20Final-Additional.mp4}" src="/media/FORTH_MASTER_Video%20Final-Additional.mp4" type="video/mp4">
+                <video id="forth-master-video" class="responsive-video-player" th:src="@{/public/FORTH_MASTER_Video_Final-Additional.mp4}" src="public/FORTH_MASTER_Video_Final-Additional.mp4" controls autoplay muted playsinline preload="metadata">
+                    <source th:src="@{/public/FORTH_MASTER_Video_Final-Additional.mp4}" src="public/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
+                    <source th:src="@{/FORTH_MASTER_Video_Final-Additional.mp4}" src="/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
                     <source th:src="@{/media/FORTH_MASTER_Video_Final-Additional.mp4}" src="/media/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
-                    <source th:src="@{/assets/media/FORTH_MASTER_Video%20Final-Additional.mov}" src="/assets/media/FORTH_MASTER_Video%20Final-Additional.mov" type="video/quicktime">
-                    <source th:src="@{/assets/media/FORTH_MASTER_Video_Final-Additional.mov}" src="/assets/media/FORTH_MASTER_Video_Final-Additional.mov" type="video/quicktime">
+                    <source th:src="@{/assets/media/FORTH_MASTER_Video_Final-Additional.mp4}" src="/assets/media/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
                     <p data-i18n="video.fallback">Your browser does not support HTML5 video playback. Please update your browser.</p>
                 </video>
             </div>

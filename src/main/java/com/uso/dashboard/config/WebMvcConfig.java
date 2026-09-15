@@ -14,13 +14,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * - /icons/** สำหรับ Vector SVG Icons
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.7
+ * @version 2.4.8
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 0. กำหนด Resource Handler สำหรับ /public/**
+        registry.addResourceHandler("/public/**")
+                .addResourceLocations(
+                        "classpath:/static/public/",
+                        "file:public/"
+                )
+                .setCachePeriod(3600);
         // 1. กำหนด Resource Handler สำหรับ /assets/**
         registry.addResourceHandler("/assets/**")
                 .addResourceLocations(

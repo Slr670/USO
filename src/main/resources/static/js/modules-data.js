@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: scripts/modules-data.js
  * Purpose: Constant datasets and scalable inline SVG icons for all 8 operational modules
- * Version: 2.4.7
+ * Version: 2.4.8
  * ===================================================================
  */
 

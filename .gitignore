@@ -50,3 +50,6 @@ src/main/resources/static/media/*
 !src/main/resources/static/media/.gitkeep
 src/main/resources/static/assets/media/*
 !src/main/resources/static/assets/media/.gitkeep
+
+# Allow optimized video file (<100MB) in public/ for Vercel deployment
+!public/FORTH_MASTER_Video_Final-Additional.mp4
