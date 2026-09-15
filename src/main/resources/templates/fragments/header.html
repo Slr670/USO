@@ -20,15 +20,18 @@
                         </span>
                     </div>
                     <p class="header-subtitle" th:text="${appSubtitle}">
-                        ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (การดำเนินงานและบำรุงรักษาโครงข่าย)
+                        ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (แดชบอร์ดปฏิบัติการและบำรุงรักษาระบบ SHF)
                     </p>
                 </div>
             </div>
 
-            <!-- สถานะการเชื่อมต่อระบบสด (Live System Status) -->
-            <div class="header-status-pill">
-                <span class="status-live-indicator"></span>
-                <span>ระบบออนไลน์ปกติ (สถานะระบบสด)</span>
+            <!-- ป้ายสถานะระบบ (Live Status Indicator) และ Language Switcher -->
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div id="react-lang-switcher"></div>
+                <div class="header-status-pill">
+                    <span class="status-live-indicator"></span>
+                    <span data-i18n="header.status">ระบบออนไลน์ปกติ (สถานะการเฝ้าระวังสด)</span>
+                </div>
             </div>
         </div>
     </header>

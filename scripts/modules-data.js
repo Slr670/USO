@@ -3,7 +3,6 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/modules-data.js
  * วัตถุประสงค์: ชุดข้อมูลคงที่และไอคอน SVG ประจำทั้ง 8 หมวดหมู่งาน (Inline SVG Icons System)
- * เชื่อมโยงระบบแปลภาษา: i18next + react-i18next (Translation Keys Integration)
  * เวอร์ชัน: 2.4.0
  * ===================================================================
  */
@@ -90,16 +89,15 @@ const ICONS = {
 };
 
 /**
- * ข้อมูลรายละเอียดของ 8 หมวดหมู่งาน แปลงเป็นภาษาไทย 100% พร้อม Translation Keys
+ * ข้อมูลรายละเอียดของ 8 หมวดหมู่งาน พร้อม SVG Icons ที่ตรงตามบริบท
  * @constant {Array<Object>}
  */
 const MENU_MODULES_DATA = [
     {
         id: 1,
         orderIndex: 0,
-        translationKey: "modules.pm",
-        shortTitle: "1. บำรุงรักษาเชิงป้องกัน (PM)",
-        fullTitle: "1. งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance — PM)",
+        shortTitle: "1. Perform PM",
+        fullTitle: "1. Perform PM (งานบำรุงรักษาเชิงป้องกัน — Preventive Maintenance)",
         badge: "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
         icon: "fa-solid fa-screwdriver-wrench",
         svgIcon: ICONS.pm,
@@ -110,22 +108,20 @@ const MENU_MODULES_DATA = [
     {
         id: 2,
         orderIndex: 1,
-        translationKey: "modules.cm",
-        shortTitle: "2. แก้ไขเหตุขัดข้อง (CM)",
-        fullTitle: "2. งานแก้ไขเหตุขัดข้องฉุกเฉิน (Corrective Maintenance — CM)",
+        shortTitle: "2. Handle CM",
+        fullTitle: "2. Handle CM (งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา — Corrective Maintenance)",
         badge: "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
         icon: "fa-solid fa-triangle-exclamation",
         svgIcon: ICONS.cm,
-        description: "การเปิดและติดตามใบแจ้งเหตุขัดข้อง (Incident Ticket) เมื่ออุปกรณ์ SHF ขัดข้องหรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลาข้อตกลงระดับบริการ (SLA)",
+        description: "การเปิดและติดตาม Incident Ticket เมื่ออุปกรณ์ SHF เกิดขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลา SLA",
         externalUrl: "https://dtrs-app-uat.forth.co.th/",
         isExternal: true
     },
     {
         id: 3,
         orderIndex: 2,
-        translationKey: "modules.quarterly",
-        shortTitle: "3. ตรวจเช็กทุก 3 เดือน",
-        fullTitle: "3. การเข้าตรวจเช็กและเยี่ยมเยือนทุก 3 เดือน (การตรวจติดตามรายไตรมาส)",
+        shortTitle: "3. Quarterly Visits",
+        fullTitle: "3. Conduct Quarterly Visits (การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน)",
         badge: "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
         icon: "fa-solid fa-calendar-check",
         svgIcon: ICONS.calendar,
@@ -136,39 +132,36 @@ const MENU_MODULES_DATA = [
     {
         id: 4,
         orderIndex: 3,
-        translationKey: "modules.claims",
-        shortTitle: "4. จัดการเคลมอุปกรณ์",
-        fullTitle: "4. การจัดการและยื่นเคลมอุปกรณ์และประกัน (ส่งซ่อมและรับประกัน)",
+        shortTitle: "4. Process Claims",
+        fullTitle: "4. Process Claims (การจัดการและยื่นเคลมอุปกรณ์/ประกัน)",
         badge: "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
         icon: "fa-solid fa-arrows-rotate",
         svgIcon: ICONS.claim,
-        description: "ติดตามสถานะโมดูล SHF, สายเคเบิล หรือชุดจ่ายไฟ (Power Unit) ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
+        description: "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรืออุปกรณ์ Power Unit ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
         externalUrl: "https://equipment-claims.vercel.app/",
         isExternal: true
     },
     {
         id: 5,
         orderIndex: 4,
-        translationKey: "modules.monitor",
-        shortTitle: "5. เฝ้าระวังสถานะระบบ",
-        fullTitle: "5. การตรวจสอบและเฝ้าระวังสถานะระบบ (เฝ้าระวังโครงข่ายสด)",
+        shortTitle: "5. Monitor System",
+        fullTitle: "5. Monitor System (การตรวจสอบและเฝ้าระวังสถานะระบบ)",
         badge: "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
         icon: "fa-solid fa-chart-line",
         svgIcon: ICONS.monitor,
-        description: "แดชบอร์ดแสดงสถานะเวลาการทำงานของระบบ (Uptime), ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบเรียลไทม์ และบันทึกประวัติการแจ้งเตือนต่างๆ (Logs)",
+        description: "แดชบอร์ดแสดงสถานะ Uptime, ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบ Real-time หรือ Log การแจ้งเตือนต่างๆ",
         externalUrl: "https://bssc-nine.vercel.app/",
         isExternal: true
     },
     {
         id: 6,
         orderIndex: 5,
-        translationKey: "modules.dopa",
-        shortTitle: "6. วาระเจ้าหน้าที่ DOPA",
-        fullTitle: "6. ระบบติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง (DOPA)",
+        shortTitle: "6. DOPA Tenure",
+        fullTitle: "6. Track DOPA Tenure (ระบบติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง)",
         badge: "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
         icon: "fa-solid fa-building-columns",
         svgIcon: ICONS.government,
-        description: "ติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง รวมถึงวันสิ้นสุดวาระและกรอบเวลาเกษียณอายุราชการ (ระบบติดตามวาระคงเหลือ 5 ปี และเกษียณอายุราชการ รวม 181 สถานี USO)",
+        description: "ติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง รวมถึงวันสิ้นสุดวาระและกรอบเวลาเกษียณอายุราชการ (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
         externalUrl: "https://wara5year.vercel.app/",
         isExternal: true,
         hasTenureCalculator: true
@@ -176,52 +169,29 @@ const MENU_MODULES_DATA = [
     {
         id: 7,
         orderIndex: 6,
-        translationKey: "modules.inventory",
-        shortTitle: "7. จัดการคลังพัสดุ",
-        fullTitle: "7. การบริหารจัดการคลังสินค้าและสต็อกอะไหล่ (คลังพัสดุและอุปกรณ์)",
+        shortTitle: "7. Manage Inventory",
+        fullTitle: "7. Manage Inventory (การบริหารจัดการคลังสินค้า/สต็อกอะไหล่)",
         badge: "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
         icon: "fa-solid fa-boxes-stacked",
         svgIcon: ICONS.inventory,
-        description: "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (ชิ้นส่วนอะไหล่), เสาอากาศ, ตัวแปลงไฟ และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM",
+        description: "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM",
         externalUrl: "https://www.stockflowth.online/dashboard",
         isExternal: true
     },
     {
         id: 8,
         orderIndex: 7,
-        translationKey: "modules.assets",
-        shortTitle: "8. ทรัพย์สินและครุภัณฑ์",
-        fullTitle: "8. การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (ทะเบียนพัสดุอุปกรณ์)",
+        shortTitle: "8. Assets & Equipment",
+        fullTitle: "8. Track Assets & Equipment (การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน)",
         badge: "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
         icon: "fa-solid fa-clipboard-check",
         svgIcon: ICONS.assetEquipment,
-        description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขทะเบียนครุภัณฑ์ (รหัสทรัพย์สิน/หมายเลขซีเรียล), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
+        description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (Asset ID/Serial Number), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
         externalUrl: null,
         isExternal: false
     }
 ];
 
-/**
- * ดึงข้อมูลโมดูลที่แปลงตามภาษาปัจจุบันผ่าน translation helper `t()`
- *
- * @param {number} index ดัชนีโมดูล (0 ถึง 7)
- * @returns {Object|null} ข้อมูลโมดูลพร้อมข้อความภาษาไทย 100%
- */
-function getLocalizedModule(index) {
-    const item = MENU_MODULES_DATA[index];
-    if (!item) return null;
-    if (typeof t === 'function' && item.translationKey) {
-        return {
-            ...item,
-            shortTitle: t(`${item.translationKey}.shortTitle`),
-            fullTitle: t(`${item.translationKey}.fullTitle`),
-            badge: t(`${item.translationKey}.badge`),
-            description: t(`${item.translationKey}.description`)
-        };
-    }
-    return item;
-}
-
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { ICONS, MENU_MODULES_DATA, getLocalizedModule };
+    module.exports = { ICONS, MENU_MODULES_DATA };
 }

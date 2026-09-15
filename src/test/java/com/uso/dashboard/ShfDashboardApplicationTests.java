@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit & Integration Test สำหรับตรวจสอบความสมบูรณ์ของการโหลด Spring Context
- * และการตรวจสอบชุดข้อมูลภาษาไทย 100% ของระบบ DashboardService
+ * และการตรวจสอบชุดข้อมูลเริ่มต้นของระบบ DashboardService
  *
  * @author Taksi / USO Engineering Team
  * @version 2.4.0
@@ -39,36 +39,36 @@ class ShfDashboardApplicationTests {
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 6 (วาระเจ้าหน้าที่ DOPA) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
+    @DisplayName("ตรวจสอบโมดูลที่ 6 (Track DOPA Tenure) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
     void testModuleSixExternalLink() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(5);
         assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 6 (Order Index 5)");
 
         DashboardModule moduleSix = moduleOpt.get();
-        assertEquals("6. วาระเจ้าหน้าที่ DOPA", moduleSix.getShortCode());
+        assertEquals("6. DOPA Tenure", moduleSix.getShortCode());
         assertTrue(moduleSix.isExternal(), "โมดูลที่ 6 จะต้องระบุเป็น External Link");
         assertEquals("https://wara5year.vercel.app/", moduleSix.getExternalUrl(), 
                 "URL ภายนอกจะต้องเป็น https://wara5year.vercel.app/");
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 8 (ทรัพย์สินและครุภัณฑ์) ว่าถูกโหลดอย่างสมบูรณ์")
+    @DisplayName("ตรวจสอบโมดูลที่ 8 (Track Assets & Equipment) ว่าถูกโหลดอย่างสมบูรณ์")
     void testModuleEightAssetEquipment() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(7);
         assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 8 (Order Index 7)");
 
         DashboardModule moduleEight = moduleOpt.get();
-        assertEquals("8. ทรัพย์สินและครุภัณฑ์", moduleEight.getShortCode());
+        assertEquals("8. Assets & Equipment", moduleEight.getShortCode());
         assertEquals("หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน", moduleEight.getBadge());
         assertFalse(moduleEight.isExternal(), "โมดูลที่ 8 ค่าเริ่มต้นเป็น Internal Panel");
     }
 
     @Test
-    @DisplayName("ตรวจสอบ Default Module ต้องเป็น บำรุงรักษาเชิงป้องกัน (PM) (Index 0)")
+    @DisplayName("ตรวจสอบ Default Module ต้องเป็น Perform PM (Index 0)")
     void testDefaultModule() {
         DashboardModule defaultModule = dashboardService.getDefaultModule();
         assertNotNull(defaultModule);
         assertEquals(0, defaultModule.getOrderIndex());
-        assertEquals("1. บำรุงรักษาเชิงป้องกัน (PM)", defaultModule.getShortCode());
+        assertEquals("1. Perform PM", defaultModule.getShortCode());
     }
 }

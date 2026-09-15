@@ -6,23 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.4.0] - 2026-09-15
 ### Added
-- **i18next + react-i18next Translation Engine:** Integrated `i18next` and `react-i18next` as the core client-side localization system (`scripts/i18n.js` and `src/main/resources/static/js/i18n.js`):
-  - 100% Thai UI translation coverage across all 8 modules, header, section labels, action buttons, calculator, and footer.
-  - Replaced hardcoded English text strings with structured translation keys (`t(key, options)`).
-  - Robust fallback mechanism for offline usage and variable interpolation support (`{{years}}`, `{{months}}`, `{{days}}`, `{{title}}`, `{{version}}`).
-  - Added React 18 UMD, i18next UMD, and react-i18next UMD script integrations in HTML templates.
+- **i18next + react-i18next Translation Engine:** Integrated `i18next` and `react-i18next` as the core translation and localization architecture (`scripts/i18n.js`).
+- **Interactive Language Switcher (React Component):** Mounted a React component utilizing `ReactI18next.useTranslation()` hook in the header hero bar for dynamic switching between Thai (TH) and English (EN).
+- **Offline Vendor Bundles:** Included UMD distributions for `react.production.min.js`, `react-dom.production.min.js`, `i18next.min.js`, and `react-i18next.min.js` under `scripts/vendor/` and `src/main/resources/static/vendor/` for 100% offline reliability.
 
 ### Changed
-- Translated all 8 module titles, badges, and descriptions into standard, professional Thai:
-  1. `1. บำรุงรักษาเชิงป้องกัน (PM)`
-  2. `2. แก้ไขเหตุขัดข้อง (CM)`
-  3. `3. ตรวจเช็กทุก 3 เดือน`
-  4. `4. จัดการเคลมอุปกรณ์`
-  5. `5. เฝ้าระวังสถานะระบบ`
-  6. `6. วาระเจ้าหน้าที่ DOPA`
-  7. `7. จัดการคลังพัสดุ`
-  8. `8. ทรัพย์สินและครุภัณฑ์`
-- Synchronized authoritative application version to `v2.4.0` across all source files, templates, build configuration, and documentation.
+- **100% Thai UI Translation:** Translated 100% of English UI texts into Thai across the entire dashboard (Header, Section bar, all 8 Operational Modules, DOPA Tenure & Retirement Calculator, external action buttons, badges, and footer).
+- **English Grammar & Style Review:** Thoroughly reviewed and corrected all English words, phrases, and sentences in the English translation dictionary (`en`) for natural, idiomatic, contextually appropriate phrasing.
+- **Preserved Functionality & Keys:** Retained complete semantic key structure (`header.*`, `section.*`, `modules.*`, `calculator.*`, `actions.*`, `footer.*`), calculation logic, external redirection, and keyboard navigation.
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, and `index.html` to `v2.4.0`.
 
 ## [2.3.0] - 2026-09-15
 ### Added
