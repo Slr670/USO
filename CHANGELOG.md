@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.2] - 2026-09-15
+### Removed
+- **Civil Service Retirement Timeline:** Removed the entire "2. Civil Service Retirement Timeline" section from Module 6 (DOPA Tenure tracking widget), including official's date of birth input, retirement calculation hints, and retirement countdown results.
+
+### Changed
+- **Full-Width Layout Adaptation:** Adjusted the remaining "Term Expiration Tracking" section to fit the full width (`100%`) of the card container:
+  - Responsive two-column input row for tenure start date and duration.
+  - Full-width countdown metrics status card and animated progress bar.
+- **Terminology & Translation Dictionary:** Streamlined Module 6 title, badge, and description to focus specifically on DOPA tenure and term expiration tracking across 181 USO stations in both English (`EN`) and Thai (`TH`).
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `index.html`, `gemini-code-1789376108233.html`, Spring Boot backend service, and Thymeleaf templates to `v2.4.2`.
+
 ## [2.4.1] - 2026-09-15
 ### Added
 - **i18next + react-i18next Translation Engine:** Integrated dual-mode translation engine with offline vendor bundles (`i18next.min.js`, `react.production.min.js`, `react-dom.production.min.js`, `react-i18next.min.js`):

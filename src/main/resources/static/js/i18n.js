@@ -1,10 +1,10 @@
 /**
  * ===================================================================
  * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/main/resources/static/js/i18n.js
+ * File: scripts/i18n.js
  * Purpose: Translation Engine using i18next + react-i18next
  *          Supports 100% English UI (Default) with Thai localization option
- * Version: 2.4.1
+ * Version: 2.4.2
  * ===================================================================
  */
 
@@ -63,10 +63,10 @@ const I18N_RESOURCES = {
                 },
                 m6: {
                     shortTitle: "6. DOPA Tenure",
-                    fullTitle: "6. Track DOPA Officials' Tenure & Retirement",
-                    badge: "Category: DOPA Tenure & Retirement Timeline",
-                    description: "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
-                    tooltip: "Track DOPA Officials' Tenure & Retirement (6. DOPA Tenure)"
+                    fullTitle: "6. Track DOPA Officials' Tenure",
+                    badge: "Category: DOPA Tenure Tracking",
+                    description: "Track and calculate the remaining tenure and term expiration dates of DOPA officials across 181 USO stations.",
+                    tooltip: "Track DOPA Officials' Tenure (6. DOPA Tenure)"
                 },
                 m7: {
                     shortTitle: "7. Manage Inventory",
@@ -84,10 +84,10 @@ const I18N_RESOURCES = {
                 }
             },
             calculator: {
-                mainTitle: "DOPA Officials' Remaining Tenure & Retirement Calculator",
-                subTitle: "Term Expiration & Civil Service Retirement Timelines for 181 USO Stations",
+                mainTitle: "DOPA Officials' Remaining Tenure Calculator",
+                subTitle: "Term Expiration Tracking for 181 USO Stations",
                 badgeDopa: "181 USO Stations Tracking System",
-                box1Heading: "1. Term Expiration Tracking",
+                box1Heading: "Term Expiration Tracking",
                 startDateLabel: "Tenure Start Date:",
                 termDurationLabel: "Term Duration:",
                 termOpt5: "5 Years (Standard 181 Stations Term)",
@@ -99,16 +99,7 @@ const I18N_RESOURCES = {
                 termExpired: "Term Expired",
                 termRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
                 termProgressLabel: "Term Elapsed Progress:",
-                box2Heading: "2. Civil Service Retirement Timeline",
-                dobLabel: "Official's Date of Birth:",
-                retireHint: "* Thai Civil Service Regulation: Official retirement takes effect at the end of the fiscal year (September 30) in which the official reaches 60 years of age.",
-                retireDateLabel: "Retirement Date:",
-                retireTimeLabel: "Time Until Retirement:",
-                retireExpired: "Already Retired",
-                retireRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
-                retireFiscalSub: "End of Fiscal Year {{year}} (Countdown: {{days}} days)",
-                emptyDateHint: "Please select a valid start date",
-                emptyDobHint: "Please select a valid date of birth"
+                emptyDateHint: "Please select a valid start date"
             },
             actions: {
                 openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
@@ -116,7 +107,7 @@ const I18N_RESOURCES = {
             },
             footer: {
                 copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
-                architecture: "System Architecture: Spring Boot 3 + Thymeleaf MVC",
+                architecture: "System Architecture: Modular Web Architecture",
                 versionLabel: "Version:"
             },
             lang: {
@@ -178,8 +169,8 @@ const I18N_RESOURCES = {
                 m6: {
                     shortTitle: "6. DOPA Tenure",
                     fullTitle: "6. ติดตามและคำนวณวาระเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Tenure)",
-                    badge: "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
-                    description: "ติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง รวมถึงวันสิ้นสุดวาระและกรอบเวลาเกษียณอายุราชการ (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
+                    badge: "หมวดหมู่งาน: วาระคงเหลือ (DOPA)",
+                    description: "ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี 181 สถานี USO",
                     tooltip: "ติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง (6. DOPA Tenure)"
                 },
                 m7: {
@@ -199,9 +190,9 @@ const I18N_RESOURCES = {
             },
             calculator: {
                 mainTitle: "เครื่องมือติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง",
-                subTitle: "ระบบคำนวณวันหมดวาระการดำรงตำแหน่งและกรอบเวลาเกษียณอายุราชการ กรมการปกครอง",
+                subTitle: "ระบบคำนวณวันหมดวาระการดำรงตำแหน่ง 181 สถานี USO",
                 badgeDopa: "ระบบติดตาม 181 สถานี USO",
-                box1Heading: "1. คำนวณวันหมดวาระการดำรงตำแหน่ง",
+                box1Heading: "คำนวณวันหมดวาระการดำรงตำแหน่ง",
                 startDateLabel: "วันที่เริ่มดำรงตำแหน่ง:",
                 termDurationLabel: "ระยะเวลาของวาระ:",
                 termOpt5: "5 ปี (วาระตามโครงการ 181 สถานี)",
@@ -213,16 +204,7 @@ const I18N_RESOURCES = {
                 termExpired: "สิ้นสุดวาระแล้ว",
                 termRemaining: "คงเหลือ {{years}} ปี {{months}} เดือน {{days}} วัน",
                 termProgressLabel: "ความคืบหน้าของวาระ:",
-                box2Heading: "2. คำนวณกรอบเวลาเกษียณอายุราชการ",
-                dobLabel: "วันเดือนปีเกิดของเจ้าหน้าที่:",
-                retireHint: "* ระเบียบข้าราชการไทย: เกษียณ ณ สิ้นปีงบประมาณ (30 ก.ย.) ของปีที่อายุครบ 60 ปีบริบูรณ์",
-                retireDateLabel: "วันเกษียณอายุราชการ:",
-                retireTimeLabel: "ระยะเวลาก่อนเกษียณ:",
-                retireExpired: "เกษียณอายุราชการแล้ว",
-                retireRemaining: "อีก {{years}} ปี {{months}} เดือน {{days}} วัน",
-                retireFiscalSub: "สิ้นปีงบประมาณ พ.ศ. {{year}} (นับถอยหลัง {{days}} วัน)",
-                emptyDateHint: "กรุณาระบุวันที่เริ่มต้น",
-                emptyDobHint: "กรุณาระบุวันเดือนปีเกิด"
+                emptyDateHint: "กรุณาระบุวันที่เริ่มต้น"
             },
             actions: {
                 openPrimary: "เปิดระบบหลัก: {{title}} • แดชบอร์ด 181 สถานี (แท็บใหม่)",
@@ -230,7 +212,7 @@ const I18N_RESOURCES = {
             },
             footer: {
                 copyright: "© 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.",
-                architecture: "โครงสร้างระบบ: Spring Boot 3 + Thymeleaf MVC",
+                architecture: "โครงสร้างระบบ: สถาปัตยกรรมเว็บแบบแยกส่วน",
                 versionLabel: "เวอร์ชัน:"
             },
             lang: {

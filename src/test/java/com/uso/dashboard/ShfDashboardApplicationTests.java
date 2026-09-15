@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit & Integration Test for Spring Context and DashboardService datasets
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.0
+ * @version 2.4.2
  */
 @SpringBootTest
 class ShfDashboardApplicationTests {

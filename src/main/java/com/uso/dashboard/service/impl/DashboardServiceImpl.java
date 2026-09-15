@@ -15,7 +15,7 @@ import java.util.Optional;
  * Manages datasets and state for all 8 operational modules of the SHF Dashboard.
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.0
+ * @version 2.4.2
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -99,15 +99,15 @@ public class DashboardServiceImpl implements DashboardService {
                 true
         ));
 
-        // Module 6: Track DOPA Officials' Tenure & Retirement
+        // Module 6: Track DOPA Officials' Tenure
         moduleRepository.add(new DashboardModule(
                 6,
                 5,
                 "6. DOPA Tenure",
-                "6. Track DOPA Officials' Tenure & Retirement",
-                "Category: DOPA Tenure & Retirement Timeline",
+                "6. Track DOPA Officials' Tenure",
+                "Category: DOPA Tenure Tracking",
                 "fa-solid fa-building-columns",
-                "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
+                "Track and calculate the remaining tenure and term expiration dates of DOPA officials across 181 USO stations.",
                 "https://wara5year.vercel.app/",
                 true
         ));

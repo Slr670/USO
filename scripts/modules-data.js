@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: scripts/modules-data.js
  * Purpose: Constant datasets and scalable inline SVG icons for all 8 operational modules
- * Version: 2.4.1
+ * Version: 2.4.2
  * ===================================================================
  */
 
@@ -33,38 +33,36 @@ const ICONS = {
         <path d="m9 16 2 2 4-4"/>
     </svg>`,
 
-    // 4. Process Claims: Return Merchandise Authorization (RMA Exchange Cycle)
-    claim: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-        <path d="M21 3v5h-5"/>
-        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-        <path d="M8 16H3v5"/>
+    // 4. Claims: Shield Check for Hardware Warranty & Return Merchandise
+    warranty: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="m9 12 2 2 4-4"/>
     </svg>`,
 
-    // 5. Monitor System: Network Telemetry & Pulse Activity
+    // 5. Monitor: Radio Signal Activity Pulse & Network Telemetry
     monitor: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
     </svg>`,
 
-    // 6. DOPA Tenure: Government Civic Columns
+    // 6. DOPA: Official Administrative Building / Ministry Column
     government: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="2" y1="22" x2="22" y2="22"/>
-        <line x1="4" y1="18" x2="20" y2="18"/>
-        <path d="M6 18V9"/>
-        <path d="M10 18V9"/>
-        <path d="M14 18V9"/>
-        <path d="M18 18V9"/>
-        <polygon points="12 2 2 7 22 7 12 2"/>
+        <path d="M3 21h18"/>
+        <path d="M3 10h18"/>
+        <path d="m12 2 9 6H3l9-6z"/>
+        <path d="M5 10v11"/>
+        <path d="M9 10v11"/>
+        <path d="M15 10v11"/>
+        <path d="M19 10v11"/>
     </svg>`,
 
-    // 7. Manage Inventory: Warehouse Packages & Spare Parts Storage
+    // 7. Inventory: Stacked Warehouse Boxes
     inventory: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
         <path d="m3.3 7 8.7 5 8.7-5"/>
         <path d="M12 22V12"/>
     </svg>`,
 
-    // 8. Track Assets & Equipment: Asset Inventory Registration Clipboard
+    // 8. Assets & Equipment: Clipboard Inspection & Equipment Check
     assetEquipment: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
@@ -89,32 +87,32 @@ const ICONS = {
 };
 
 /**
- * 8 Operational Modules Dataset (English Default Values)
- * @constant {Array<Object>}
+ * Operational Modules Specification (8 Core Systems)
+ * 181 SHF Repeater Station Network Optimization & Telemetry Operations
  */
 const MENU_MODULES_DATA = [
     {
         id: 1,
         orderIndex: 0,
         shortTitle: "1. Perform PM",
-        fullTitle: "1. Perform Preventive Maintenance (PM)",
-        badge: "Category: Preventive Maintenance",
-        icon: "fa-solid fa-screwdriver-wrench",
+        fullTitle: "1. Perform PM (Preventive Maintenance)",
+        badge: "Category: Preventive Maintenance (PM)",
+        icon: "fa-solid fa-wrench",
         svgIcon: ICONS.pm,
-        description: "Schedule and record periodic inspection logs for SHF repeater base stations, measure radio frequency (RF) signal levels, inspect feeder cables, antennas, and verify backup power systems across all sites.",
-        externalUrl: "https://pm-5year.vercel.app/",
+        description: "Standardized preventive maintenance protocols, equipment inspection checklists, scheduled calibration intervals, and operational readiness for 181 SHF repeater stations.",
+        externalUrl: "https://preventive-maintenance-kappa.vercel.app/",
         isExternal: true
     },
     {
         id: 2,
         orderIndex: 1,
         shortTitle: "2. Handle CM",
-        fullTitle: "2. Handle Corrective Maintenance (CM)",
-        badge: "Category: Corrective Maintenance & Emergency Response",
+        fullTitle: "2. Handle CM (Corrective Maintenance)",
+        badge: "Category: Corrective Maintenance (CM)",
         icon: "fa-solid fa-triangle-exclamation",
         svgIcon: ICONS.cm,
-        description: "Open, track, and resolve incident tickets for SHF repeater equipment malfunctions and microwave link interruptions, dispatching technical teams within SLA-governed recovery windows.",
-        externalUrl: "https://dtrs-app-uat.forth.co.th/",
+        description: "Emergency incident dispatch ticketing, Root Cause Analysis (RCA), corrective repair action tracking, and Mean Time to Repair (MTTR) monitoring for unscheduled link outages.",
+        externalUrl: "https://repair-cm.vercel.app/",
         isExternal: true
     },
     {
@@ -122,21 +120,21 @@ const MENU_MODULES_DATA = [
         orderIndex: 2,
         shortTitle: "3. Quarterly Visits",
         fullTitle: "3. Conduct Quarterly Site Inspection Visits",
-        badge: "Category: Quarterly Site Inspections",
+        badge: "Category: Scheduled Quarterly Inspections",
         icon: "fa-solid fa-calendar-check",
         svgIcon: ICONS.calendar,
-        description: "Coordinate and manage quarterly on-site inspection visits to regional stations, consolidate stakeholder feedback, resolve operational issues, and evaluate network user satisfaction.",
-        externalUrl: null,
-        isExternal: false
+        description: "Every-3-month on-site field engineering audit schedules, physical tower infrastructure integrity verification, RF alignment checks, and station environment surveys.",
+        externalUrl: "https://every-3-months.vercel.app/",
+        isExternal: true
     },
     {
         id: 4,
         orderIndex: 3,
         shortTitle: "4. Process Claims",
-        fullTitle: "4. Process Equipment & Warranty Claims",
-        badge: "Category: Warranty & Equipment RMA",
-        icon: "fa-solid fa-arrows-rotate",
-        svgIcon: ICONS.claim,
+        fullTitle: "4. Process Equipment Warranty & Claims",
+        badge: "Category: Equipment Claims & Warranty Management",
+        icon: "fa-solid fa-shield-halved",
+        svgIcon: ICONS.warranty,
         description: "Manage Return Merchandise Authorization (RMA) workflows for defective SHF transceiver modules, microwave feedhorns, and power supply units with equipment vendors, maintaining complete replacement audit trails.",
         externalUrl: "https://equipment-claims.vercel.app/",
         isExternal: true
@@ -157,11 +155,11 @@ const MENU_MODULES_DATA = [
         id: 6,
         orderIndex: 5,
         shortTitle: "6. DOPA Tenure",
-        fullTitle: "6. Track DOPA Officials' Tenure & Retirement",
-        badge: "Category: DOPA Tenure & Retirement Timeline",
+        fullTitle: "6. Track DOPA Officials' Tenure",
+        badge: "Category: DOPA Tenure Tracking",
         icon: "fa-solid fa-building-columns",
         svgIcon: ICONS.government,
-        description: "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
+        description: "Track and calculate the remaining tenure and term expiration dates of DOPA officials across 181 USO stations.",
         externalUrl: "https://wara5year.vercel.app/",
         isExternal: true,
         hasTenureCalculator: true

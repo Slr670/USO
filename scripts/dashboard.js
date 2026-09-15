@@ -3,7 +3,7 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/dashboard.js
  * วัตถุประสงค์: ควบคุมการทำงานของหน้า Dashboard (UI State, Interactivity & Routing)
- * เวอร์ชัน: 2.4.1
+ * เวอร์ชัน: 2.4.2
  * ===================================================================
  */
 
@@ -12,7 +12,7 @@
  * สอดคล้องตามมาตรฐาน Semantic Versioning (SemVer)
  * @constant {string}
  */
-const APP_VERSION = '2.4.1';
+const APP_VERSION = '2.4.2';
 
 /**
  * ดัชนีของเมนูที่กำลังเปิดใช้งานอยู่ในปัจจุบัน (0 ถึง 7)
@@ -144,7 +144,7 @@ function renderPanelDetails(item) {
     if (actionAreaEl) {
         actionAreaEl.innerHTML = '';
 
-        // กรณีหมวดหมู่ที่ 6 (DOPA): แสดงเครื่องมือติดตามและคำนวณวาระคงเหลือและเกษียณอายุราชการ
+        // กรณีหมวดหมู่ที่ 6 (DOPA): แสดงเครื่องมือติดตามและคำนวณวาระคงเหลือ
         if (item.hasTenureCalculator || item.id === 6) {
             renderTenureCalculator(actionAreaEl);
         }
@@ -171,7 +171,7 @@ function renderPanelDetails(item) {
 }
 
 /**
- * แสดงผลและควบคุมเครื่องมือคำนวณวาระคงเหลือและวันเกษียณอายุราชการ (DOPA Calculator)
+ * แสดงผลและควบคุมเครื่องมือคำนวณวาระคงเหลือ (DOPA Calculator)
  * 
  * @param {HTMLElement} container ตำแหน่ง Container ในการแทรกการ์ด
  */
@@ -202,9 +202,9 @@ function renderTenureCalculator(container) {
             <span class="calc-badge-dopa">${tFunc('calculator.badgeDopa')}</span>
         </div>
 
-        <div class="calc-grid-layout">
-            <!-- ส่วนที่ 1: คำนวณวันหมดวาระการดำรงตำแหน่ง (Term Expiration Tracking) -->
-            <div class="calc-column-box">
+        <div class="calc-grid-layout calc-grid-single">
+            <!-- Term Expiration Tracking (Full Width) -->
+            <div class="calc-column-box calc-box-fullwidth">
                 <div class="calc-box-heading">
                     <svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10"/>
@@ -212,44 +212,23 @@ function renderTenureCalculator(container) {
                     </svg>
                     <span>${tFunc('calculator.box1Heading')}</span>
                 </div>
-                <div class="calc-field-row">
-                    <label class="calc-label" for="calc-start-date">${tFunc('calculator.startDateLabel')}</label>
-                    <input type="date" id="calc-start-date" class="calc-date-input" value="2023-10-01">
-                </div>
-                <div class="calc-field-row">
-                    <label class="calc-label" for="calc-term-years">${tFunc('calculator.termDurationLabel')}</label>
-                    <select id="calc-term-years" class="calc-select-input">
-                        <option value="5" selected>${tFunc('calculator.termOpt5')}</option>
-                        <option value="4">${tFunc('calculator.termOpt4')}</option>
-                        <option value="3">${tFunc('calculator.termOpt3')}</option>
-                        <option value="2">${tFunc('calculator.termOpt2')}</option>
-                    </select>
+                <div class="calc-inputs-row">
+                    <div class="calc-field-row">
+                        <label class="calc-label" for="calc-start-date">${tFunc('calculator.startDateLabel')}</label>
+                        <input type="date" id="calc-start-date" class="calc-date-input" value="2023-10-01">
+                    </div>
+                    <div class="calc-field-row">
+                        <label class="calc-label" for="calc-term-years">${tFunc('calculator.termDurationLabel')}</label>
+                        <select id="calc-term-years" class="calc-select-input">
+                            <option value="5" selected>${tFunc('calculator.termOpt5')}</option>
+                            <option value="4">${tFunc('calculator.termOpt4')}</option>
+                            <option value="3">${tFunc('calculator.termOpt3')}</option>
+                            <option value="2">${tFunc('calculator.termOpt2')}</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="calc-result-card" id="term-result-card">
-                    <!-- คำนวณผลลัพธ์แบบ Dynamic -->
-                </div>
-            </div>
-
-            <!-- ส่วนที่ 2: คำนวณกรอบเวลาเกษียณอายุราชการ (Retirement Timeline Tracking) -->
-            <div class="calc-column-box">
-                <div class="calc-box-heading">
-                    <svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="8.5" cy="7" r="4"/>
-                        <polyline points="17 11 19 13 23 9"/>
-                    </svg>
-                    <span>${tFunc('calculator.box2Heading')}</span>
-                </div>
-                <div class="calc-field-row">
-                    <label class="calc-label" for="calc-dob">${tFunc('calculator.dobLabel')}</label>
-                    <input type="date" id="calc-dob" class="calc-date-input" value="1968-04-15">
-                </div>
-                <div class="calc-hint-text">
-                    ${tFunc('calculator.retireHint')}
-                </div>
-
-                <div class="calc-result-card" id="retirement-result-card">
                     <!-- คำนวณผลลัพธ์แบบ Dynamic -->
                 </div>
             </div>
@@ -266,22 +245,17 @@ function renderTenureCalculator(container) {
 function setupTenureCalculatorListeners() {
     const startDateInput = document.getElementById('calc-start-date');
     const termYearsInput = document.getElementById('calc-term-years');
-    const dobInput = document.getElementById('calc-dob');
 
-    function updateAll() {
+    function update() {
         if (startDateInput && termYearsInput) {
             updateTermCalculation(startDateInput.value, parseInt(termYearsInput.value, 10));
         }
-        if (dobInput) {
-            updateRetirementCalculation(dobInput.value);
-        }
     }
 
-    if (startDateInput) startDateInput.addEventListener('change', updateAll);
-    if (termYearsInput) termYearsInput.addEventListener('change', updateAll);
-    if (dobInput) dobInput.addEventListener('change', updateAll);
+    if (startDateInput) startDateInput.addEventListener('change', update);
+    if (termYearsInput) termYearsInput.addEventListener('change', update);
 
-    updateAll();
+    update();
 }
 
 /**
@@ -345,74 +319,6 @@ function updateTermCalculation(startDateStr, termYears) {
             <div class="calc-progress-track">
                 <div class="calc-progress-bar" style="width: ${progressPct}%;"></div>
             </div>
-        </div>
-    `;
-}
-
-/**
- * คำนวณและแสดงผลวันเกษียณอายุราชการตามระเบียบข้าราชการไทย
- *
- * @param {string} dobStr วันเดือนปีเกิดในรูปแบบ YYYY-MM-DD
- */
-function updateRetirementCalculation(dobStr) {
-    const resultBox = document.getElementById('retirement-result-card');
-    if (!resultBox) return;
-
-    const tFunc = (typeof t === 'function') ? t : (k, o) => k;
-
-    if (!dobStr) {
-        resultBox.innerHTML = `<span class="calc-empty-hint">${tFunc('calculator.emptyDobHint')}</span>`;
-        return;
-    }
-
-    const parts = dobStr.split('-');
-    const birthYear = parseInt(parts[0], 10);
-    const birthMonth = parseInt(parts[1], 10);
-    const birthDate = parseInt(parts[2], 10);
-
-    let retYear = birthYear + 60;
-    if (birthMonth > 10 || (birthMonth === 10 && birthDate >= 2)) {
-        retYear = birthYear + 61;
-    }
-
-    const retDate = new Date(retYear, 8, 30);
-    const now = new Date();
-    const diffMs = retDate - now;
-    const isRetired = diffMs <= 0;
-    const totalDays = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-
-    const yearsLeft = Math.floor(totalDays / 365);
-    const monthsLeft = Math.floor((totalDays % 365) / 30);
-    const daysLeft = totalDays % 30;
-
-    const currentLang = (typeof i18next !== 'undefined' && i18next.language) 
-        ? i18next.language 
-        : (localStorage.getItem('shf_app_lang') || 'th');
-
-    const retDateDisplay = currentLang === 'en' 
-        ? `September 30, ${retYear}` 
-        : `30 กันยายน พ.ศ. ${retYear + 543}`;
-
-    const retireStatusText = isRetired 
-        ? tFunc('calculator.retireExpired') 
-        : tFunc('calculator.retireRemaining', { years: yearsLeft, months: monthsLeft, days: daysLeft });
-
-    const fiscalYearDisplay = currentLang === 'en' ? retYear : (retYear + 543);
-    const fiscalSubText = tFunc('calculator.retireFiscalSub', { year: fiscalYearDisplay, days: totalDays.toLocaleString() });
-
-    resultBox.innerHTML = `
-        <div class="calc-stat-row">
-            <span class="stat-label">${tFunc('calculator.retireDateLabel')}</span>
-            <strong class="stat-highlight">${retDateDisplay}</strong>
-        </div>
-        <div class="calc-stat-row">
-            <span class="stat-label">${tFunc('calculator.retireTimeLabel')}</span>
-            <span class="stat-badge-pill ${isRetired ? 'badge-expired' : 'badge-active'}">
-                ${retireStatusText}
-            </span>
-        </div>
-        <div class="calc-stat-sub">
-            <span>${fiscalSubText}</span>
         </div>
     `;
 }
