@@ -23,6 +23,6 @@ spring:
 
 # ข้อมูลเมทาดาทาและเวอร์ชันของระบบ (Authoritative Application Metadata)
 app:
-  version: 2.3.0
+  version: 2.4.0
   title: โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
-  subtitle: ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)
+  subtitle: ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (การดำเนินงานและบำรุงรักษาโครงข่าย)

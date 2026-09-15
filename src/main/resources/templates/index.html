@@ -27,7 +27,7 @@
         <div class="section-meta">
             <span class="section-label">
                 <i class="fa-solid fa-layer-group"></i>
-                <span>หมวดหมู่การปฏิบัติงานและบริการระบบ (System Operations &amp; Services)</span>
+                <span>หมวดหมู่การปฏิบัติงานและบริการระบบ (การปฏิบัติการและบริการระบบ)</span>
             </span>
             <span style="font-size: 0.85rem; color: var(--slate-500);">
                 เลือกการ์ดเพื่อแสดงรายละเอียด หรือเข้าสู่ระบบภายนอก
@@ -106,7 +106,12 @@
     <!-- Footer Section (Thymeleaf Fragment) -->
     <div th:replace="~{fragments/footer :: dashboardFooter}"></div>
 
-    <!-- Client Interactive JavaScript -->
+    <!-- i18next & react-i18next Translation Engine (UMD) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.11.5/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-i18next/13.5.0/react-i18next.min.js"></script>
+
+    <!-- Client Interactive JavaScript & i18n -->
+    <script th:src="@{/js/i18n.js}" src="/js/i18n.js"></script>
     <script th:src="@{/js/dashboard.js}" src="/js/dashboard.js"></script>
 </body>
 </html>

@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-09-15
+### Added
+- **i18next + react-i18next Translation Engine:** Integrated `i18next` and `react-i18next` as the core client-side localization system (`scripts/i18n.js` and `src/main/resources/static/js/i18n.js`):
+  - 100% Thai UI translation coverage across all 8 modules, header, section labels, action buttons, calculator, and footer.
+  - Replaced hardcoded English text strings with structured translation keys (`t(key, options)`).
+  - Robust fallback mechanism for offline usage and variable interpolation support (`{{years}}`, `{{months}}`, `{{days}}`, `{{title}}`, `{{version}}`).
+  - Added React 18 UMD, i18next UMD, and react-i18next UMD script integrations in HTML templates.
+
+### Changed
+- Translated all 8 module titles, badges, and descriptions into standard, professional Thai:
+  1. `1. บำรุงรักษาเชิงป้องกัน (PM)`
+  2. `2. แก้ไขเหตุขัดข้อง (CM)`
+  3. `3. ตรวจเช็กทุก 3 เดือน`
+  4. `4. จัดการเคลมอุปกรณ์`
+  5. `5. เฝ้าระวังสถานะระบบ`
+  6. `6. วาระเจ้าหน้าที่ DOPA`
+  7. `7. จัดการคลังพัสดุ`
+  8. `8. ทรัพย์สินและครุภัณฑ์`
+- Synchronized authoritative application version to `v2.4.0` across all source files, templates, build configuration, and documentation.
+
 ## [2.3.0] - 2026-09-15
 ### Added
 - **DOPA Tenure & Retirement Tracking System:** Implemented interactive tenure expiration and civil service retirement calculation tools in Module 6 (`6. DOPA Tenure`):
