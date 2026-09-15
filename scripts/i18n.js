@@ -4,7 +4,7 @@
  * File: scripts/i18n.js
  * Purpose: Translation Engine using i18next + react-i18next
  *          Supports 100% English UI (Default) with Thai localization option
- * Version: 2.4.4
+ * Version: 2.4.5
  * ===================================================================
  */
 
@@ -86,6 +86,13 @@ const I18N_RESOURCES = {
             actions: {
                 openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
                 openNewTab: "Open in New Tab"
+            },
+            video: {
+                sectionTitle: "FORTH Master System Operations Video",
+                badge: "System Demonstration & Media Presentation",
+                title: "FORTH Master System Operations Video",
+                description: "Comprehensive overview and instructional walkthrough of the Super High Frequency (SHF) Repeater Network system operations and maintenance procedures.",
+                fallback: "Your browser does not support HTML5 video playback. Please update your browser."
             },
             footer: {
                 copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
@@ -173,6 +180,13 @@ const I18N_RESOURCES = {
             actions: {
                 openPrimary: "เปิดระบบหลัก: {{title}} • แดชบอร์ด 181 สถานี (แท็บใหม่)",
                 openNewTab: "เปิดในแท็บใหม่"
+            },
+            video: {
+                sectionTitle: "วิดีโอสาธิตระบบ FORTH Master",
+                badge: "การสาธิตระบบและสื่อนำเสนอ",
+                title: "วิดีโอนำเสนอการปฏิบัติการระบบ FORTH Master",
+                description: "ภาพรวมและขั้นตอนการปฏิบัติการโครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF) และกระบวนการบำรุงรักษา",
+                fallback: "เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ HTML5 กรุณาอัปเดตเบราว์เซอร์"
             },
             footer: {
                 copyright: "© 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.",

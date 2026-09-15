@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.5] - 2026-09-15
+### Added
+- **Embedded Responsive HTML5 Video Showcase:** Embedded the FORTH Master system operations video (`FORTH_MASTER_Video Final-Additional.mp4` / `.mov`) into `index.html`, `gemini-code-1789376108233.html`, and `src/main/resources/templates/index.html`.
+- **Public Media Organization & Git Large File Protection:** 
+  - Organized video assets in dedicated public media directories (`assets/media/` and `src/main/resources/static/media/`) using NTFS hardlinks for zero storage duplication.
+  - Configured `.gitignore` to prevent committing large video binaries (>100MB) to GitHub while preserving `.gitkeep` directory tracking.
+- **Modern Video Showcase UI & Video Player Controls:**
+  - Responsive 16:9 aspect-ratio video player wrapper with standard HTML5 controls (`controls`, `preload="metadata"`, `playsinline`).
+  - Sleek showcase header with vector play icon, status badge, HD 1080p pill, and descriptive caption bar.
+- **Dual-Language i18n Video Support:** Added video section titles, badges, headings, descriptions, and fallback playback notices to `scripts/i18n.js` and `src/main/resources/static/js/i18n.js` for both English (`EN`) and Thai (`TH`).
+
+### Changed
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, `index.html`, `gemini-code-1789376108233.html`, Spring Boot backend service, Thymeleaf templates, and `README.md` to `v2.4.5`.
+
 ## [2.4.4] - 2026-09-15
 ### Removed
 - **DOPA Officials' Remaining Tenure Calculator Card:** Completely removed the entire embedded tenure calculation card, interactive start date / duration inputs, expiration countdown status box, progress bar, and calculation logic from Module 6 in the UI.

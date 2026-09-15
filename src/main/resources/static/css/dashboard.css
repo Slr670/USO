@@ -2,7 +2,7 @@
    โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
    ไฟล์: styles/dashboard.css
    วัตถุประสงค์: สไตล์ชีตสำหรับระบบ Dashboard (Modern UI/UX Design System)
-   เวอร์ชัน: 2.4.4
+   เวอร์ชัน: 2.4.5
    =================================================================== */
 
 /* --- 1. Design Tokens & CSS Variables --- */
@@ -589,6 +589,150 @@ body {
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
 }
 
+/* --- 6. Video Showcase Section --- */
+.video-showcase-panel {
+    background: #ffffff;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--slate-200);
+    box-shadow: var(--shadow-card);
+    padding: 30px;
+    margin-top: 28px;
+    transition: all var(--anim-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.video-showcase-panel:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--primary-300);
+}
+
+.video-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.video-panel-title-group {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.video-icon-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.05));
+    color: var(--primary-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.video-icon-circle svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.video-text-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.video-badge {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-700);
+}
+
+.video-main-heading {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.video-meta-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.video-hd-pill {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #38bdf8;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.video-player-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #090d16;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--slate-800);
+}
+
+.responsive-video-player {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000000;
+}
+
+.video-caption-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--slate-50);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--slate-200);
+}
+
+.video-caption-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.92rem;
+    color: var(--slate-600);
+    line-height: 1.6;
+}
+
+.video-caption-icon {
+    width: 18px;
+    height: 18px;
+    stroke: var(--primary-600);
+    flex-shrink: 0;
+}
+
 /* --- 7. Footer --- */
 .dashboard-footer {
     background: #ffffff;
@@ -667,6 +811,24 @@ body {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .video-showcase-panel {
+        padding: 20px 16px;
+    }
+
+    .video-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .video-main-heading {
+        font-size: 1.18rem;
+    }
+
+    .video-caption-bar {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 

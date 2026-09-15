@@ -38,3 +38,13 @@ buildNumber.properties
 # OS files
 .DS_Store
 Thumbs.db
+
+# Media & Large Video Files (>100MB blocked by GitHub)
+*.mp4
+*.mov
+*.avi
+*.mkv
+assets/media/*
+!assets/media/.gitkeep
+src/main/resources/static/media/*
+!src/main/resources/static/media/.gitkeep

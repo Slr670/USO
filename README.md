@@ -1,7 +1,7 @@
 # โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
 > **ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)**  
 > สถาปัตยกรรมระบบ: **Dual-Stack (Java Spring Boot 3 Thymeleaf MVC & Standalone Web Client)**  
-> เวอร์ชันระบบ: **v2.4.4**
+> เวอร์ชันระบบ: **v2.4.5**
 
 ---
 
@@ -26,10 +26,11 @@
 
 ## ฟีเจอร์เด่นของระบบ (Key Features)
 1. **8 Operational Modules:** ครอบคลุมภารกิจการบำรุงรักษาเชิงป้องกัน (PM), การแก้ไขปัญหา (CM), แผนตรวจเยี่ยมรายไตรมาส, การเคลมอุปกรณ์, มอนิเตอร์โทรมาตรโครงข่าย, วาระเจ้าหน้าที่รัฐ กรมการปกครอง, คลังพัสดุและอะไหล่, และทะเบียนครุภัณฑ์
-2. **DOPA Officials' Tenure Portal Integration:** เชื่อมต่อระบบติดตามวาระและภารกิจของเจ้าหน้าที่ฝ่ายปกครองสำหรับ 181 สถานี USO ไปยังระบบหลักภายนอกโดยตรง ([wara5year.vercel.app](https://wara5year.vercel.app/))
-3. **i18next + react-i18next Engine:** รองรับการสลับภาษาแบบ Dynamic On-the-Fly (English 100% เป็นค่าเริ่มต้น และ Thai) ผ่าน React Header Component โดยไม่ต้องรีเฟรชหน้าเว็บ
-4. **UI Icon Policy Compliance:** ออกแบบตามมาตรฐาน UI Icon ระดับมืออาชีพ ปราศจาก Unicode Emojis ทั้งหมด โดยใช้ Scalable Inline SVGs และ Font Awesome 6
-5. **Dual-Stack Architecture:** ใช้งานได้ทั้งแบบ Static Web Client (รันบน CDN/Vercel/Static Host) และ Enterprise Java Spring Boot 3 MVC Server
+2. **Embedded Responsive HTML5 Video Showcase:** ฝังวิดีโอแนะนำและสาธิตการปฏิบัติการระบบ FORTH Master ความละเอียดสูง พร้อมเครื่องเล่นวิดีโอ HTML5 responsive แบบ 16:9 และคำบรรยายสองภาษา
+3. **DOPA Officials' Tenure Portal Integration:** เชื่อมต่อระบบติดตามวาระและภารกิจของเจ้าหน้าที่ฝ่ายปกครองสำหรับ 181 สถานี USO ไปยังระบบหลักภายนอกโดยตรง ([wara5year.vercel.app](https://wara5year.vercel.app/))
+4. **i18next + react-i18next Engine:** รองรับการสลับภาษาแบบ Dynamic On-the-Fly (English 100% เป็นค่าเริ่มต้น และ Thai) ผ่าน React Header Component โดยไม่ต้องรีเฟรชหน้าเว็บ
+5. **UI Icon Policy Compliance:** ออกแบบตามมาตรฐาน UI Icon ระดับมืออาชีพ ปราศจาก Unicode Emojis ทั้งหมด โดยใช้ Scalable Inline SVGs และ Font Awesome 6
+6. **Dual-Stack Architecture:** ใช้งานได้ทั้งแบบ Static Web Client (รันบน CDN/Vercel/Static Host) และ Enterprise Java Spring Boot 3 MVC Server
 
 ---
 
@@ -166,7 +167,7 @@ http://localhost:8080
 ### การสร้าง Executable JAR เพื่อนำไป Deploy
 ```bash
 ./mvnw clean package
-java -jar target/shf-dashboard-2.4.4.jar
+java -jar target/shf-dashboard-2.4.5.jar
 ```
 
 ---

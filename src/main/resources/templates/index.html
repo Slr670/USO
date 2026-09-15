@@ -103,6 +103,46 @@
             <div id="panel-action-container" class="panel-action-bar"></div>
         </section>
 
+        <!-- System Presentation Video Showcase Panel -->
+        <section class="video-showcase-panel" aria-label="System Presentation Video" data-i18n-attr="aria-label:video.sectionTitle">
+            <div class="video-panel-header">
+                <div class="video-panel-title-group">
+                    <div class="video-icon-circle">
+                        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                    </div>
+                    <div class="video-text-meta">
+                        <span class="status-badge video-badge" data-i18n="video.badge">System Demonstration &amp; Media Presentation</span>
+                        <h2 class="video-main-heading" data-i18n="video.title">FORTH Master System Operations Video</h2>
+                    </div>
+                </div>
+                <div class="video-meta-badge">
+                    <span class="video-hd-pill">HD 1080p</span>
+                </div>
+            </div>
+
+            <!-- Responsive HTML5 Video Player -->
+            <div class="video-player-wrapper">
+                <video id="forth-master-video" class="responsive-video-player" controls preload="metadata" playsinline>
+                    <source th:src="@{/media/FORTH_MASTER_Video Final-Additional.mp4}" src="/media/FORTH_MASTER_Video Final-Additional.mp4" type="video/mp4">
+                    <source th:src="@{/media/FORTH_MASTER_Video Final-Additional.mov}" src="/media/FORTH_MASTER_Video Final-Additional.mov" type="video/quicktime">
+                    <p data-i18n="video.fallback">Your browser does not support HTML5 video playback. Please update your browser.</p>
+                </video>
+            </div>
+
+            <div class="video-caption-bar">
+                <div class="video-caption-left">
+                    <svg class="ui-icon video-caption-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <span data-i18n="video.description">Comprehensive overview and instructional walkthrough of the Super High Frequency (SHF) Repeater Network system operations and maintenance procedures.</span>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer Section (Thymeleaf Fragment) -->

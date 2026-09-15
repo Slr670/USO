@@ -15,7 +15,7 @@ import java.util.Optional;
  * Manages datasets and state for all 8 operational modules of the SHF Dashboard.
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.4
+ * @version 2.4.5
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
