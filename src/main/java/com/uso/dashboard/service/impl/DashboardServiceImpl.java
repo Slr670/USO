@@ -17,7 +17,7 @@ import java.util.Optional;
  * ไปยัง https://wara5year.vercel.app/
  *
  * @author Taksi / USO Engineering Team
- * @version 2.2.0
+ * @version 2.3.0
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -102,15 +102,15 @@ public class DashboardServiceImpl implements DashboardService {
                 true
         ));
 
-        // ช่องที่ 6: วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Agendas)
+        // ช่องที่ 6: วาระคงเหลือและเกษียณอายุราชการ กรมการปกครอง (Track DOPA Tenure)
         moduleRepository.add(new DashboardModule(
                 6,
                 5,
-                "6. Track DOPA Agendas",
-                "6. Track DOPA Agendas (วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง)",
-                "หมวดหมู่งาน: ประสานงานราชการ (DOPA)",
+                "6. DOPA Tenure",
+                "6. Track DOPA Tenure (ระบบติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง)",
+                "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
                 "fa-solid fa-building-columns",
-                "รวบรวมวาระการประชุม บันทึกข้อตกลง (MOU), เอกสารขออนุญาตเข้าพื้นที่ว่าการอำเภอ/ท้องถิ่น และรายงานผลการดำเนินงานเสนอผู้บริหารกรมการปกครอง",
+                "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and retirement timelines. (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
                 "https://wara5year.vercel.app/",
                 true
         ));

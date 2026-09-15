@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * และการตรวจสอบชุดข้อมูลเริ่มต้นของระบบ DashboardService
  *
  * @author Taksi / USO Engineering Team
- * @version 2.2.0
+ * @version 2.3.0
  */
 @SpringBootTest
 class ShfDashboardApplicationTests {
@@ -39,13 +39,13 @@ class ShfDashboardApplicationTests {
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 6 (Track DOPA Agendas) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
+    @DisplayName("ตรวจสอบโมดูลที่ 6 (Track DOPA Tenure) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
     void testModuleSixExternalLink() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(5);
         assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 6 (Order Index 5)");
 
         DashboardModule moduleSix = moduleOpt.get();
-        assertEquals("6. Track DOPA Agendas", moduleSix.getShortCode());
+        assertEquals("6. DOPA Tenure", moduleSix.getShortCode());
         assertTrue(moduleSix.isExternal(), "โมดูลที่ 6 จะต้องระบุเป็น External Link");
         assertEquals("https://wara5year.vercel.app/", moduleSix.getExternalUrl(), 
                 "URL ภายนอกจะต้องเป็น https://wara5year.vercel.app/");

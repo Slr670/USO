@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] - 2026-09-15
+### Added
+- **DOPA Tenure & Retirement Tracking System:** Implemented interactive tenure expiration and civil service retirement calculation tools in Module 6 (`6. DOPA Tenure`):
+  - **Term Expiration Calculator:** Computes exact term end date (default 5-year tenure for 181 USO stations or custom 2-6 years), remaining days/months/years, and real-time percentage progress bar.
+  - **Retirement Timeline Calculator:** Computes official Thai civil service retirement timeline (effective Sept 30 at end of fiscal year upon reaching age 60 under Civil Service Pension Act) and countdown timer.
+  - **Live DOPA Dashboard Link:** Direct action shortcut to `https://wara5year.vercel.app/` for the 181 USO stations network.
+- Dedicated UI styles for the tenure calculator widget in `styles/dashboard.css` and `src/main/resources/static/css/dashboard.css` adhering to UI Icon Policy.
+
+### Changed
+- Refined Module 6 title, badge, and description to "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and retirement timelines."
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `index.html`, and UI badges to `v2.3.0`.
+
 ## [2.2.0] - 2026-09-15
 ### Added
 - Expanded operational modules structure from 7 to 8 modules:

@@ -2,7 +2,7 @@
    โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
    ไฟล์: styles/dashboard.css
    วัตถุประสงค์: สไตล์ชีตสำหรับระบบ Dashboard (Modern UI/UX Design System)
-   เวอร์ชัน: 2.2.0
+   เวอร์ชัน: 2.3.0
    =================================================================== */
 
 /* --- 1. Design Tokens & CSS Variables --- */
@@ -515,10 +515,11 @@ body {
 /* Action Area in Panel */
 .panel-action-bar {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
     margin-top: 20px;
-    flex-wrap: wrap;
+    width: 100%;
 }
 
 .btn-action-primary {
@@ -542,6 +543,240 @@ body {
     background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+/* --- 6.1 DOPA Tenure & Retirement Calculator Card --- */
+.tenure-calculator-card {
+    background: #ffffff;
+    border: 1.5px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.calc-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--slate-200);
+    margin-bottom: 18px;
+}
+
+.calc-card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.calc-title-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.calc-title-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.calc-main-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin: 0;
+    line-height: 1.35;
+}
+
+.calc-sub-title {
+    font-size: 0.8rem;
+    color: var(--slate-500);
+    margin: 2px 0 0 0;
+}
+
+.calc-badge-dopa {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+}
+
+.calc-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.calc-column-box {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calc-box-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--slate-800);
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.calc-box-heading svg {
+    color: var(--primary-600);
+}
+
+.calc-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.calc-label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--slate-700);
+}
+
+.calc-date-input,
+.calc-select-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1.5px solid var(--slate-300);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    background-color: #ffffff;
+    color: var(--slate-800);
+    transition: all var(--anim-base);
+    outline: none;
+}
+
+.calc-date-input:focus,
+.calc-select-input:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.calc-hint-text {
+    font-size: 0.76rem;
+    color: var(--slate-500);
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.calc-result-card {
+    background: #ffffff;
+    border: 1.5px solid #dbeafe;
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.calc-stat-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.88rem;
+}
+
+.stat-label {
+    color: var(--slate-600);
+    font-weight: 500;
+}
+
+.stat-highlight {
+    color: var(--primary-700);
+    font-weight: 700;
+}
+
+.stat-badge-pill {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+}
+
+.badge-active {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+}
+
+.badge-expired {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.calc-progress-wrapper {
+    margin-top: 4px;
+}
+
+.calc-progress-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--slate-500);
+    margin-bottom: 4px;
+}
+
+.calc-progress-track {
+    width: 100%;
+    height: 8px;
+    background: var(--slate-200);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.calc-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    border-radius: var(--radius-pill);
+    transition: width 0.4s ease;
+}
+
+.calc-stat-sub {
+    font-size: 0.78rem;
+    color: var(--slate-400);
+    text-align: right;
+}
+
+.calc-empty-hint {
+    font-size: 0.84rem;
+    color: var(--slate-400);
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .calc-grid-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* --- 7. Footer --- */

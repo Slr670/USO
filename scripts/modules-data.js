@@ -3,7 +3,7 @@
  * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
  * ไฟล์: scripts/modules-data.js
  * วัตถุประสงค์: ชุดข้อมูลคงที่และไอคอน SVG ประจำทั้ง 8 หมวดหมู่งาน (Inline SVG Icons System)
- * เวอร์ชัน: 2.2.0
+ * เวอร์ชัน: 2.3.0
  * ===================================================================
  */
 
@@ -156,14 +156,15 @@ const MENU_MODULES_DATA = [
     {
         id: 6,
         orderIndex: 5,
-        shortTitle: "6. Track DOPA Agendas",
-        fullTitle: "6. Track DOPA Agendas (วาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง)",
-        badge: "หมวดหมู่งาน: ประสานงานราชการ (DOPA)",
+        shortTitle: "6. DOPA Tenure",
+        fullTitle: "6. Track DOPA Tenure (ระบบติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง)",
+        badge: "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
         icon: "fa-solid fa-building-columns",
         svgIcon: ICONS.government,
-        description: "รวบรวมวาระการประชุม บันทึกข้อตกลง (MOU), เอกสารขออนุญาตเข้าพื้นที่ว่าการอำเภอ/ท้องถิ่น และรายงานผลการดำเนินงานเสนอผู้บริหารกรมการปกครอง",
+        description: "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and retirement timelines. (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
         externalUrl: "https://wara5year.vercel.app/",
-        isExternal: true
+        isExternal: true,
+        hasTenureCalculator: true
     },
     {
         id: 7,
