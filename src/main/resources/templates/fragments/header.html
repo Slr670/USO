@@ -2,35 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-    <!-- Header Fragment ส่วนหัวของหน้าเว็บและข้อมูลแอปพลิเคชัน -->
-    <header th:fragment="dashboardHeader" class="dashboard-header">
-        <div class="header-container">
-            <div class="header-brand">
-                <div class="header-logo-badge" title="SHF High Frequency Repeater Network">
-                    <i class="fa-solid fa-tower-broadcast"></i>
+    <!-- Header Fragment -->
+    <header th:fragment="dashboardHeader" class="header-hero">
+        <div class="header-inner">
+            <div class="header-left">
+                <div class="header-logo-container" title="SHF Repeater Network Operations Dashboard" data-i18n-attr="title:header.logoTooltip">
+                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
+                        <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <path d="m16.24 16.24-2.83 2.83a2 2 0 0 1-2.82 0l-2.83-2.83"/>
+                        <line x1="12" y1="12" x2="12" y2="22"/>
+                    </svg>
                 </div>
-                <div class="header-title-group">
+                <div class="header-title-container">
                     <div class="header-title-row">
-                        <h1 class="header-title" th:text="${appTitle}">
-                            โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
+                        <h1 class="header-main-title" data-i18n="header.mainTitle" th:text="${appTitle}">
+                            Super High Frequency (SHF) Repeater Network Optimization Project
                         </h1>
-                        <span class="version-badge" title="Authoritative System Version">
-                            <span class="version-dot"></span>
-                            <span th:text="'v' + ${appVersion}">v2.0.0</span>
+                        <span id="app-version" class="version-badge" title="Authoritative System Version" data-i18n-attr="title:header.versionTooltip">
+                            <span class="version-indicator-dot"></span>
+                            <span th:text="'v' + ${appVersion}">v2.4.1</span>
                         </span>
                     </div>
-                    <p class="header-subtitle" th:text="${appSubtitle}">
-                        ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (แดชบอร์ดปฏิบัติการและบำรุงรักษาระบบ SHF)
+                    <p class="header-sub-title" data-i18n="header.subTitle" th:text="${appSubtitle}">
+                        Project Operations &amp; Maintenance Center (SHF Network Operations Dashboard)
                     </p>
                 </div>
             </div>
 
-            <!-- ป้ายสถานะระบบ (Live Status Indicator) และ Language Switcher -->
-            <div style="display: flex; align-items: center; gap: 12px;">
+            <!-- Language Switcher & Live Status Pill -->
+            <div class="header-right">
                 <div id="react-lang-switcher"></div>
                 <div class="header-status-pill">
-                    <span class="status-live-indicator"></span>
-                    <span data-i18n="header.status">ระบบออนไลน์ปกติ (สถานะการเฝ้าระวังสด)</span>
+                    <span class="status-pulse-dot"></span>
+                    <span data-i18n="header.status">All Systems Operational (NMS Live)</span>
                 </div>
             </div>
         </div>

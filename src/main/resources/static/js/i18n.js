@@ -1,19 +1,131 @@
 /**
  * ===================================================================
- * โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
- * ไฟล์: scripts/i18n.js
- * วัตถุประสงค์: ระบบจัดการภาษา (Translation Engine) โดยใช้ i18next + react-i18next
- *              รองรับการแปล UI เป็นภาษาไทย 100% (Default) และภาษาอังกฤษที่สละสลวย ถูกต้องตามหลักไวยากรณ์
- * เวอร์ชัน: 2.4.0
+ * Super High Frequency (SHF) Repeater Network Optimization Project
+ * File: src/main/resources/static/js/i18n.js
+ * Purpose: Translation Engine using i18next + react-i18next
+ *          Supports 100% English UI (Default) with Thai localization option
+ * Version: 2.4.1
  * ===================================================================
  */
 
 /**
- * พจนานุกรมคำแปลภาษาไทยและภาษาอังกฤษ (Translation Resources)
- * - 'th': ภาษาไทย 100% ครอบคลุม UI ทุกจุดตามข้อกำหนดของผู้ใช้
- * - 'en': ภาษาอังกฤษที่ผ่านการตรวจทานและแก้ไขคำศัพท์ วลี และไวยากรณ์ให้ถูกต้องและเป็นธรรมชาติ
+ * Dual-language Translation Resources (English Default / Thai Localization)
  */
 const I18N_RESOURCES = {
+    en: {
+        translation: {
+            header: {
+                mainTitle: "Super High Frequency (SHF) Repeater Network Optimization Project",
+                subTitle: "Project Operations & Maintenance Center (SHF Network Operations Dashboard)",
+                status: "All Systems Operational (NMS Live)",
+                logoTooltip: "SHF Repeater Network Operations Dashboard",
+                versionTooltip: "Authoritative System Version"
+            },
+            section: {
+                title: "Operational Categories & System Services",
+                help: "Select a module card to view operational details or access external systems."
+            },
+            modules: {
+                m1: {
+                    shortTitle: "1. Perform PM",
+                    fullTitle: "1. Perform Preventive Maintenance (PM)",
+                    badge: "Category: Preventive Maintenance",
+                    description: "Schedule and record periodic inspection logs for SHF repeater base stations, measure radio frequency (RF) signal levels, inspect feeder cables, antennas, and verify backup power systems across all sites.",
+                    tooltip: "Preventive Maintenance Operations (1. Perform PM)"
+                },
+                m2: {
+                    shortTitle: "2. Handle CM",
+                    fullTitle: "2. Handle Corrective Maintenance (CM)",
+                    badge: "Category: Corrective Maintenance & Emergency Response",
+                    description: "Open, track, and resolve incident tickets for SHF repeater equipment malfunctions and microwave link interruptions, dispatching technical teams within SLA-governed recovery windows.",
+                    tooltip: "Corrective Maintenance & Troubleshooting (2. Handle CM)"
+                },
+                m3: {
+                    shortTitle: "3. Quarterly Visits",
+                    fullTitle: "3. Conduct Quarterly Site Inspection Visits",
+                    badge: "Category: Quarterly Site Inspections",
+                    description: "Coordinate and manage quarterly on-site inspection visits to regional stations, consolidate stakeholder feedback, resolve operational issues, and evaluate network user satisfaction.",
+                    tooltip: "Quarterly Site Inspections & Field Audits (3. Quarterly Visits)"
+                },
+                m4: {
+                    shortTitle: "4. Process Claims",
+                    fullTitle: "4. Process Equipment & Warranty Claims",
+                    badge: "Category: Warranty & Equipment RMA",
+                    description: "Manage Return Merchandise Authorization (RMA) workflows for defective SHF transceiver modules, microwave feedhorns, and power supply units with equipment vendors, maintaining complete replacement audit trails.",
+                    tooltip: "Equipment & Warranty Claims Management (4. Process Claims)"
+                },
+                m5: {
+                    shortTitle: "5. Monitor System",
+                    fullTitle: "5. Monitor System & Radio Telemetry",
+                    badge: "Category: Network Telemetry & Real-Time Monitoring",
+                    description: "Real-time telemetry dashboard displaying network uptime, SHF radio link degradation (Link Down events), received signal level (RSL) thresholds, and centralized alert event logs.",
+                    tooltip: "System Telemetry & Network Monitoring (5. Monitor System)"
+                },
+                m6: {
+                    shortTitle: "6. DOPA Tenure",
+                    fullTitle: "6. Track DOPA Officials' Tenure & Retirement",
+                    badge: "Category: DOPA Tenure & Retirement Timeline",
+                    description: "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
+                    tooltip: "Track DOPA Officials' Tenure & Retirement (6. DOPA Tenure)"
+                },
+                m7: {
+                    shortTitle: "7. Manage Inventory",
+                    fullTitle: "7. Manage Spare Parts & Inventory",
+                    badge: "Category: Spare Parts & Inventory Management",
+                    description: "Manage reserve inventory levels for SHF repeater spare parts, parabolic antennas, RF amplifiers, power converters, and auxiliary components, auditing requisition logs for PM and CM dispatches.",
+                    tooltip: "Inventory & Spare Parts Management (7. Manage Inventory)"
+                },
+                m8: {
+                    shortTitle: "8. Assets & Equipment",
+                    fullTitle: "8. Track Assets & Equipment Registry",
+                    badge: "Category: Asset & Equipment Registry",
+                    description: "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
+                    tooltip: "Asset & Equipment Registry Management (8. Assets & Equipment)"
+                }
+            },
+            calculator: {
+                mainTitle: "DOPA Officials' Remaining Tenure & Retirement Calculator",
+                subTitle: "Term Expiration & Civil Service Retirement Timelines for 181 USO Stations",
+                badgeDopa: "181 USO Stations Tracking System",
+                box1Heading: "1. Term Expiration Tracking",
+                startDateLabel: "Tenure Start Date:",
+                termDurationLabel: "Term Duration:",
+                termOpt5: "5 Years (Standard 181 Stations Term)",
+                termOpt4: "4 Years (Local Administration Term)",
+                termOpt3: "3 Years",
+                termOpt2: "2 Years",
+                termExpLabel: "Term Expiration Date:",
+                termStatusLabel: "Remaining Tenure Status:",
+                termExpired: "Term Expired",
+                termRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
+                termProgressLabel: "Term Elapsed Progress:",
+                box2Heading: "2. Civil Service Retirement Timeline",
+                dobLabel: "Official's Date of Birth:",
+                retireHint: "* Thai Civil Service Regulation: Official retirement takes effect at the end of the fiscal year (September 30) in which the official reaches 60 years of age.",
+                retireDateLabel: "Retirement Date:",
+                retireTimeLabel: "Time Until Retirement:",
+                retireExpired: "Already Retired",
+                retireRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
+                retireFiscalSub: "End of Fiscal Year {{year}} (Countdown: {{days}} days)",
+                emptyDateHint: "Please select a valid start date",
+                emptyDobHint: "Please select a valid date of birth"
+            },
+            actions: {
+                openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
+                openNewTab: "Open in New Tab"
+            },
+            footer: {
+                copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
+                architecture: "System Architecture: Spring Boot 3 + Thymeleaf MVC",
+                versionLabel: "Version:"
+            },
+            lang: {
+                thLabel: "Thai (TH)",
+                enLabel: "English (EN)",
+                switchLangTitle: "Select Language / สลับภาษา"
+            }
+        }
+    },
     th: {
         translation: {
             header: {
@@ -29,60 +141,60 @@ const I18N_RESOURCES = {
             },
             modules: {
                 m1: {
-                    shortTitle: "1. บำรุงรักษาเชิงป้องกัน (PM)",
+                    shortTitle: "1. Perform PM",
                     fullTitle: "1. ปฏิบัติการบำรุงรักษาเชิงป้องกัน (Preventive Maintenance — PM)",
                     badge: "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
                     description: "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน",
-                    tooltip: "งานบำรุงรักษาเชิงป้องกัน (1. บำรุงรักษาเชิงป้องกัน PM)"
+                    tooltip: "งานบำรุงรักษาเชิงป้องกัน (1. Perform PM)"
                 },
                 m2: {
-                    shortTitle: "2. ซ่อมแซมแก้ไข (CM)",
+                    shortTitle: "2. Handle CM",
                     fullTitle: "2. ปฏิบัติการแก้ไขเหตุขัดข้อง (Corrective Maintenance — CM)",
                     badge: "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
                     description: "การเปิดและติดตามใบแจ้งเหตุขัดข้อง (Incident Ticket) เมื่ออุปกรณ์ SHF ขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมวิศวกรและช่างเทคนิคเข้าพื้นที่แก้ไขตามกรอบเวลา SLA",
-                    tooltip: "งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (2. แก้ไขเหตุขัดข้อง CM)"
+                    tooltip: "งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (2. Handle CM)"
                 },
                 m3: {
-                    shortTitle: "3. ตรวจเยี่ยมทุก 3 เดือน",
+                    shortTitle: "3. Quarterly Visits",
                     fullTitle: "3. ดำเนินการตรวจเยี่ยมทุก 3 เดือน (Conduct Quarterly Visits)",
                     badge: "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
                     description: "ตารางนัดหมายการเข้าตรวจเยี่ยมหน่วยงานในพื้นที่ทุกไตรมาส รวบรวมข้อเสนอแนะ ปัญหาการใช้งาน และประเมินความพึงพอใจของผู้ใช้งานโครงข่าย",
-                    tooltip: "การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน (3. ตรวจเยี่ยมทุก 3 เดือน)"
+                    tooltip: "การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน (3. Quarterly Visits)"
                 },
                 m4: {
-                    shortTitle: "4. จัดการเคลมอุปกรณ์",
+                    shortTitle: "4. Process Claims",
                     fullTitle: "4. จัดการและยื่นเคลมอุปกรณ์ (Process Claims)",
                     badge: "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
                     description: "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรือชุดจ่ายไฟ (Power Unit) ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
-                    tooltip: "การจัดการและยื่นเคลมอุปกรณ์/ประกัน (4. จัดการเคลมอุปกรณ์)"
+                    tooltip: "การจัดการและยื่นเคลมอุปกรณ์/ประกัน (4. Process Claims)"
                 },
                 m5: {
-                    shortTitle: "5. ตรวจสอบระบบ",
+                    shortTitle: "5. Monitor System",
                     fullTitle: "5. ตรวจสอบและเฝ้าระวังสถานะระบบ (Monitor System)",
                     badge: "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
                     description: "แดชบอร์ดแสดงสถานะเวลาทำงานต่อเนื่อง (Uptime), ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบเรียลไทม์ และบันทึกประวัติการแจ้งเตือน",
-                    tooltip: "การตรวจสอบและเฝ้าระวังสถานะระบบ (5. ตรวจสอบระบบ)"
+                    tooltip: "การตรวจสอบและเฝ้าระวังสถานะระบบ (5. Monitor System)"
                 },
                 m6: {
-                    shortTitle: "6. วาระเจ้าหน้าที่รัฐ",
+                    shortTitle: "6. DOPA Tenure",
                     fullTitle: "6. ติดตามและคำนวณวาระเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Tenure)",
                     badge: "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
                     description: "ติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง รวมถึงวันสิ้นสุดวาระและกรอบเวลาเกษียณอายุราชการ (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
-                    tooltip: "ติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง (6. วาระเจ้าหน้าที่รัฐ DOPA)"
+                    tooltip: "ติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง (6. DOPA Tenure)"
                 },
                 m7: {
-                    shortTitle: "7. จัดการคลังพัสดุ",
+                    shortTitle: "7. Manage Inventory",
                     fullTitle: "7. บริหารจัดการคลังสินค้าและสต็อกอะไหล่ (Manage Inventory)",
                     badge: "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
                     description: "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงานบำรุงรักษาเชิงป้องกัน (PM) และงานแก้ไขเหตุขัดข้อง (CM)",
-                    tooltip: "การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (7. จัดการคลังพัสดุ)"
+                    tooltip: "การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (7. Manage Inventory)"
                 },
                 m8: {
-                    shortTitle: "8. ครุภัณฑ์และอุปกรณ์",
+                    shortTitle: "8. Assets & Equipment",
                     fullTitle: "8. ติดตามและจัดการทะเบียนครุภัณฑ์ (Track Assets & Equipment)",
                     badge: "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
                     description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (รหัสทรัพย์สิน/หมายเลขประจำเครื่อง), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
-                    tooltip: "การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. ครุภัณฑ์และอุปกรณ์)"
+                    tooltip: "การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. Assets & Equipment)"
                 }
             },
             calculator: {
@@ -118,154 +230,40 @@ const I18N_RESOURCES = {
             },
             footer: {
                 copyright: "© 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.",
-                architecture: "โครงสร้างระบบ: สถาปัตยกรรมเว็บแบบแยกส่วน",
+                architecture: "โครงสร้างระบบ: Spring Boot 3 + Thymeleaf MVC",
                 versionLabel: "เวอร์ชัน:"
             },
             lang: {
                 thLabel: "ไทย (TH)",
                 enLabel: "English (EN)",
-                switchLangTitle: "สลับภาษา / Switch Language"
-            }
-        }
-    },
-    en: {
-        translation: {
-            header: {
-                mainTitle: "High-Frequency Repeater Network Optimization Project (SHF)",
-                subTitle: "Project Operations & Maintenance Operations Center (SHF Network Dashboard)",
-                status: "System Operational (NMS Live)",
-                logoTooltip: "SHF Repeater Network Dashboard",
-                versionTooltip: "Authoritative System Version"
-            },
-            section: {
-                title: "System Operations & Services Directory",
-                help: "Select a card to view operational details or launch the external system"
-            },
-            modules: {
-                m1: {
-                    shortTitle: "1. Perform PM",
-                    fullTitle: "1. Perform Preventive Maintenance (PM)",
-                    badge: "Category: Preventive Maintenance",
-                    description: "Log periodic inspection schedules and maintenance reports for SHF repeaters, measure RF signal strength levels, inspect feeder cables, antennas, and verify backup power systems across all base stations.",
-                    tooltip: "Preventive Maintenance Operations (1. Perform PM)"
-                },
-                m2: {
-                    shortTitle: "2. Handle CM",
-                    fullTitle: "2. Handle Corrective Maintenance (CM)",
-                    badge: "Category: Corrective Maintenance & Emergency Response",
-                    description: "Open and track incident tickets for SHF equipment malfunctions or signal outages to dispatch technical engineering teams within strict SLA response windows.",
-                    tooltip: "Corrective Maintenance & Troubleshooting (2. Handle CM)"
-                },
-                m3: {
-                    shortTitle: "3. Quarterly Visits",
-                    fullTitle: "3. Conduct Quarterly Inspection Visits",
-                    badge: "Category: Quarterly Site Inspections",
-                    description: "Schedule and manage quarterly on-site inspection visits, consolidate stakeholder feedback, resolve usability issues, and evaluate network user satisfaction across regional sites.",
-                    tooltip: "Conduct Quarterly Inspection Visits (3. Quarterly Visits)"
-                },
-                m4: {
-                    shortTitle: "4. Process Claims",
-                    fullTitle: "4. Process Equipment & Warranty Claims",
-                    badge: "Category: Warranty & Equipment RMA",
-                    description: "Track Return Merchandise Authorization (RMA) claims for SHF modules, RF cables, and power supply units with equipment vendors, maintaining comprehensive replacement audit trails.",
-                    tooltip: "Equipment & Warranty Claims Management (4. Process Claims)"
-                },
-                m5: {
-                    shortTitle: "5. Monitor System",
-                    fullTitle: "5. Monitor System & Signal Telemetry",
-                    badge: "Category: Network Telemetry & Monitoring",
-                    description: "Real-time monitoring dashboard displaying system uptime, SHF radio link degradation (Link Down events), received signal levels (RSL), and centralized alert event logs.",
-                    tooltip: "System Monitoring & Signal Telemetry (5. Monitor System)"
-                },
-                m6: {
-                    shortTitle: "6. DOPA Tenure",
-                    fullTitle: "6. Track DOPA Officials' Tenure & Retirement",
-                    badge: "Category: DOPA Tenure & Retirement Timeline",
-                    description: "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
-                    tooltip: "Track DOPA Officials' Tenure & Retirement (6. DOPA Tenure)"
-                },
-                m7: {
-                    shortTitle: "7. Manage Inventory",
-                    fullTitle: "7. Manage Spare Parts & Inventory",
-                    badge: "Category: Spare Parts & Inventory Management",
-                    description: "Audit inventory levels for SHF repeater spare parts, parabolic antennas, power converters, and auxiliary components, tracking check-in/out logs for PM and CM workflows.",
-                    tooltip: "Inventory & Spare Parts Management (7. Manage Inventory)"
-                },
-                m8: {
-                    shortTitle: "8. Assets & Equipment",
-                    fullTitle: "8. Track Assets & Equipment Registry",
-                    badge: "Category: Asset & Equipment Registry",
-                    description: "Maintain comprehensive asset registration records for SHF telecommunication equipment, tracking Asset IDs, serial numbers, operational readiness, handover documentation, and equipment relocation histories.",
-                    tooltip: "Asset & Equipment Registry Management (8. Assets & Equipment)"
-                }
-            },
-            calculator: {
-                mainTitle: "DOPA Officials' Remaining Tenure & Retirement Calculator",
-                subTitle: "Term Expiration & Civil Service Retirement Timelines for 181 USO Stations",
-                badgeDopa: "181 USO Stations Tracking System",
-                box1Heading: "1. Term Expiration Tracking",
-                startDateLabel: "Tenure Start Date:",
-                termDurationLabel: "Term Duration:",
-                termOpt5: "5 Years (181 Stations Standard Term)",
-                termOpt4: "4 Years (Local Administration Term)",
-                termOpt3: "3 Years",
-                termOpt2: "2 Years",
-                termExpLabel: "Term Expiration Date:",
-                termStatusLabel: "Remaining Tenure Status:",
-                termExpired: "Term Expired",
-                termRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
-                termProgressLabel: "Term Elapsed Progress:",
-                box2Heading: "2. Civil Service Retirement Timeline",
-                dobLabel: "Official's Date of Birth:",
-                retireHint: "* Thai Civil Service Regulation: Retirement takes effect at the end of the fiscal year (September 30) in which the official reaches 60 years of age.",
-                retireDateLabel: "Retirement Date:",
-                retireTimeLabel: "Time Until Retirement:",
-                retireExpired: "Already Retired",
-                retireRemaining: "{{years}} yrs {{months}} mos {{days}} days remaining",
-                retireFiscalSub: "End of Fiscal Year {{year}} (Countdown: {{days}} days)",
-                emptyDateHint: "Please enter a valid start date",
-                emptyDobHint: "Please enter a valid date of birth"
-            },
-            actions: {
-                openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
-                openNewTab: "Open in new tab"
-            },
-            footer: {
-                copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
-                architecture: "System Architecture: Modular Web Architecture",
-                versionLabel: "Version:"
-            },
-            lang: {
-                thLabel: "ไทย (TH)",
-                enLabel: "English (EN)",
-                switchLangTitle: "Switch Language / สลับภาษา"
+                switchLangTitle: "สลับภาษา / Select Language"
             }
         }
     }
 };
 
 /**
- * ตัวช่วยอ้างอิง Translation Keys สำหรับ 8 โมดูล
+ * Module Keys Mapping
  * @constant {Array<string>}
  */
 const MODULE_KEYS = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
 
 /**
- * ดึงภาษาที่บันทึกไว้ใน LocalStorage อย่างปลอดภัย
- * @returns {string} รหัสภาษา (ค่าเริ่มต้น: 'th')
+ * Get stored language from LocalStorage safely (defaults to 'en' for 100% English UI)
+ * @returns {string} Language code ('en' or 'th')
  */
 function getStoredLanguage() {
     try {
         if (typeof localStorage !== 'undefined' && localStorage.getItem) {
-            return localStorage.getItem('shf_app_lang') || 'th';
+            return localStorage.getItem('shf_app_lang') || 'en';
         }
     } catch (e) {}
-    return 'th';
+    return 'en';
 }
 
 /**
- * บันทึกภาษาลงใน LocalStorage อย่างปลอดภัย
- * @param {string} lng รหัสภาษา
+ * Persist language code in LocalStorage safely
+ * @param {string} lng Language code
  */
 function setStoredLanguage(lng) {
     try {
@@ -276,14 +274,14 @@ function setStoredLanguage(lng) {
 }
 
 /**
- * เริ่มต้นการทำงานของ i18next ร่วมกับ react-i18next
+ * Initialize i18next engine with react-i18next
  */
 function initI18nEngine() {
     const savedLang = getStoredLanguage();
 
-    // ตรวจสอบความพร้อมของ i18next และ react-i18next
+    // Check availability of i18next
     if (typeof i18next !== 'undefined') {
-        // หากมี react-i18next ให้ผูกเข้ากับ i18next ผ่าน initReactI18next
+        // Integrate react-i18next plugin if available
         if (typeof ReactI18next !== 'undefined' && ReactI18next.initReactI18next) {
             i18next.use(ReactI18next.initReactI18next);
         }
@@ -306,30 +304,32 @@ function initI18nEngine() {
             mountReactLanguageSwitcher();
         });
 
-        // ดักจับเหตุการณ์เมื่อมีการสลับภาษา
+        // Listen for language changes
         i18next.on('languageChanged', (lng) => {
             setStoredLanguage(lng);
             applyTranslations(lng);
+            mountReactLanguageSwitcher();
         });
     } else {
         console.warn('[i18n] i18next library not loaded, using fallback.');
         applyFallbackTranslations(savedLang);
+        mountReactLanguageSwitcher();
     }
 }
 
 /**
- * ดึงคำแปลตาม Key และ Parameter
- * @param {string} key คีย์คำแปล เช่น 'header.mainTitle'
- * @param {Object} [options={}] ออปชันเพิ่มเติม เช่น interpolation
- * @returns {string} คำแปล
+ * Translate key with options
+ * @param {string} key Translation key (e.g., 'header.mainTitle')
+ * @param {Object} [options={}] Interpolation options
+ * @returns {string} Translated string
  */
 function t(key, options = {}) {
     if (typeof i18next !== 'undefined' && i18next.t) {
         return i18next.t(key, options);
     }
-    // Fallback เมื่อ i18next ยังไม่พร้อม
+    // Fallback when i18next is not ready
     const currentLang = getStoredLanguage();
-    const dict = I18N_RESOURCES[currentLang]?.translation || I18N_RESOURCES.th.translation;
+    const dict = I18N_RESOURCES[currentLang]?.translation || I18N_RESOURCES.en.translation;
     const parts = key.split('.');
     let val = dict;
     for (const p of parts) {
@@ -350,8 +350,8 @@ function t(key, options = {}) {
 }
 
 /**
- * สลับภาษาของระบบ (Language Switcher Controller)
- * @param {string} lng รหัสภาษา ('th' หรือ 'en')
+ * Switch system language
+ * @param {string} lng Language code ('en' or 'th')
  */
 function changeLanguage(lng) {
     if (typeof i18next !== 'undefined' && i18next.changeLanguage) {
@@ -359,17 +359,18 @@ function changeLanguage(lng) {
     } else {
         setStoredLanguage(lng);
         applyFallbackTranslations(lng);
+        mountReactLanguageSwitcher();
     }
 }
 
 /**
- * นำคำแปลไปประยุกต์ใช้กับ DOM และชุดข้อมูลโมดูล
- * @param {string} lng รหัสภาษาปัจจุบัน
+ * Apply translations to DOM elements and module dataset
+ * @param {string} lng Current language code
  */
 function applyTranslations(lng) {
     document.documentElement.lang = lng;
 
-    // 1. แปล DOM Elements ที่มี attribute data-i18n
+    // 1. Translate elements with data-i18n
     const elements = document.querySelectorAll('[data-i18n]');
     elements.forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -378,10 +379,10 @@ function applyTranslations(lng) {
         }
     });
 
-    // 2. แปล HTML Attributes (เช่น title, aria-label)
+    // 2. Translate attributes with data-i18n-attr (e.g. "title:key,aria-label:key")
     const attrElements = document.querySelectorAll('[data-i18n-attr]');
     attrElements.forEach(el => {
-        const spec = el.getAttribute('data-i18n-attr'); // รูปแบบ "title:key,aria-label:key"
+        const spec = el.getAttribute('data-i18n-attr');
         if (spec) {
             spec.split(',').forEach(pair => {
                 const [attr, key] = pair.split(':');
@@ -392,7 +393,7 @@ function applyTranslations(lng) {
         }
     });
 
-    // 3. ปรับปรุงข้อมูลใน MENU_MODULES_DATA ให้แสดงผลตามภาษาที่เลือก
+    // 3. Update MENU_MODULES_DATA dynamically based on active language
     if (typeof MENU_MODULES_DATA !== 'undefined' && Array.isArray(MENU_MODULES_DATA)) {
         MENU_MODULES_DATA.forEach((item, index) => {
             const mKey = MODULE_KEYS[index];
@@ -404,7 +405,7 @@ function applyTranslations(lng) {
             }
         });
 
-        // 4. อัปเดตการ์ดปุ่มทั้ง 8 ช่อง
+        // 4. Update the 8 card buttons in the grid
         const cardButtons = document.querySelectorAll('.card-btn');
         cardButtons.forEach((btn, index) => {
             const labelSpan = btn.querySelector('.card-label-text');
@@ -417,7 +418,7 @@ function applyTranslations(lng) {
             }
         });
 
-        // 5. อัปเดต Content Panel ที่กำลังเปิดใช้งานอยู่
+        // 5. Update active Content Panel
         if (typeof currentActiveIndex !== 'undefined' && typeof renderPanelDetails === 'function') {
             const activeItem = MENU_MODULES_DATA[currentActiveIndex];
             if (activeItem) {
@@ -426,7 +427,7 @@ function applyTranslations(lng) {
         }
     }
 
-    // 6. อัปเดต Title และ Meta Description ของหน้า
+    // 6. Update document title and meta description
     document.title = t('header.mainTitle');
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
@@ -435,16 +436,15 @@ function applyTranslations(lng) {
 }
 
 /**
- * Fallback Translation เมื่อไม่มีไลบรารีภายนอก
- * @param {string} lng รหัสภาษา
+ * Fallback translation handler
+ * @param {string} lng Language code
  */
 function applyFallbackTranslations(lng) {
     applyTranslations(lng);
 }
 
 /**
- * คอมโพเนนต์ React สลับภาษาโดยใช้ react-i18next (LanguageSwitcher React Component)
- * เรียกใช้ useTranslation hook ตามข้อกำหนดการผสานรวม
+ * React Language Switcher Component powered by react-i18next (useTranslation hook)
  */
 function mountReactLanguageSwitcher() {
     const container = document.getElementById('react-lang-switcher');
@@ -456,15 +456,15 @@ function mountReactLanguageSwitcher() {
     }
 
     try {
-        // คอมโพเนนต์ React ที่ใช้ react-i18next useTranslation Hook
+        // React component using react-i18next useTranslation hook
         const LanguageSwitcherComponent = () => {
-            let activeLang = 'th';
+            let activeLang = 'en';
             let tFunc = (k) => k;
             let changeLangFunc = (l) => {};
 
             if (typeof ReactI18next !== 'undefined' && ReactI18next.useTranslation) {
                 const { t: hookT, i18n: hookI18n } = ReactI18next.useTranslation();
-                activeLang = hookI18n.language || 'th';
+                activeLang = hookI18n.language || 'en';
                 tFunc = hookT;
                 changeLangFunc = (l) => hookI18n.changeLanguage(l);
             } else {
@@ -479,25 +479,27 @@ function mountReactLanguageSwitcher() {
             },
                 React.createElement('button', {
                     type: 'button',
-                    className: `lang-btn ${activeLang === 'th' ? 'active' : ''}`,
-                    onClick: () => changeLangFunc('th'),
-                    title: 'ภาษาไทย (TH) — แปลไทย 100%',
-                    'aria-pressed': activeLang === 'th'
-                }, 'TH'),
+                    className: `lang-btn ${activeLang === 'en' ? 'active' : ''}`,
+                    onClick: () => changeLangFunc('en'),
+                    title: 'English (EN) — 100% English UI',
+                    'aria-pressed': activeLang === 'en'
+                }, 'EN'),
                 React.createElement('span', { className: 'lang-divider' }, '|'),
                 React.createElement('button', {
                     type: 'button',
-                    className: `lang-btn ${activeLang === 'en' ? 'active' : ''}`,
-                    onClick: () => changeLangFunc('en'),
-                    title: 'English (EN) — Natural & Grammatically Correct',
-                    'aria-pressed': activeLang === 'en'
-                }, 'EN')
+                    className: `lang-btn ${activeLang === 'th' ? 'active' : ''}`,
+                    onClick: () => changeLangFunc('th'),
+                    title: 'ภาษาไทย (TH) — สลับเป็นภาษาไทย',
+                    'aria-pressed': activeLang === 'th'
+                }, 'TH')
             );
         };
 
         if (ReactDOM.createRoot) {
-            const root = ReactDOM.createRoot(container);
-            root.render(React.createElement(LanguageSwitcherComponent));
+            if (!container._reactRoot) {
+                container._reactRoot = ReactDOM.createRoot(container);
+            }
+            container._reactRoot.render(React.createElement(LanguageSwitcherComponent));
         } else if (ReactDOM.render) {
             ReactDOM.render(React.createElement(LanguageSwitcherComponent), container);
         }
@@ -508,21 +510,21 @@ function mountReactLanguageSwitcher() {
 }
 
 /**
- * ฟังก์ชันสร้าง Vanilla Language Switcher สำรอง
- * @param {HTMLElement} container คอนเทนเนอร์
+ * Vanilla Language Switcher fallback
+ * @param {HTMLElement} container Container element
  */
 function renderVanillaLanguageSwitcher(container) {
     const currentLang = getStoredLanguage();
     container.innerHTML = `
         <div class="lang-switcher-container" role="group" aria-label="${t('lang.switchLangTitle')}">
-            <button type="button" class="lang-btn ${currentLang === 'th' ? 'active' : ''}" onclick="changeLanguage('th')" title="ภาษาไทย (TH)">TH</button>
-            <span class="lang-divider">|</span>
             <button type="button" class="lang-btn ${currentLang === 'en' ? 'active' : ''}" onclick="changeLanguage('en')" title="English (EN)">EN</button>
+            <span class="lang-divider">|</span>
+            <button type="button" class="lang-btn ${currentLang === 'th' ? 'active' : ''}" onclick="changeLanguage('th')" title="ภาษาไทย (TH)">TH</button>
         </div>
     `;
 }
 
-// ผูกการทำงานเมื่อโหลดสคริปต์
+// Attach initialization on script load
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initI18nEngine);
@@ -531,7 +533,7 @@ if (typeof document !== 'undefined') {
     }
 }
 
-// สำหรับการทดสอบใน Node.js Environment
+// Export for Node.js verification environment
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         I18N_RESOURCES,
@@ -539,6 +541,8 @@ if (typeof module !== 'undefined' && module.exports) {
         initI18nEngine,
         t,
         changeLanguage,
-        applyTranslations
+        applyTranslations,
+        getStoredLanguage,
+        setStoredLanguage
     };
 }

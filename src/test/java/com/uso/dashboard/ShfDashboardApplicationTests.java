@@ -13,8 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit & Integration Test สำหรับตรวจสอบความสมบูรณ์ของการโหลด Spring Context
- * และการตรวจสอบชุดข้อมูลเริ่มต้นของระบบ DashboardService
+ * Unit & Integration Test for Spring Context and DashboardService datasets
  *
  * @author Taksi / USO Engineering Team
  * @version 2.4.0
@@ -26,45 +25,45 @@ class ShfDashboardApplicationTests {
     private DashboardService dashboardService;
 
     @Test
-    @DisplayName("ตรวจสอบการโหลด Spring Application Context")
+    @DisplayName("Verify Spring Application Context loading")
     void contextLoads() {
-        assertNotNull(dashboardService, "DashboardService ควรถูกฉีด (Injected) เข้ามาใน Context");
+        assertNotNull(dashboardService, "DashboardService must be properly injected into Spring context");
     }
 
     @Test
-    @DisplayName("ตรวจสอบว่าโมดูลมีครบถ้วนทั้ง 8 รายการตามสเปก")
+    @DisplayName("Verify all 8 operational modules are loaded")
     void testAllModulesLoaded() {
         List<DashboardModule> modules = dashboardService.getAllModules();
-        assertEquals(8, modules.size(), "โมดูลในระบบจะต้องมีทั้งหมด 8 หมวดหมู่งานพอดี");
+        assertEquals(8, modules.size(), "The system must load exactly 8 operational modules");
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 6 (Track DOPA Tenure) ว่ามีลิงก์ Redirect และ flag external ถูกต้อง")
+    @DisplayName("Verify Module 6 (Track DOPA Tenure) metadata and external redirection")
     void testModuleSixExternalLink() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(5);
-        assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 6 (Order Index 5)");
+        assertTrue(moduleOpt.isPresent(), "Module 6 (Order Index 5) must be present");
 
         DashboardModule moduleSix = moduleOpt.get();
         assertEquals("6. DOPA Tenure", moduleSix.getShortCode());
-        assertTrue(moduleSix.isExternal(), "โมดูลที่ 6 จะต้องระบุเป็น External Link");
+        assertTrue(moduleSix.isExternal(), "Module 6 must be flagged as external link");
         assertEquals("https://wara5year.vercel.app/", moduleSix.getExternalUrl(), 
-                "URL ภายนอกจะต้องเป็น https://wara5year.vercel.app/");
+                "External URL must point to https://wara5year.vercel.app/");
     }
 
     @Test
-    @DisplayName("ตรวจสอบโมดูลที่ 8 (Track Assets & Equipment) ว่าถูกโหลดอย่างสมบูรณ์")
+    @DisplayName("Verify Module 8 (Track Assets & Equipment) loaded properly")
     void testModuleEightAssetEquipment() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(7);
-        assertTrue(moduleOpt.isPresent(), "ต้องพบโมดูลลำดับที่ 8 (Order Index 7)");
+        assertTrue(moduleOpt.isPresent(), "Module 8 (Order Index 7) must be present");
 
         DashboardModule moduleEight = moduleOpt.get();
         assertEquals("8. Assets & Equipment", moduleEight.getShortCode());
-        assertEquals("หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน", moduleEight.getBadge());
-        assertFalse(moduleEight.isExternal(), "โมดูลที่ 8 ค่าเริ่มต้นเป็น Internal Panel");
+        assertEquals("Category: Asset & Equipment Registry", moduleEight.getBadge());
+        assertFalse(moduleEight.isExternal(), "Module 8 must default to internal panel");
     }
 
     @Test
-    @DisplayName("ตรวจสอบ Default Module ต้องเป็น Perform PM (Index 0)")
+    @DisplayName("Verify Default Module is Perform PM (Index 0)")
     void testDefaultModule() {
         DashboardModule defaultModule = dashboardService.getDefaultModule();
         assertNotNull(defaultModule);

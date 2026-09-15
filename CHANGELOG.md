@@ -4,17 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4.0] - 2026-09-15
+## [2.4.1] - 2026-09-15
 ### Added
-- **i18next + react-i18next Translation Engine:** Integrated `i18next` and `react-i18next` as the core translation and localization architecture (`scripts/i18n.js`).
-- **Interactive Language Switcher (React Component):** Mounted a React component utilizing `ReactI18next.useTranslation()` hook in the header hero bar for dynamic switching between Thai (TH) and English (EN).
-- **Offline Vendor Bundles:** Included UMD distributions for `react.production.min.js`, `react-dom.production.min.js`, `i18next.min.js`, and `react-i18next.min.js` under `scripts/vendor/` and `src/main/resources/static/vendor/` for 100% offline reliability.
+- **i18next + react-i18next Translation Engine:** Integrated dual-mode translation engine with offline vendor bundles (`i18next.min.js`, `react.production.min.js`, `react-dom.production.min.js`, `react-i18next.min.js`):
+  - **React Language Switcher:** Interactive header widget utilizing `react-i18next` (`useTranslation` hook) allowing seamless switching between English (`EN`) and Thai (`TH`).
+  - **Dynamic Reactive DOM Translation:** Instant DOM and module data updates via `data-i18n` and `data-i18n-attr` without page reload.
+  - **Localized Date & Time Formatter:** Multi-locale date formatting for DOPA term expiration and civil service retirement timelines.
+- **100% English UI Default:** Converted the entire dashboard interface, titles, badges, descriptions, tooltips, hints, and calculator labels to 100% fluent, domain-accurate English.
 
 ### Changed
-- **100% Thai UI Translation:** Translated 100% of English UI texts into Thai across the entire dashboard (Header, Section bar, all 8 Operational Modules, DOPA Tenure & Retirement Calculator, external action buttons, badges, and footer).
-- **English Grammar & Style Review:** Thoroughly reviewed and corrected all English words, phrases, and sentences in the English translation dictionary (`en`) for natural, idiomatic, contextually appropriate phrasing.
-- **Preserved Functionality & Keys:** Retained complete semantic key structure (`header.*`, `section.*`, `modules.*`, `calculator.*`, `actions.*`, `footer.*`), calculation logic, external redirection, and keyboard navigation.
-- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, and `index.html` to `v2.4.0`.
+- Comprehensive terminology and grammar audit across all 8 operational modules and telecommunication domains (Preventive Maintenance, Corrective Maintenance, RMA claims, telemetry monitoring, DOPA civil service tenure, spare parts inventory, and fixed-asset registries).
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/i18n.js`, `index.html`, `gemini-code-1789376108233.html`, and Spring Boot templates to `v2.4.1`.
 
 ## [2.3.0] - 2026-09-15
 ### Added

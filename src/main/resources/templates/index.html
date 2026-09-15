@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="th" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)">
-    <title th:text="${appTitle}">โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)</title>
+    <meta name="description" content="Operations and status tracking center for the Super High Frequency (SHF) Repeater Network Optimization Project">
+    <title th:text="${appTitle}">Super High Frequency (SHF) Repeater Network Optimization Project</title>
 
-    <!-- Google Fonts: Sarabun & Font Awesome 6 -->
+    <!-- Google Fonts: Sarabun & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <!-- Modern Dashboard Stylesheet -->
     <link rel="stylesheet" th:href="@{/css/dashboard.css}" href="/css/dashboard.css">
@@ -21,21 +21,21 @@
     <div th:replace="~{fragments/header :: dashboardHeader}"></div>
 
     <!-- Main Content Container -->
-    <main class="dashboard-main">
+    <main class="dashboard-container">
 
         <!-- Section Navigation Label -->
-        <div class="section-meta">
-            <span class="section-label">
+        <div class="section-info-bar">
+            <div class="section-label-text">
                 <i class="fa-solid fa-layer-group"></i>
-                <span data-i18n="section.title">หมวดหมู่การปฏิบัติงานและบริการระบบ (การปฏิบัติการและบริการโครงข่าย)</span>
-            </span>
-            <span style="font-size: 0.85rem; color: var(--slate-500);" data-i18n="section.help">
-                เลือกการ์ดเพื่อแสดงรายละเอียด หรือเข้าสู่ระบบภายนอก
-            </span>
+                <span data-i18n="section.title">Operational Categories &amp; System Services</span>
+            </div>
+            <div class="section-help-text" data-i18n="section.help">
+                Select a module card to view operational details or access external systems.
+            </div>
         </div>
 
-        <!-- 7 Cards Grid Container (Rendered dynamically via Thymeleaf) -->
-        <div class="grid-container" role="tablist" aria-label="หมวดหมู่งานโครงการ SHF">
+        <!-- 8 Cards Grid Container -->
+        <div class="grid-container" role="tablist" aria-label="SHF Project Operations Directory" data-i18n-attr="aria-label:section.title">
             <button th:each="module, stat : ${modules}"
                     type="button"
                     class="card-btn"
@@ -50,55 +50,57 @@
                     th:data-desc="${module.description}"
                     th:data-url="${module.externalUrl}"
                     th:data-external="${module.external}"
-                    th:title="${module.external} ? 'คลิกเพื่อเลือกและเปิดแท็บใหม่ไปยัง ' + ${module.externalUrl} : 'คลิกเพื่อดูรายละเอียด ' + ${module.title}"
+                    th:title="${module.external} ? 'Click to open in new tab: ' + ${module.externalUrl} : 'Click to view details: ' + ${module.title}"
                     role="tab"
                     th:attr="aria-selected=${stat.index == 0} ? 'true' : 'false', aria-controls='dashboard-content-panel'"
                     tabindex="0">
 
-                <!-- Badge แสดงเครื่องหมายสำหรับลิงก์ระบบภายนอก (เช่น ช่องที่ 6) -->
-                <span th:if="${module.external}" class="external-badge" title="เปิดในแท็บใหม่">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <!-- Badge for External Link -->
+                <span th:if="${module.external}" class="external-link-pill" title="Open in new tab">
+                    <svg class="ui-icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
                 </span>
 
-                <!-- ไอคอนของโมดูล -->
-                <div class="card-icon-wrap">
+                <!-- Module Icon -->
+                <div class="card-icon-box">
                     <i th:class="${module.iconClass}"></i>
                 </div>
 
-                <!-- ป้ายชื่อย่อบนการ์ด -->
-                <span class="card-title-text" th:text="${module.shortCode}">1. PM</span>
+                <!-- Short Title Label -->
+                <span class="card-label-text" th:text="${module.shortCode}">1. Perform PM</span>
             </button>
         </div>
 
-        <!-- Content Panel (พื้นที่แสดงผลรายละเอียดของหมวดหมู่งานที่เลือก) -->
+        <!-- Content Panel -->
         <section id="dashboard-content-panel" class="content-panel" role="tabpanel" aria-live="polite">
             <div class="panel-header-section">
-                <div class="panel-title-area">
+                <div class="panel-title-group">
                     <div class="panel-icon-circle">
-                        <i id="panel-icon" th:class="${activeModule.iconClass}"></i>
+                        <div id="display-icon" class="panel-icon-svg-wrap">
+                            <i id="panel-icon" th:class="${activeModule.iconClass}"></i>
+                        </div>
                     </div>
-                    <div class="panel-title-content">
+                    <div class="panel-text-meta">
                         <span id="panel-badge" class="status-badge" th:text="${activeModule.badge}">
-                            หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน
+                            Category: Preventive Maintenance
                         </span>
-                        <h2 id="panel-title" class="panel-title" th:text="${activeModule.title}">
-                            1. งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM)
+                        <h2 id="panel-title" class="panel-main-heading" th:text="${activeModule.title}">
+                            1. Perform Preventive Maintenance (PM)
                         </h2>
                     </div>
                 </div>
             </div>
 
-            <!-- คำอธิบายรายละเอียดของงาน -->
-            <div class="panel-body">
-                <div id="panel-desc-box" class="panel-description-box" th:text="${activeModule.description}">
-                    บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน
-                </div>
-
-                <!-- ปุ่มการดำเนินการเฉพาะหมวดหมู่ (เช่น ลิงก์ตรงสำหรับช่องที่ 6) -->
-                <div id="panel-action-area" class="panel-action-bar">
-                    <!-- Dynamic action button rendered via JavaScript when card is selected -->
-                </div>
+            <!-- Description -->
+            <div class="panel-description-block" id="display-desc" th:text="${activeModule.description}">
+                Schedule and record periodic inspection logs for SHF repeater base stations, measure radio frequency (RF) signal levels, inspect feeder cables, antennas, and verify backup power systems across all sites.
             </div>
+
+            <!-- Action Area -->
+            <div id="panel-action-container" class="panel-action-bar"></div>
         </section>
 
     </main>
@@ -106,13 +108,14 @@
     <!-- Footer Section (Thymeleaf Fragment) -->
     <div th:replace="~{fragments/footer :: dashboardFooter}"></div>
 
-    <!-- Vendor Scripts: React 18, ReactDOM 18, i18next, react-i18next -->
+    <!-- React & i18next Libraries -->
+    <script th:src="@{/vendor/i18next.min.js}" src="/vendor/i18next.min.js"></script>
     <script th:src="@{/vendor/react.production.min.js}" src="/vendor/react.production.min.js"></script>
     <script th:src="@{/vendor/react-dom.production.min.js}" src="/vendor/react-dom.production.min.js"></script>
-    <script th:src="@{/vendor/i18next.min.js}" src="/vendor/i18next.min.js"></script>
     <script th:src="@{/vendor/react-i18next.min.js}" src="/vendor/react-i18next.min.js"></script>
 
-    <!-- Client Interactive JavaScript & i18n -->
+    <!-- Client Interactive JavaScript Modules -->
+    <script th:src="@{/js/modules-data.js}" src="/js/modules-data.js"></script>
     <script th:src="@{/js/i18n.js}" src="/js/i18n.js"></script>
     <script th:src="@{/js/dashboard.js}" src="/js/dashboard.js"></script>
 </body>

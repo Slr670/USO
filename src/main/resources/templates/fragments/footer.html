@@ -2,16 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-    <!-- Footer Fragment ส่วนท้ายของระบบ -->
+    <!-- Footer Fragment -->
     <footer th:fragment="dashboardFooter" class="dashboard-footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <span>&copy; 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.</span>
+        <div class="footer-inner">
+            <div data-i18n="footer.copyright">
+                &copy; 2026 SHF Repeater Network Operations &amp; Maintenance Center. All rights reserved.
             </div>
-            <div class="footer-right">
-                <span>สถาปัตยกรรมระบบ: <strong>Spring Boot 3 + Thymeleaf MVC</strong></span>
-                <span>|</span>
-                <span>เวอร์ชันระบบ: <strong th:text="'v' + ${appVersion}">v2.0.0</strong></span>
+            <div>
+                <span data-i18n="footer.architecture">System Architecture: <strong>Spring Boot 3 + Thymeleaf MVC</strong></span> | <span data-i18n="footer.versionLabel">Version:</span> <strong class="app-version-text" th:text="'v' + ${appVersion}">v2.4.1</strong>
             </div>
         </div>
     </footer>

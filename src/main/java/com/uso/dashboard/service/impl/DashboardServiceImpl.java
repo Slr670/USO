@@ -10,11 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * คลาส Implementation ของ {@link DashboardService}
+ * Service Implementation for {@link DashboardService}
  * 
- * ทำหน้าที่เป็น Service Layer จัดเตรียมและประมวลผลข้อมูลของโมดูลทั้ง 7 ช่อง
- * รวมถึงการตั้งค่าลิงก์ภายนอกสำหรับ "6. วาระเจ้าหน้าที่รัฐ กรมการปกครอง" 
- * ไปยัง https://wara5year.vercel.app/
+ * Manages datasets and state for all 8 operational modules of the SHF Dashboard.
  *
  * @author Taksi / USO Engineering Team
  * @version 2.4.0
@@ -22,121 +20,120 @@ import java.util.Optional;
 @Service
 public class DashboardServiceImpl implements DashboardService {
 
-    /** เก็บแคชของชุดข้อมูลโมดูลทั้ง 8 หมวดหมู่ */
+    /** In-memory repository cache for the 8 operational modules */
     private final List<DashboardModule> moduleRepository = new ArrayList<>();
 
     /**
-     * Constructor เริ่มต้นทำการ Initialize ข้อมูลทั้ง 8 หมวดหมู่งาน
+     * Initializes module datasets
      */
     public DashboardServiceImpl() {
         initModules();
     }
 
     /**
-     * เมธอดสำหรับสร้างและจัดเตรียมชุดข้อมูลเริ่มต้นของระบบ (Initial Data Seeding)
-     * นำเข้าข้อมูลแม่นยำจากแดชบอร์ดโครงการ SHF
+     * Seed initial module datasets in 100% English
      */
     private void initModules() {
-        // ช่องที่ 1: งานบำรุงรักษาเชิงป้องกัน (Perform PM)
+        // Module 1: Perform Preventive Maintenance (PM)
         moduleRepository.add(new DashboardModule(
                 1,
                 0,
                 "1. Perform PM",
-                "1. Perform PM (งานบำรุงรักษาเชิงป้องกัน — Preventive Maintenance)",
-                "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
+                "1. Perform Preventive Maintenance (PM)",
+                "Category: Preventive Maintenance",
                 "fa-solid fa-screwdriver-wrench",
-                "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน",
+                "Schedule and record periodic inspection logs for SHF repeater base stations, measure radio frequency (RF) signal levels, inspect feeder cables, antennas, and verify backup power systems across all sites.",
                 "https://pm-5year.vercel.app/",
                 true
         ));
 
-        // ช่องที่ 2: งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา (Handle CM)
+        // Module 2: Handle Corrective Maintenance (CM)
         moduleRepository.add(new DashboardModule(
                 2,
                 1,
                 "2. Handle CM",
-                "2. Handle CM (งานซ่อมแซมแก้ไขเมื่อเกิดปัญหา — Corrective Maintenance)",
-                "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
+                "2. Handle Corrective Maintenance (CM)",
+                "Category: Corrective Maintenance & Emergency Response",
                 "fa-solid fa-triangle-exclamation",
-                "การเปิดและติดตาม Incident Ticket เมื่ออุปกรณ์ SHF เกิดขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมช่างเข้าพื้นที่แก้ไขตามกรอบเวลา SLA",
+                "Open, track, and resolve incident tickets for SHF repeater equipment malfunctions and microwave link interruptions, dispatching technical teams within SLA-governed recovery windows.",
                 "https://dtrs-app-uat.forth.co.th/",
                 true
         ));
 
-        // ช่องที่ 3: แผนเข้าพบและเยี่ยมเยือนทุก 3 เดือน (Conduct Quarterly Visits)
+        // Module 3: Conduct Quarterly Site Inspection Visits
         moduleRepository.add(new DashboardModule(
                 3,
                 2,
                 "3. Quarterly Visits",
-                "3. Conduct Quarterly Visits (การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน)",
-                "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
+                "3. Conduct Quarterly Site Inspection Visits",
+                "Category: Quarterly Site Inspections",
                 "fa-solid fa-calendar-check",
-                "ตารางนัดหมายการเข้าตรวจเยี่ยมหน่วยงานในพื้นที่ทุกไตรมาส รวบรวมข้อเสนอแนะ ปัญหาการใช้งาน และประเมินความพึงพอใจของผู้ใช้งานโครงข่าย",
+                "Coordinate and manage quarterly on-site inspection visits to regional stations, consolidate stakeholder feedback, resolve operational issues, and evaluate network user satisfaction.",
                 null,
                 false
         ));
 
-        // ช่องที่ 4: การจัดการและยื่นเคลมอุปกรณ์/ประกัน (Process Claims)
+        // Module 4: Process Equipment & Warranty Claims
         moduleRepository.add(new DashboardModule(
                 4,
                 3,
                 "4. Process Claims",
-                "4. Process Claims (การจัดการและยื่นเคลมอุปกรณ์/ประกัน)",
-                "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
+                "4. Process Equipment & Warranty Claims",
+                "Category: Warranty & Equipment RMA",
                 "fa-solid fa-arrows-rotate",
-                "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรืออุปกรณ์ Power Unit ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่",
+                "Manage Return Merchandise Authorization (RMA) workflows for defective SHF transceiver modules, microwave feedhorns, and power supply units with equipment vendors, maintaining complete replacement audit trails.",
                 "https://equipment-claims.vercel.app/",
                 true
         ));
 
-        // ช่องที่ 5: การตรวจสอบและเฝ้าระวังสถานะระบบ (Monitor System)
+        // Module 5: Monitor System & Radio Telemetry
         moduleRepository.add(new DashboardModule(
                 5,
                 4,
                 "5. Monitor System",
-                "5. Monitor System (การตรวจสอบและเฝ้าระวังสถานะระบบ)",
-                "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
+                "5. Monitor System & Radio Telemetry",
+                "Category: Network Telemetry & Real-Time Monitoring",
                 "fa-solid fa-chart-line",
-                "แดชบอร์ดแสดงสถานะ Uptime, ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบ Real-time หรือ Log การแจ้งเตือนต่างๆ",
+                "Real-time telemetry dashboard displaying network uptime, SHF radio link degradation (Link Down events), received signal level (RSL) thresholds, and centralized alert event logs.",
                 "https://bssc-nine.vercel.app/",
                 true
         ));
 
-        // ช่องที่ 6: วาระคงเหลือและเกษียณอายุราชการ กรมการปกครอง (Track DOPA Tenure)
+        // Module 6: Track DOPA Officials' Tenure & Retirement
         moduleRepository.add(new DashboardModule(
                 6,
                 5,
                 "6. DOPA Tenure",
-                "6. Track DOPA Tenure (ระบบติดตามและคำนวณวาระคงเหลือเจ้าหน้าที่รัฐ กรมการปกครอง)",
-                "หมวดหมู่งาน: วาระคงเหลือและเกษียณอายุราชการ (DOPA)",
+                "6. Track DOPA Officials' Tenure & Retirement",
+                "Category: DOPA Tenure & Retirement Timeline",
                 "fa-solid fa-building-columns",
-                "ติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง รวมถึงวันสิ้นสุดวาระและกรอบเวลาเกษียณอายุราชการ (ระบบติดตามและคำนวณวาระการดำรงตำแหน่งคงเหลือของเจ้าหน้าที่รัฐ กรมการปกครอง วันหมดวาระ 5 ปี และกรอบเวลาเกษียณอายุราชการ 181 สถานี USO)",
+                "Track and calculate the remaining tenure of DOPA officials, including term expiration dates and civil service retirement timelines across 181 USO stations.",
                 "https://wara5year.vercel.app/",
                 true
         ));
 
-        // ช่องที่ 7: การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (Manage Inventory)
+        // Module 7: Manage Spare Parts & Inventory
         moduleRepository.add(new DashboardModule(
                 7,
                 6,
                 "7. Manage Inventory",
-                "7. Manage Inventory (การบริหารจัดการคลังสินค้า/สต็อกอะไหล่)",
-                "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
+                "7. Manage Spare Parts & Inventory",
+                "Category: Spare Parts & Inventory Management",
                 "fa-solid fa-boxes-stacked",
-                "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงาน PM และ CM",
+                "Manage reserve inventory levels for SHF repeater spare parts, parabolic antennas, RF amplifiers, power converters, and auxiliary components, auditing requisition logs for PM and CM dispatches.",
                 "https://www.stockflowth.online/dashboard",
                 true
         ));
 
-        // ช่องที่ 8: การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Track Assets & Equipment)
+        // Module 8: Track Assets & Equipment Registry
         moduleRepository.add(new DashboardModule(
                 8,
                 7,
                 "8. Assets & Equipment",
-                "8. Track Assets & Equipment (การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน)",
-                "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
+                "8. Track Assets & Equipment Registry",
+                "Category: Asset & Equipment Registry",
                 "fa-solid fa-clipboard-check",
-                "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (Asset ID/Serial Number), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
+                "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
                 null,
                 false
         ));
@@ -144,7 +141,6 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public List<DashboardModule> getAllModules() {
-        // ส่งคืนแบบ Unmodifiable List เพื่อป้องกันการแก้ไขข้อมูลโดยตรงจากภายนอก
         return Collections.unmodifiableList(moduleRepository);
     }
 
@@ -164,7 +160,6 @@ public class DashboardServiceImpl implements DashboardService {
 
     @Override
     public DashboardModule getDefaultModule() {
-        // โมดูลเริ่มต้นคือช่องที่ 1 (Index 0: PM)
         return moduleRepository.get(0);
     }
 }
