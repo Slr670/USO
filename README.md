@@ -1,7 +1,7 @@
 # โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
 > **ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)**  
 > สถาปัตยกรรมระบบ: **Dual-Stack (Java Spring Boot 3 Thymeleaf MVC & Standalone Web Client)**  
-> เวอร์ชันระบบ: **v2.4.6**
+> เวอร์ชันระบบ: **v2.4.7**
 
 ---
 
@@ -57,10 +57,10 @@
 
 ```text
 d:\Dashboard รวม\
-├── pom.xml                                      # การตั้งค่า Maven & Dependencies (v2.4.3)
+├── pom.xml                                      # การตั้งค่า Maven & Dependencies (v2.4.7)
 ├── mvnw / mvnw.cmd                              # Maven Wrapper Scripts
 ├── .gitignore                                   # กรองไฟล์ที่ไม่จำเป็นต่อ Git
-├── README.md                                    # เอกสารคู่มือระบบฉบับสมบูรณ์ (v2.4.3)
+├── README.md                                    # เอกสารคู่มือระบบฉบับสมบูรณ์ (v2.4.7)
 ├── CHANGELOG.md                                 # บันทึกประวัติการปรับปรุงระบบ (SemVer)
 ├── index.html                                   # หน้าแดชบอร์ดหลักสำหรับ Standalone Web Client
 ├── gemini-code-1789376108233.html               # พรีวิวหน้าเว็บสำรอง
@@ -111,7 +111,7 @@ d:\Dashboard รวม\
 
 ## รายการหมวดหมู่งาน 8 โมดูล (8 Operational Modules)
 1. **1. Perform PM:** งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM) — บันทึกผลการตรวจเช็กสถานีฐาน SHF ระดับสัญญาณ RF สายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรอง ([เข้าสู่ระบบ PM](https://pm-5year.vercel.app/))
-2. **2. Handle CM:** งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM) — แจ้งซ่อมและจัดการ Incident ปัญหาอุปกรณ์หรือสัญญาณขัดข้องแบบเรียลไทม์ ([เข้าสู่ระบบ CM](https://dtrs-app-uat.forth.co.th/))
+2. **2. Handle CM:** งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM) — แจ้งซ่อมและจัดการ Incident ปัญหาอุปกรณ์หรือสัญญาณขัดข้องแบบเรียลไทม์ ([เข้าสู่ระบบ CM](https://dtrs-app-uat.forth.co.th/dashboard))
 3. **3. Conduct Quarterly Visits:** การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน — ตรวจสอบสภาพแวดล้อมทางกายภาพและประสานงานเจ้าหน้าที่ผู้ดูแลสถานี ([เข้าสู่ระบบตรวจเช็ก 3 เดือน](https://pre-pm-2.vercel.app/))
 4. **4. Process Claims:** การจัดการและยื่นเคลมอุปกรณ์/ประกัน (RMA & Warranty) — ติดตามสถานะการส่งเคลม การเปลี่ยนทดแทน และประวัติอุปกรณ์ ([เข้าสู่ระบบเคลม](https://equipment-claims.vercel.app/))
 5. **5. Monitor System:** การตรวจสอบและเฝ้าระวังสถานะระบบ (Telemetry & Network Monitoring) — แดชบอร์ดตรวจสอบสถานะออนไลน์ การทำงานของรีพีตเตอร์ และทราฟฟิกโครงข่าย ([เข้าสู่ระบบ Monitor](https://bssc-nine.vercel.app/))
@@ -167,7 +167,7 @@ http://localhost:8080
 ### การสร้าง Executable JAR เพื่อนำไป Deploy
 ```bash
 ./mvnw clean package
-java -jar target/shf-dashboard-2.4.6.jar
+java -jar target/shf-dashboard-2.4.7.jar
 ```
 
 ---

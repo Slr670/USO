@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.6
+ * @version 2.4.7
  */
 @SpringBootApplication
 public class ShfDashboardApplication {

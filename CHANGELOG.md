@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.7] - 2026-09-15
+### Fixed
+- **Video 404 (Not Found) & URL Space Encoding Resolution:**
+  - Resolved 404 errors when serving `/assets/media/FORTH_MASTER_Video Final-Additional.mp4` by introducing URL-encoded source paths (`%20`) alongside normalized alias paths (`FORTH_MASTER_Video_Final-Additional.mp4`) via NTFS hardlinks.
+  - Implemented Spring MVC `WebMvcConfig` registering explicit static resource handlers for `/assets/**`, `/media/**`, `/favicon.ico`, and `/icons/**`, ensuring seamless serving across both Standalone Web Client and Spring Boot MVC architectures.
+- **Missing Favicon Error:** Generated dedicated telecommunications-themed `favicon.ico` and vector `favicon.svg` in root, `assets/icons/`, and Spring Boot `static/` directories, and added `<link rel="icon">` declarations across all HTML templates.
+
+### Changed
+- **Module External URLs Synchronization:** Synchronized Module 1 (`https://pm-5year.vercel.app/`) and Module 2 (`https://dtrs-app-uat.forth.co.th/dashboard`) external URLs across client data, Spring Boot service, unit tests, and documentation.
+- **System Version Synchronization:** Bumped authoritative SemVer system version from `v2.4.6` to `v2.4.7` across all project files (`pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, Java controllers/services/models/tests, HTML templates, and documentation).
+
 ## [2.4.6] - 2026-09-15
 ### Fixed
 - **Video Playback Black Screen Resolution:** Transcoded the FORTH Master presentation video from Apple ProRes 422 (`apcn` QuickTime codec unsupported by web browsers) to standardized **H.264 / AVC1** (`yuv420p` profile) with AAC stereo audio in a fast-start MP4 container (`isom/mp41`), completely fixing the black screen issue where only audio was playing in web browsers.

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit & Integration Test for Spring Context and DashboardService datasets
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.6
+ * @version 2.4.7
  */
 @SpringBootTest
 class ShfDashboardApplicationTests {
@@ -35,6 +35,32 @@ class ShfDashboardApplicationTests {
     void testAllModulesLoaded() {
         List<DashboardModule> modules = dashboardService.getAllModules();
         assertEquals(8, modules.size(), "The system must load exactly 8 operational modules");
+    }
+
+    @Test
+    @DisplayName("Verify Module 1 (Perform PM) metadata and external redirection")
+    void testModuleOneExternalLink() {
+        Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(0);
+        assertTrue(moduleOpt.isPresent(), "Module 1 (Order Index 0) must be present");
+
+        DashboardModule moduleOne = moduleOpt.get();
+        assertEquals("1. Perform PM", moduleOne.getShortCode());
+        assertTrue(moduleOne.isExternal(), "Module 1 must be flagged as external link");
+        assertEquals("https://pm-5year.vercel.app/", moduleOne.getExternalUrl(),
+                "External URL must point to https://pm-5year.vercel.app/");
+    }
+
+    @Test
+    @DisplayName("Verify Module 2 (Handle CM) metadata and external redirection")
+    void testModuleTwoExternalLink() {
+        Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(1);
+        assertTrue(moduleOpt.isPresent(), "Module 2 (Order Index 1) must be present");
+
+        DashboardModule moduleTwo = moduleOpt.get();
+        assertEquals("2. Handle CM", moduleTwo.getShortCode());
+        assertTrue(moduleTwo.isExternal(), "Module 2 must be flagged as external link");
+        assertEquals("https://dtrs-app-uat.forth.co.th/dashboard", moduleTwo.getExternalUrl(),
+                "External URL must point to https://dtrs-app-uat.forth.co.th/dashboard");
     }
 
     @Test

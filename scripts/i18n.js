@@ -4,7 +4,7 @@
  * File: scripts/i18n.js
  * Purpose: Translation Engine using i18next + react-i18next
  *          Supports 100% English UI (Default) with Thai localization option
- * Version: 2.4.6
+ * Version: 2.4.7
  * ===================================================================
  */
 

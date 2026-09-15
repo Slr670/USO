@@ -23,6 +23,6 @@ spring:
 
 # ข้อมูลเมทาดาทาและเวอร์ชันของระบบ (Authoritative Application Metadata)
 app:
-  version: 2.4.6
+  version: 2.4.7
   title: Super High Frequency (SHF) Repeater Network Optimization Project
   subtitle: Project Operations & Maintenance Center (SHF Network Operations Dashboard)

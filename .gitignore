@@ -48,3 +48,5 @@ assets/media/*
 !assets/media/.gitkeep
 src/main/resources/static/media/*
 !src/main/resources/static/media/.gitkeep
+src/main/resources/static/assets/media/*
+!src/main/resources/static/assets/media/.gitkeep

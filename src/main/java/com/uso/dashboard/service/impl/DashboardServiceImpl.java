@@ -15,7 +15,7 @@ import java.util.Optional;
  * Manages datasets and state for all 8 operational modules of the SHF Dashboard.
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.6
+ * @version 2.4.7
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -56,7 +56,7 @@ public class DashboardServiceImpl implements DashboardService {
                 "Category: Corrective Maintenance & Emergency Response",
                 "fa-solid fa-triangle-exclamation",
                 "Open, track, and resolve incident tickets for SHF repeater equipment malfunctions and microwave link interruptions, dispatching technical teams within SLA-governed recovery windows.",
-                "https://dtrs-app-uat.forth.co.th/",
+                "https://dtrs-app-uat.forth.co.th/dashboard",
                 true
         ));
 

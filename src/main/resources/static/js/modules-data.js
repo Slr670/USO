@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: scripts/modules-data.js
  * Purpose: Constant datasets and scalable inline SVG icons for all 8 operational modules
- * Version: 2.4.6
+ * Version: 2.4.7
  * ===================================================================
  */
 
@@ -100,7 +100,7 @@ const MENU_MODULES_DATA = [
         icon: "fa-solid fa-wrench",
         svgIcon: ICONS.pm,
         description: "Standardized preventive maintenance protocols, equipment inspection checklists, scheduled calibration intervals, and operational readiness for 181 SHF repeater stations.",
-        externalUrl: "https://preventive-maintenance-kappa.vercel.app/",
+        externalUrl: "https://pm-5year.vercel.app/",
         isExternal: true
     },
     {
@@ -112,7 +112,7 @@ const MENU_MODULES_DATA = [
         icon: "fa-solid fa-triangle-exclamation",
         svgIcon: ICONS.cm,
         description: "Emergency incident dispatch ticketing, Root Cause Analysis (RCA), corrective repair action tracking, and Mean Time to Repair (MTTR) monitoring for unscheduled link outages.",
-        externalUrl: "https://repair-cm.vercel.app/",
+        externalUrl: "https://dtrs-app-uat.forth.co.th/dashboard",
         isExternal: true
     },
     {

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * รวมถึงข้อมูลสำหรับการแสดงผล การระบุไอคอน และการเชื่อมต่อไปยังระบบภายนอก
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.6
+ * @version 2.4.7
  */
 public class DashboardModule implements Serializable {
 
