@@ -5,11 +5,11 @@ import java.io.Serializable;
 /**
  * คลาสโมเดลข้อมูล (Domain Model / POJO) สำหรับแต่ละหมวดหมู่และโมดูลงานในระบบ SHF Dashboard
  * 
- * คลาสนี้ทำหน้าที่ห่อหุ้ม (Encapsulate) ข้อมูลของโมดูลทั้ง 7 หมวดหมู่งาน
+ * คลาสนี้ทำหน้าที่ห่อหุ้ม (Encapsulate) ข้อมูลของโมดูลทั้ง 8 หมวดหมู่งาน
  * รวมถึงข้อมูลสำหรับการแสดงผล การระบุไอคอน และการเชื่อมต่อไปยังระบบภายนอก
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.4.3
  */
 public class DashboardModule implements Serializable {
 

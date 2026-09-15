@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.3] - 2026-09-15
+### Changed
+- **Documentation & Metadata Synchronization:** Updated `README.md` to reflect the complete 8 operational modules, dual-stack architecture (Spring Boot 3 Thymeleaf MVC & Standalone Web Client), i18next + react-i18next translation system, and full-width DOPA tenure tracker.
+- **Java Backend & JavaDoc Alignment:** Synchronized JavaDoc tags, parameter ranges (`0 to 7`), comments, and fallback properties across `DashboardController.java`, `DashboardApiController.java`, `DashboardModule.java`, `DashboardService.java`, and `ShfDashboardApplication.java`.
+- Synchronized authoritative application version across `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `index.html`, `gemini-code-1789376108233.html`, Spring Boot backend service, and Thymeleaf templates to `v2.4.3`.
+
 ## [2.4.2] - 2026-09-15
 ### Removed
 - **Civil Service Retirement Timeline:** Removed the entire "2. Civil Service Retirement Timeline" section from Module 6 (DOPA Tenure tracking widget), including official's date of birth input, retirement calculation hints, and retirement countdown results.

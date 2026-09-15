@@ -9,19 +9,19 @@ import java.util.Optional;
  * สำหรับการจัดการและสืบค้นข้อมูลโมดูลต่างๆ ของระบบ SHF Dashboard
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.4.3
  */
 public interface DashboardService {
 
     /**
      * ดึงรายการโมดูลทั้งหมดในระบบ จัดเรียงตามลำดับที่ถูกต้อง
      *
-     * @return รายการ (List) ของ {@link DashboardModule} ทั้งหมด 7 โมดูล
+     * @return รายการ (List) ของ {@link DashboardModule} ทั้งหมด 8 โมดูล
      */
     List<DashboardModule> getAllModules();
 
     /**
-     * ค้นหาโมดูลตามดัชนีลำดับ (Order Index: 0 ถึง 6)
+     * ค้นหาโมดูลตามดัชนีลำดับ (Order Index: 0 ถึง 7)
      *
      * @param orderIndex ลำดับที่ต้องการค้นหา
      * @return {@link Optional} ที่บรรจุข้อมูลโมดูลหากพบ หรือ Optional.empty() หากไม่พบ

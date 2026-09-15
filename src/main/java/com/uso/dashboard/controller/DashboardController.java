@@ -16,7 +16,7 @@ import java.util.List;
  * แล้วส่ง Attributes เข้าสู่ Spring MVC Model เพื่อให้ Thymeleaf Template ทำการ Render
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.4.3
  */
 @Controller
 public class DashboardController {
@@ -24,7 +24,7 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     /** เวอร์ชันของแอปพลิเคชันที่อ่านจาก application.yml */
-    @Value("${app.version:2.0.0}")
+    @Value("${app.version:2.4.3}")
     private String appVersion;
 
     /** ชื่อโครงการภาษาไทย */
@@ -52,7 +52,7 @@ public class DashboardController {
      */
     @GetMapping("/")
     public String showDashboard(Model model) {
-        // ดึงรายการโมดูลทั้งหมด 7 หมวดหมู่งาน
+        // ดึงรายการโมดูลทั้งหมด 8 หมวดหมู่งาน
         List<DashboardModule> modules = dashboardService.getAllModules();
         
         // ดึงโมดูลเริ่มต้น (Default Active Module: PM)

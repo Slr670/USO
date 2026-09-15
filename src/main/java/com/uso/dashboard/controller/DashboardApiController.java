@@ -18,7 +18,7 @@ import java.util.List;
  * รวมทั้งรองรับ Cross-Origin Resource Sharing (CORS)
  *
  * @author Taksi / USO Engineering Team
- * @version 2.0.0
+ * @version 2.4.3
  */
 @RestController
 @RequestMapping("/api/v1/modules")
@@ -42,7 +42,7 @@ public class DashboardApiController {
     }
 
     /**
-     * ดึงข้อมูลโมดูลเดี่ยวตามดัชนีลำดับ (0 ถึง 6)
+     * ดึงข้อมูลโมดูลเดี่ยวตามดัชนีลำดับ (0 ถึง 7)
      *
      * @param orderIndex ลำดับโมดูล
      * @return {@link ResponseEntity} บรรจุข้อมูลโมดูล หรือ 404 Not Found หากไม่พบ
