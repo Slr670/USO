@@ -9,7 +9,7 @@ import java.util.Optional;
  * สำหรับการจัดการและสืบค้นข้อมูลโมดูลต่างๆ ของระบบ SHF Dashboard
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.5
+ * @version 2.4.6
  */
 public interface DashboardService {
 

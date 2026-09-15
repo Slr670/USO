@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit & Integration Test for Spring Context and DashboardService datasets
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.5
+ * @version 2.4.6
  */
 @SpringBootTest
 class ShfDashboardApplicationTests {
@@ -38,6 +38,19 @@ class ShfDashboardApplicationTests {
     }
 
     @Test
+    @DisplayName("Verify Module 3 (Conduct Quarterly Visits) metadata and external redirection")
+    void testModuleThreeExternalLink() {
+        Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(2);
+        assertTrue(moduleOpt.isPresent(), "Module 3 (Order Index 2) must be present");
+
+        DashboardModule moduleThree = moduleOpt.get();
+        assertEquals("3. Quarterly Visits", moduleThree.getShortCode());
+        assertTrue(moduleThree.isExternal(), "Module 3 must be flagged as external link");
+        assertEquals("https://pre-pm-2.vercel.app/", moduleThree.getExternalUrl(),
+                "External URL must point to https://pre-pm-2.vercel.app/");
+    }
+
+    @Test
     @DisplayName("Verify Module 6 (Track DOPA Tenure) metadata and external redirection")
     void testModuleSixExternalLink() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(5);
@@ -51,7 +64,7 @@ class ShfDashboardApplicationTests {
     }
 
     @Test
-    @DisplayName("Verify Module 8 (Track Assets & Equipment) loaded properly")
+    @DisplayName("Verify Module 8 (Track Assets & Equipment) loaded properly with external redirection")
     void testModuleEightAssetEquipment() {
         Optional<DashboardModule> moduleOpt = dashboardService.getModuleByOrderIndex(7);
         assertTrue(moduleOpt.isPresent(), "Module 8 (Order Index 7) must be present");
@@ -59,7 +72,9 @@ class ShfDashboardApplicationTests {
         DashboardModule moduleEight = moduleOpt.get();
         assertEquals("8. Assets & Equipment", moduleEight.getShortCode());
         assertEquals("Category: Asset & Equipment Registry", moduleEight.getBadge());
-        assertFalse(moduleEight.isExternal(), "Module 8 must default to internal panel");
+        assertTrue(moduleEight.isExternal(), "Module 8 must be flagged as external link");
+        assertEquals("https://contion.vercel.app/", moduleEight.getExternalUrl(),
+                "External URL must point to https://contion.vercel.app/");
     }
 
     @Test

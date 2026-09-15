@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.6] - 2026-09-15
+### Fixed
+- **Video Playback Black Screen Resolution:** Transcoded the FORTH Master presentation video from Apple ProRes 422 (`apcn` QuickTime codec unsupported by web browsers) to standardized **H.264 / AVC1** (`yuv420p` profile) with AAC stereo audio in a fast-start MP4 container (`isom/mp41`), completely fixing the black screen issue where only audio was playing in web browsers.
+- **Autoplay Muted Behavior:** Configured the video player with `autoplay`, `muted`, `playsinline`, and `controls` attributes across `index.html`, `gemini-code-1789376108233.html`, and `templates/index.html` to ensure immediate, uninterrupted video playback on page load compliant with modern browser autoplay policies.
+
+### Added
+- **Module 3 ("Quarterly Visits") External Link Integration:** Connected Module 3 to the live external system `https://pre-pm-2.vercel.app/` (`isExternal: true`).
+- **Module 8 ("Assets & Equipment") External Link Integration:** Connected Module 8 to the live external system `https://contion.vercel.app/` (`isExternal: true`).
+
+### Changed
+- **Unit & Integration Test Suite:** Updated `ShfDashboardApplicationTests.java` with assertions for Module 3 (`https://pre-pm-2.vercel.app/`) and Module 8 (`https://contion.vercel.app/`) external link routing.
+- **Documentation & Links:** Updated `README.md` module registry links for Module 3 and Module 8.
+- **System Version Synchronization:** Bumped authoritative SemVer system version from `v2.4.5` to `v2.4.6` across all project files (`pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, Java controllers/services/models, HTML templates, and documentation).
+
 ## [2.4.5] - 2026-09-15
 ### Added
 - **Embedded Responsive HTML5 Video Showcase:** Embedded the FORTH Master system operations video (`FORTH_MASTER_Video Final-Additional.mp4` / `.mov`) into `index.html`, `gemini-code-1789376108233.html`, and `src/main/resources/templates/index.html`.

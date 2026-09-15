@@ -1,7 +1,7 @@
 # โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
 > **ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)**  
 > สถาปัตยกรรมระบบ: **Dual-Stack (Java Spring Boot 3 Thymeleaf MVC & Standalone Web Client)**  
-> เวอร์ชันระบบ: **v2.4.5**
+> เวอร์ชันระบบ: **v2.4.6**
 
 ---
 
@@ -112,12 +112,12 @@ d:\Dashboard รวม\
 ## รายการหมวดหมู่งาน 8 โมดูล (8 Operational Modules)
 1. **1. Perform PM:** งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM) — บันทึกผลการตรวจเช็กสถานีฐาน SHF ระดับสัญญาณ RF สายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรอง ([เข้าสู่ระบบ PM](https://pm-5year.vercel.app/))
 2. **2. Handle CM:** งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM) — แจ้งซ่อมและจัดการ Incident ปัญหาอุปกรณ์หรือสัญญาณขัดข้องแบบเรียลไทม์ ([เข้าสู่ระบบ CM](https://dtrs-app-uat.forth.co.th/))
-3. **3. Conduct Quarterly Visits:** การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน — ตรวจสอบสภาพแวดล้อมทางกายภาพและประสานงานเจ้าหน้าที่ผู้ดูแลสถานี
+3. **3. Conduct Quarterly Visits:** การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน — ตรวจสอบสภาพแวดล้อมทางกายภาพและประสานงานเจ้าหน้าที่ผู้ดูแลสถานี ([เข้าสู่ระบบตรวจเช็ก 3 เดือน](https://pre-pm-2.vercel.app/))
 4. **4. Process Claims:** การจัดการและยื่นเคลมอุปกรณ์/ประกัน (RMA & Warranty) — ติดตามสถานะการส่งเคลม การเปลี่ยนทดแทน และประวัติอุปกรณ์ ([เข้าสู่ระบบเคลม](https://equipment-claims.vercel.app/))
 5. **5. Monitor System:** การตรวจสอบและเฝ้าระวังสถานะระบบ (Telemetry & Network Monitoring) — แดชบอร์ดตรวจสอบสถานะออนไลน์ การทำงานของรีพีตเตอร์ และทราฟฟิกโครงข่าย ([เข้าสู่ระบบ Monitor](https://bssc-nine.vercel.app/))
 6. **6. Track DOPA Officials' Tenure:** ติดตามวาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง (Department of Provincial Administration) — ประสานงานและติดตามวาระสถานีเครือข่าย USO 181 แห่ง พร้อมลิงก์ตรง ([เข้าสู่ระบบวาระ DOPA](https://wara5year.vercel.app/))
 7. **7. Manage Inventory:** การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (Spare Parts Inventory) — บริหารคลังอุปกรณ์ทวนสัญญาณ โมดูลความถี่ สายอากาศ และชิ้นส่วนสำรอง ([เข้าสู่ระบบคลัง](https://www.stockflowth.online/dashboard))
-8. **8. Track Assets & Equipment:** การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Fixed Asset Registry) — ติดตามทะเบียนทรัพย์สิน หมายเลขครุภัณฑ์ (Asset Tag) และประวัติการโอนย้ายอุปกรณ์
+8. **8. Track Assets & Equipment:** การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Fixed Asset Registry) — ติดตามทะเบียนทรัพย์สิน หมายเลขครุภัณฑ์ (Asset Tag) และประวัติการโอนย้ายอุปกรณ์ ([เข้าสู่ระบบทะเบียนครุภัณฑ์](https://contion.vercel.app/))
 
 ---
 
@@ -167,7 +167,7 @@ http://localhost:8080
 ### การสร้าง Executable JAR เพื่อนำไป Deploy
 ```bash
 ./mvnw clean package
-java -jar target/shf-dashboard-2.4.5.jar
+java -jar target/shf-dashboard-2.4.6.jar
 ```
 
 ---

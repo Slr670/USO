@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: scripts/modules-data.js
  * Purpose: Constant datasets and scalable inline SVG icons for all 8 operational modules
- * Version: 2.4.5
+ * Version: 2.4.6
  * ===================================================================
  */
 
@@ -124,7 +124,7 @@ const MENU_MODULES_DATA = [
         icon: "fa-solid fa-calendar-check",
         svgIcon: ICONS.calendar,
         description: "Every-3-month on-site field engineering audit schedules, physical tower infrastructure integrity verification, RF alignment checks, and station environment surveys.",
-        externalUrl: "https://every-3-months.vercel.app/",
+        externalUrl: "https://pre-pm-2.vercel.app/",
         isExternal: true
     },
     {
@@ -184,8 +184,8 @@ const MENU_MODULES_DATA = [
         icon: "fa-solid fa-clipboard-check",
         svgIcon: ICONS.assetEquipment,
         description: "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
-        externalUrl: null,
-        isExternal: false
+        externalUrl: "https://contion.vercel.app/",
+        isExternal: true
     }
 ];
 

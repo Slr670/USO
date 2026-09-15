@@ -15,7 +15,7 @@ import java.util.Optional;
  * Manages datasets and state for all 8 operational modules of the SHF Dashboard.
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.5
+ * @version 2.4.6
  */
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -69,8 +69,8 @@ public class DashboardServiceImpl implements DashboardService {
                 "Category: Quarterly Site Inspections",
                 "fa-solid fa-calendar-check",
                 "Coordinate and manage quarterly on-site inspection visits to regional stations, consolidate stakeholder feedback, resolve operational issues, and evaluate network user satisfaction.",
-                null,
-                false
+                "https://pre-pm-2.vercel.app/",
+                true
         ));
 
         // Module 4: Process Equipment & Warranty Claims
@@ -134,8 +134,8 @@ public class DashboardServiceImpl implements DashboardService {
                 "Category: Asset & Equipment Registry",
                 "fa-solid fa-clipboard-check",
                 "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
-                null,
-                false
+                "https://contion.vercel.app/",
+                true
         ));
     }
 
