@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.4] - 2026-09-16
+### Changed
+- **Local USO Portal Icon Asset Integration & Header Alignment:**
+  - Copied authentic local image asset `USO_portal_icon.png` (84x80px) from `assets/image/` into `public/assets/image/USO_portal_icon.png` and `public/assets/USO_portal_icon.png`.
+  - Updated image source `src` in `src/components/Header.tsx` to reference `USO_LOGO_SRC` (`/assets/image/USO_portal_icon.png`).
+  - Synced base64 asset in `src/assets/uso-logo.ts` with authentic binary data of `USO_portal_icon.png`.
+  - Tuned header CSS in `src/styles/dashboard.styles.ts` with explicit `aspect-ratio: 84 / 80`, `height: 42px`, and `object-fit: contain` to preserve crisp fidelity and harmonious vertical alignment.
+
 ## [3.0.3] - 2026-09-16
 ### Changed
 - **Header Brand & USO Logo Component Refactor:**

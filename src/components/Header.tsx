@@ -12,7 +12,7 @@
 import React from 'react';
 import { useI18n } from '../lib/i18n';
 import { APP_VERSION } from '../lib/constants';
-import { USO_LOGO_BASE64 } from '../assets/uso-logo';
+import { USO_LOGO_SRC } from '../assets/uso-logo';
 
 export const Header: React.FC = () => {
   const { language, setLanguage } = useI18n();
@@ -22,7 +22,12 @@ export const Header: React.FC = () => {
       <div className="header-inner">
         <a className="brand" href="#home" aria-label="USO หน้าแรก">
           <span className="brand-mark uso-image-mark">
-            <img src={USO_LOGO_BASE64} alt="USO Logo" />
+            <img
+              src={USO_LOGO_SRC}
+              alt="USO Logo"
+              width={44}
+              height={42}
+            />
           </span>
         </a>
 

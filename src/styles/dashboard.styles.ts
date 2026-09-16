@@ -133,20 +133,23 @@ export const dashboardGlobalStyles: string = `
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    height: 42px;
   }
 
   .uso-image-mark img {
-    height: 38px;
+    height: 42px;
     width: auto;
-    max-width: 175px;
+    max-width: 100%;
+    aspect-ratio: 84 / 80;
     object-fit: contain;
     display: block;
     filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.35));
-    transition: filter var(--anim-base);
+    transition: filter var(--anim-base), transform var(--anim-base);
   }
 
   .brand:hover .uso-image-mark img {
     filter: drop-shadow(0 4px 14px rgba(56, 189, 248, 0.55));
+    transform: scale(1.02);
   }
 
   .header-brand {
