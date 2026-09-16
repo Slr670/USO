@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.10] - 2026-09-16
+### Changed
+- **Dynamic Gradient Glow Animation & Ultra-Smooth Responsiveness Optimization:**
+  - Applied dynamic glowing gradient color-shifting animations (`neonShiftUSO`, `neonShiftDivider`, `neonShiftOperations`, `neonShiftPortal`, `neonShiftEyebrow`, `neonShiftBrand`) across every word in the title and header elements, creating a vibrant, continuous neon light transition.
+  - Implemented fluid typography (`clamp()`) across all viewports (mobile, tablet, desktop, ultra-wide) for `.uso-word`, `.portal-line`, `.portal-accent`, `.eyebrow`, `.brand-text`, `.lead`, and CTA buttons.
+  - Optimized fluid container padding, grid tracks (`minmax(clamp(...))`), and layout margins to ensure seamless transitions across all device sizes with zero layout breakage.
+  - Added `@media (prefers-reduced-motion: reduce)` accessibility rule to gracefully pause animations for users who prefer reduced motion.
+
 ## [3.0.9] - 2026-09-16
 ### Changed
 - **Redesigned 'USO' Typography, Eyebrow Dash, & Glowing Gradient Divider Line:**

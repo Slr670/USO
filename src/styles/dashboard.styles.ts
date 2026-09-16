@@ -161,21 +161,33 @@ export const dashboardGlobalStyles: string = `
   }
 
   .brand-text {
-    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+    font-size: clamp(0.85rem, 1.4vw, 1.12rem);
     font-weight: 800;
-    letter-spacing: 0.05em;
-    color: #ffffff;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     line-height: 1;
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    transition: color var(--anim-base);
+    background: linear-gradient(
+      115deg,
+      #ffffff 0%,
+      #e0f2fe 25%,
+      #38bdf8 55%,
+      #818cf8 80%,
+      #ffffff 100%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
+    animation: neonShiftBrand 7s ease-in-out infinite;
+    transition: filter var(--anim-base);
+    will-change: background-position, filter;
   }
 
   .brand:hover .brand-text {
-    color: var(--accent-sky);
+    filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.85)) drop-shadow(0 0 28px rgba(129, 140, 248, 0.7));
   }
 
   .header-brand {
@@ -367,13 +379,13 @@ export const dashboardGlobalStyles: string = `
     align-items: center;
     justify-content: flex-start;
     align-self: flex-start;
-    gap: 14px;
+    gap: clamp(10px, 1.4vw, 16px);
     color: #38bdf8;
-    font-size: clamp(0.82rem, 1.25vw, 0.95rem);
+    font-size: clamp(0.78rem, 1.1vw, 0.95rem);
     font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    margin-bottom: 22px;
+    margin-bottom: clamp(16px, 2.5vh, 24px);
     background: transparent;
     border: none;
     padding: 0;
@@ -383,116 +395,136 @@ export const dashboardGlobalStyles: string = `
 
   .eyebrow-dash {
     display: inline-block;
-    width: 32px;
-    height: 3px;
-    background: linear-gradient(90deg, #06b6d4 0%, #38bdf8 100%);
+    width: clamp(24px, 3vw, 34px);
+    height: clamp(2.5px, 0.3vw, 3.5px);
+    background: linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #818cf8 100%);
+    background-size: 200% auto;
     border-radius: var(--radius-pill);
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.85);
+    animation: neonShiftEyebrow 5s ease-in-out infinite;
     flex-shrink: 0;
+    will-change: background-position, filter;
   }
 
   .hero-title {
-    margin-bottom: 28px;
+    margin-bottom: clamp(20px, 3.5vh, 32px);
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: flex-start;
-    gap: 20px 24px;
+    gap: clamp(14px, 2.4vw, 26px);
     text-align: left;
-    max-width: 1050px;
+    max-width: min(100%, 1050px);
   }
 
   .uso-brand-group {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: clamp(6px, 1vh, 10px);
     flex-shrink: 0;
   }
 
   .uso-word {
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
-    font-size: clamp(4.2rem, 9.5vw, 7rem);
+    font-size: clamp(3.8rem, 8.5vw + 0.5rem, 7rem);
     font-weight: 900;
     letter-spacing: -0.01em;
     line-height: 0.95;
     display: inline-block;
     position: relative;
     background: linear-gradient(
-      102deg,
+      105deg,
       #34d399 0%,
       #2dd4bf 20%,
-      #38bdf8 45%,
-      #818cf8 72%,
-      #c084fc 100%
+      #38bdf8 40%,
+      #818cf8 60%,
+      #c084fc 80%,
+      #2dd4bf 100%
     );
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.28);
-    filter: 
-      drop-shadow(0 0 20px rgba(45, 212, 191, 0.5))
-      drop-shadow(0 0 42px rgba(129, 140, 248, 0.42))
-      drop-shadow(0 0 68px rgba(192, 132, 252, 0.32))
-      drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9));
+    animation: neonShiftUSO 6s ease-in-out infinite;
     text-rendering: optimizeLegibility;
+    will-change: background-position, filter;
   }
 
   .uso-divider-glow {
     width: 100%;
-    height: 4px;
+    height: clamp(3.5px, 0.4vw, 4.5px);
     background: linear-gradient(
       90deg,
       #22d3ee 0%,
-      #2dd4bf 26%,
-      #818cf8 68%,
-      #c084fc 100%
+      #2dd4bf 25%,
+      #818cf8 50%,
+      #c084fc 75%,
+      #22d3ee 100%
     );
+    background-size: 250% 250%;
     border-radius: var(--radius-pill);
-    box-shadow: 
-      0 0 10px rgba(34, 211, 238, 0.8),
-      0 0 20px rgba(129, 140, 248, 0.6),
-      0 0 32px rgba(192, 132, 252, 0.45);
-    margin-top: 2px;
+    animation: neonShiftDivider 5s ease-in-out infinite;
+    margin-top: clamp(2px, 0.4vh, 4px);
+    will-change: background-position, box-shadow;
   }
 
   .thai-title,
   .portal-title {
     display: inline-flex;
     align-items: baseline;
-    gap: 12px;
+    gap: clamp(8px, 1.4vw, 14px);
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding-bottom: 12px;
+    padding-bottom: clamp(4px, 1.2vw, 12px);
   }
 
   .thai-line,
   .portal-line {
-    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    font-size: clamp(1.8rem, 3.8vw + 0.5rem, 3.2rem);
     font-weight: 800;
     line-height: 1.1;
-    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    background: linear-gradient(
+      120deg,
+      #ffffff 0%,
+      #e0f2fe 30%,
+      #bae6fd 60%,
+      #e2e8f0 85%,
+      #ffffff 100%
+    );
+    background-size: 250% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75));
+    animation: neonShiftOperations 7s ease-in-out infinite;
+    will-change: background-position, filter;
   }
 
   .thai-accent,
   .portal-accent {
-    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    font-size: clamp(1.8rem, 3.8vw + 0.5rem, 3.2rem);
     font-weight: 800;
     line-height: 1.1;
-    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 60%, #c084fc 100%);
+    background: linear-gradient(
+      120deg,
+      #38bdf8 0%,
+      #818cf8 35%,
+      #c084fc 70%,
+      #34d399 90%,
+      #38bdf8 100%
+    );
+    background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 12px rgba(129, 140, 248, 0.5));
+    animation: neonShiftPortal 6s ease-in-out infinite;
+    will-change: background-position, filter;
   }
 
   .lead {
-    font-size: clamp(1.02rem, 1.8vw, 1.18rem);
-    line-height: 1.8;
+    font-size: clamp(0.96rem, 1.1vw + 0.4rem, 1.18rem);
+    line-height: clamp(1.65, 1.8vw, 1.85);
     color: #e2e8f0;
-    max-width: 780px;
-    margin: 0 0 32px 0;
+    max-width: min(100%, 780px);
+    margin: 0 0 clamp(24px, 3.5vh, 36px) 0;
     font-weight: 400;
     text-align: left;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
@@ -1162,11 +1194,122 @@ export const dashboardGlobalStyles: string = `
     font-weight: 700;
   }
 
-  /* --- 10. Keyframes & Animations --- */
+  /* --- 10. Keyframes & Dynamic Glow Animations --- */
   @keyframes pulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes neonShiftUSO {
+    0% {
+      background-position: 0% 50%;
+      filter: 
+        drop-shadow(0 0 18px rgba(45, 212, 191, 0.55))
+        drop-shadow(0 0 40px rgba(129, 140, 248, 0.45))
+        drop-shadow(0 0 68px rgba(192, 132, 252, 0.35))
+        drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: 
+        drop-shadow(0 0 26px rgba(56, 189, 248, 0.75))
+        drop-shadow(0 0 52px rgba(168, 85, 247, 0.55))
+        drop-shadow(0 0 78px rgba(45, 212, 191, 0.45))
+        drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: 
+        drop-shadow(0 0 18px rgba(45, 212, 191, 0.55))
+        drop-shadow(0 0 40px rgba(129, 140, 248, 0.45))
+        drop-shadow(0 0 68px rgba(192, 132, 252, 0.35))
+        drop-shadow(0 10px 24px rgba(0, 0, 0, 0.9));
+    }
+  }
+
+  @keyframes neonShiftDivider {
+    0% {
+      background-position: 0% 50%;
+      box-shadow: 
+        0 0 10px rgba(34, 211, 238, 0.85),
+        0 0 22px rgba(129, 140, 248, 0.65),
+        0 0 34px rgba(192, 132, 252, 0.5);
+    }
+    50% {
+      background-position: 100% 50%;
+      box-shadow: 
+        0 0 16px rgba(45, 212, 191, 0.95),
+        0 0 28px rgba(56, 189, 248, 0.8),
+        0 0 44px rgba(168, 85, 247, 0.65);
+    }
+    100% {
+      background-position: 0% 50%;
+      box-shadow: 
+        0 0 10px rgba(34, 211, 238, 0.85),
+        0 0 22px rgba(129, 140, 248, 0.65),
+        0 0 34px rgba(192, 132, 252, 0.5);
+    }
+  }
+
+  @keyframes neonShiftOperations {
+    0% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 18px rgba(56, 189, 248, 0.45));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.25));
+    }
+  }
+
+  @keyframes neonShiftPortal {
+    0% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 12px rgba(129, 140, 248, 0.55)) drop-shadow(0 0 18px rgba(56, 189, 248, 0.45));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: drop-shadow(0 2px 14px rgba(192, 132, 252, 0.75)) drop-shadow(0 0 28px rgba(45, 212, 191, 0.6));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 2px 12px rgba(129, 140, 248, 0.55)) drop-shadow(0 0 18px rgba(56, 189, 248, 0.45));
+    }
+  }
+
+  @keyframes neonShiftEyebrow {
+    0% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: drop-shadow(0 0 14px rgba(45, 212, 191, 0.85));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+    }
+  }
+
+  @keyframes neonShiftBrand {
+    0% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: drop-shadow(0 0 15px rgba(129, 140, 248, 0.65)) drop-shadow(0 0 22px rgba(45, 212, 191, 0.5));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.45));
+    }
   }
 
   /* --- 11. Responsive Breakpoints --- */
@@ -1179,7 +1322,7 @@ export const dashboardGlobalStyles: string = `
   @media (max-width: 640px) {
     .container.hero,
     .hero {
-      padding: 40px 0;
+      padding: clamp(32px, 6vh, 48px) 0;
       min-height: 100vh;
       min-height: 100dvh;
       text-align: left;
@@ -1206,7 +1349,7 @@ export const dashboardGlobalStyles: string = `
       justify-content: flex-start;
     }
     .uso-word {
-      font-size: clamp(3.2rem, 16vw, 4.5rem);
+      font-size: clamp(3rem, 15vw, 4.4rem);
     }
     .thai-title,
     .portal-title {
@@ -1217,10 +1360,10 @@ export const dashboardGlobalStyles: string = `
     .portal-line,
     .thai-accent,
     .portal-accent {
-      font-size: clamp(1.5rem, 7vw, 2.2rem);
+      font-size: clamp(1.4rem, 6.8vw, 2.1rem);
     }
     .lead {
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       line-height: 1.65;
       margin-bottom: 24px;
       text-align: left;
@@ -1253,6 +1396,19 @@ export const dashboardGlobalStyles: string = `
     .footer-inner {
       flex-direction: column;
       text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .uso-word,
+    .uso-divider-glow,
+    .thai-line,
+    .portal-line,
+    .thai-accent,
+    .portal-accent,
+    .eyebrow-dash,
+    .brand-text {
+      animation: none !important;
     }
   }
 `;
