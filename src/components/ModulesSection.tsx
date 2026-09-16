@@ -43,7 +43,8 @@ export const ModulesSection: React.FC<ModulesSectionProps> = ({
   };
 
   return (
-    <section id="modules-section" className="dashboard-container">
+    <section id="systems" className="dashboard-container">
+      <span id="modules-section" aria-hidden="true" style={{ display: 'none' }} />
       <div className="section-info-bar">
         <div className="section-label-text">
           <svg

@@ -210,6 +210,178 @@ export const dashboardGlobalStyles: string = `
   }
 
   /* --- 4. Main Container & Hero Section --- */
+  .container.hero,
+  .hero {
+    background: linear-gradient(180deg, #0b1329 0%, #0f172a 55%, #1e293b 100%);
+    color: #ffffff;
+    padding: 60px 24px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .container.hero::before,
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -45%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 950px;
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.2) 0%, rgba(37, 99, 235, 0.12) 45%, transparent 75%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .container.hero > div,
+  .hero > div {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    color: var(--accent-sky);
+    padding: 7px 20px;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 5.2vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .uso-word {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(56, 189, 248, 0.45));
+    position: relative;
+    display: inline-block;
+  }
+
+  .thai-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .thai-line {
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .thai-accent {
+    background: linear-gradient(135deg, #38bdf8 0%, #6ee7b7 60%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(52, 211, 153, 0.35));
+    font-weight: 800;
+  }
+
+  .lead {
+    font-size: clamp(1.02rem, 1.8vw, 1.18rem);
+    line-height: 1.8;
+    color: #cbd5e1;
+    max-width: 780px;
+    margin: 0 auto 32px;
+    font-weight: 400;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 34px;
+    border-radius: var(--radius-pill);
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--anim-base);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 100%);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 18px rgba(37, 99, 235, 0.45);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(37, 99, 235, 0.65);
+    background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-400) 100%);
+    color: #ffffff;
+  }
+
+  .quick-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .quick-list span {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #94a3b8;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 7px 18px;
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(8px);
+    transition: all var(--anim-fast);
+  }
+
+  .quick-list span:hover {
+    color: #f8fafc;
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(56, 189, 248, 0.12);
+    box-shadow: 0 2px 10px rgba(56, 189, 248, 0.25);
+    transform: translateY(-1px);
+  }
+
   .landing-hero-section {
     background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
     color: #ffffff;

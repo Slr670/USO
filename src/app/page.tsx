@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0);
 
   const handleExploreClick = () => {
-    const el = document.getElementById('modules-section');
+    const el = document.getElementById('systems') || document.getElementById('modules-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
