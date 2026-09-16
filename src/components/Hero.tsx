@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: src/components/Hero.tsx
  * Purpose: Hero Component with Operations Command Banner & Full-Screen Video Background
- * Version: 3.0.8
+ * Version: 3.0.9
  * ===================================================================
  */
 
@@ -40,14 +40,20 @@ export const Hero: React.FC<HeroProps> = ({
       </div>
 
       <div className="hero-inner">
-        <div className="eyebrow">USO TELECOMMUNICATION OPERATIONS</div>
+        <div className="eyebrow">
+          <span className="eyebrow-dash" aria-hidden="true" />
+          <span>USO TELECOMMUNICATION OPERATIONS</span>
+        </div>
         <h1 className="hero-title">
-          <span className="uso-word" data-text="USO">
-            USO
-          </span>
-          <span className="thai-title">
-            <span className="thai-line">OPERATIONS</span>
-            <span className="thai-line thai-accent">PORTAL</span>
+          <div className="uso-brand-group">
+            <span className="uso-word" data-text="USO">
+              USO
+            </span>
+            <span className="uso-divider-glow" aria-hidden="true" />
+          </div>
+          <span className="thai-title portal-title">
+            <span className="thai-line portal-line">OPERATIONS</span>
+            <span className="thai-line thai-accent portal-accent">PORTAL</span>
           </span>
         </h1>
         <p className="lead">

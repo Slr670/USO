@@ -14,7 +14,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.8';
+const EXPECTED_VERSION = '3.0.9';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.8) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.9) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.8',
+    'constants.ts APP_VERSION is 3.0.9',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );

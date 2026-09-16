@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.9] - 2026-09-16
+### Changed
+- **Redesigned 'USO' Typography, Eyebrow Dash, & Glowing Gradient Divider Line:**
+  - Added a vibrant cyan horizontal accent line/dash (`.eyebrow-dash`) to the left of the uppercase eyebrow text `'USO TELECOMMUNICATION OPERATIONS'`.
+  - Redesigned the main `'USO'` lettering with large, bold, rounded/3D typography (`font-weight: 900`, `font-size: clamp(4.2rem, 9.5vw, 7rem)`) featuring a smooth teal-to-purple gradient fill (`#34d399` -> `#2dd4bf` -> `#38bdf8` -> `#818cf8` -> `#c084fc`).
+  - Added a thin luminous outline/stroke effect (`-webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.28)`) and multi-layer glowing aura (`drop-shadow` in cyan, indigo, and violet).
+  - Added a glowing gradient divider line (`.uso-divider-glow`) directly beneath the 'USO' text transitioning from cyan/teal to soft purple with balanced radiance and rounded pill ends.
+  - Aligned and spaced the accompanying `'OPERATIONS PORTAL'` subtitle alongside the brand group with responsive baseline alignment and mobile wrapping.
+
 ## [3.0.8] - 2026-09-16
 ### Changed
 - **Full-Screen Background Video (VEO1) Implementation & Hero Layering:**
