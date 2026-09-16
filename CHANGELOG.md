@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-09-16
+### Fixed
+- **Vercel Deployment 404 Resolution:**
+  - Configured `"framework": "nextjs"` and `"buildCommand": "next build"` explicitly in `vercel.json` to enforce Next.js App Router detection on Vercel and prevent static "Other" preset fallback errors.
+
 ## [3.0.0] - 2026-09-16
 ### Added
 - **TypeScript-Only Fullstack Architecture Migration:**
