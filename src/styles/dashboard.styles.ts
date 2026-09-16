@@ -119,6 +119,7 @@ export const dashboardGlobalStyles: string = `
   .brand {
     display: inline-flex;
     align-items: center;
+    gap: 12px;
     text-decoration: none;
     transition: opacity var(--anim-base), transform var(--anim-base);
   }
@@ -134,22 +135,47 @@ export const dashboardGlobalStyles: string = `
     align-items: center;
     justify-content: center;
     height: 42px;
+    width: 42px;
+    background: transparent;
+    border: none;
+    outline: none;
   }
 
   .uso-image-mark img {
-    height: 42px;
+    height: 40px;
     width: auto;
     max-width: 100%;
     aspect-ratio: 84 / 80;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.35));
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.3));
     transition: filter var(--anim-base), transform var(--anim-base);
   }
 
   .brand:hover .uso-image-mark img {
     filter: drop-shadow(0 4px 14px rgba(56, 189, 248, 0.55));
-    transform: scale(1.02);
+    transform: scale(1.03);
+  }
+
+  .brand-text {
+    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: color var(--anim-base);
+  }
+
+  .brand:hover .brand-text {
+    color: var(--accent-sky);
   }
 
   .header-brand {

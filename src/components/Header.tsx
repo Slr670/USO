@@ -20,15 +20,16 @@ export const Header: React.FC = () => {
   return (
     <header className="dashboard-header">
       <div className="header-inner">
-        <a className="brand" href="#home" aria-label="USO หน้าแรก">
+        <a className="brand" href="#home" aria-label="USO OPERATIONS PORTAL">
           <span className="brand-mark uso-image-mark">
             <img
               src={USO_LOGO_SRC}
               alt="USO Logo"
-              width={44}
-              height={42}
+              width={42}
+              height={40}
             />
           </span>
+          <span className="brand-text">USO OPERATIONS PORTAL</span>
         </a>
 
         <div className="header-controls">
