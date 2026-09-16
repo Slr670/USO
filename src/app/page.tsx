@@ -51,7 +51,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="dashboard-page-root">
+    <div id="home" className="dashboard-page-root">
       <Hero
         onExploreClick={handleExploreClick}
         onVideoClick={handleVideoClick}

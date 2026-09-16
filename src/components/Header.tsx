@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: src/components/Header.tsx
  * Purpose: Top Navigation Header with Brand, Lang Switcher & Version Badge
- * Version: 3.0.0
+ * Version: 3.0.3
  * ===================================================================
  */
 
@@ -11,26 +11,20 @@
 
 import React from 'react';
 import { useI18n } from '../lib/i18n';
-import { ICONS } from '../lib/modules-data';
 import { APP_VERSION } from '../lib/constants';
+import { USO_LOGO_BASE64 } from '../assets/uso-logo';
 
 export const Header: React.FC = () => {
-  const { language, setLanguage, t } = useI18n();
+  const { language, setLanguage } = useI18n();
 
   return (
     <header className="dashboard-header">
       <div className="header-inner">
-        <div className="header-brand">
-          <div
-            className="brand-logo-circle"
-            dangerouslySetInnerHTML={{ __html: ICONS.broadcastTower }}
-            aria-hidden="true"
-          />
-          <div className="brand-titles">
-            <h1>{t('nav.title')}</h1>
-            <p>{t('nav.subtitle')}</p>
-          </div>
-        </div>
+        <a className="brand" href="#home" aria-label="USO หน้าแรก">
+          <span className="brand-mark uso-image-mark">
+            <img src={USO_LOGO_BASE64} alt="USO Logo" />
+          </span>
+        </a>
 
         <div className="header-controls">
           <button

@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.3] - 2026-09-16
+### Changed
+- **Header Brand & USO Logo Component Refactor:**
+  - Replaced the header logo/branding block in `src/components/Header.tsx` with the new USO brand link snippet (`.brand > .brand-mark.uso-image-mark > img`).
+  - Refactored the snippet into clean TypeScript/TSX syntax (`className`, `alt="USO Logo"`, `aria-label="USO หน้าแรก"`, `href="#home"`).
+  - Extracted inline base64 image data into a separate maintainable asset constant `src/assets/uso-logo.ts` (`USO_LOGO_BASE64`) and re-exported it from `src/lib/constants.ts`.
+  - Added responsive header styling and drop-shadow effects for `.brand`, `.brand-mark`, and `.uso-image-mark` in `src/styles/dashboard.styles.ts`.
+  - Configured `#home` anchor target on the root dashboard container in `src/app/page.tsx`.
+
 ## [3.0.2] - 2026-09-16
 ### Changed
 - **Intelligent Operations Command Banner (Hero Section UI Refactor):**

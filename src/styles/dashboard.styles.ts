@@ -116,6 +116,39 @@ export const dashboardGlobalStyles: string = `
     flex-wrap: wrap;
   }
 
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity var(--anim-base), transform var(--anim-base);
+  }
+
+  .brand:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+  }
+
+  .brand-mark,
+  .uso-image-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .uso-image-mark img {
+    height: 38px;
+    width: auto;
+    max-width: 175px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.35));
+    transition: filter var(--anim-base);
+  }
+
+  .brand:hover .uso-image-mark img {
+    filter: drop-shadow(0 4px 14px rgba(56, 189, 248, 0.55));
+  }
+
   .header-brand {
     display: flex;
     align-items: center;
