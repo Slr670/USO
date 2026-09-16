@@ -80,6 +80,8 @@ export interface TranslationVideo {
   readonly title: string;
   readonly description: string;
   readonly fallback: string;
+  readonly enableSound: string;
+  readonly soundActive: string;
 }
 
 export interface TranslationActions {

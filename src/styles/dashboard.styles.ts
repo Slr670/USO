@@ -342,71 +342,6 @@ export const dashboardGlobalStyles: string = `
     pointer-events: none;
   }
 
-  /* --- Hero Audio Control Button --- */
-  .hero-audio-toggle {
-    position: absolute;
-    bottom: clamp(24px, 4vh, 40px);
-    right: clamp(24px, 4vw, 52px);
-    z-index: 25;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: var(--radius-pill);
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    color: #e2e8f0;
-    font-size: 0.86rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 14px rgba(6, 182, 212, 0.2);
-    transition: all var(--anim-base);
-    user-select: none;
-    pointer-events: auto;
-  }
-
-  .hero-audio-toggle:hover {
-    background: rgba(30, 41, 59, 0.9);
-    border-color: rgba(56, 189, 248, 0.7);
-    color: #38bdf8;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.4);
-    transform: translateY(-2px);
-  }
-
-  .hero-audio-toggle:active {
-    transform: translateY(0);
-  }
-
-  .hero-audio-toggle .ui-icon {
-    width: 18px;
-    height: 18px;
-    stroke-width: 2;
-    flex-shrink: 0;
-  }
-
-  .hero-audio-toggle.muted {
-    border-color: rgba(244, 63, 94, 0.4);
-  }
-
-  .hero-audio-toggle.muted:hover {
-    border-color: rgba(244, 63, 94, 0.7);
-    color: #fda4af;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 18px rgba(244, 63, 94, 0.35);
-  }
-
-  .hero-audio-toggle.unmuted {
-    border-color: rgba(52, 211, 153, 0.45);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(52, 211, 153, 0.25);
-  }
-
-  .hero-audio-toggle.unmuted:hover {
-    border-color: rgba(52, 211, 153, 0.75);
-    color: #6ee7b7;
-  }
-
   .container.hero::before,
   .hero::before {
     content: '';
@@ -1193,6 +1128,78 @@ export const dashboardGlobalStyles: string = `
     object-fit: contain;
   }
 
+  .video-audio-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+  }
+
+  .video-audio-pill .video-audio-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .video-audio-active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+  }
+
+  .video-audio-muted {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+  }
+
+  .video-unmute-prompt-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    color: #38bdf8;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.3);
+    transition: all 0.25s ease;
+    animation: videoUnmutePulse 2s infinite ease-in-out;
+  }
+
+  .video-unmute-prompt-btn:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: #38bdf8;
+    color: #ffffff;
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.5);
+  }
+
+  .video-unmute-prompt-btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  @keyframes videoUnmutePulse {
+    0%, 100% {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.3);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+    50% {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 26px rgba(56, 189, 248, 0.6);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+  }
+
   .video-caption-bar {
     display: flex;
     align-items: center;
@@ -1440,12 +1447,6 @@ export const dashboardGlobalStyles: string = `
     .quick-list {
       justify-content: flex-start;
     }
-    .hero-audio-toggle {
-      bottom: 16px;
-      right: 16px;
-      padding: 8px 14px;
-      font-size: 0.78rem;
-    }
     .grid-container {
       grid-template-columns: 1fr;
     }
@@ -1464,6 +1465,12 @@ export const dashboardGlobalStyles: string = `
       flex-direction: column;
       align-items: flex-start;
     }
+    .video-unmute-prompt-btn {
+      top: 10px;
+      right: 10px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+    }
     .footer-inner {
       flex-direction: column;
       text-align: center;
@@ -1478,7 +1485,8 @@ export const dashboardGlobalStyles: string = `
     .thai-accent,
     .portal-accent,
     .eyebrow-dash,
-    .brand-text {
+    .brand-text,
+    .video-unmute-prompt-btn {
       animation: none !important;
     }
   }

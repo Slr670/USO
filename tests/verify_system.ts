@@ -14,7 +14,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.11';
+const EXPECTED_VERSION = '3.0.12';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.11) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.12) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.11',
+    'constants.ts APP_VERSION is 3.0.12',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -212,34 +212,42 @@ function verifyZeroLegacyFiles() {
   return { legacyJava, legacyHtml, legacyCss, legacyJs };
 }
 
-function verifyHeroVideoSoundPolicy() {
-  console.log('\n--- 7. Hero Video Sound & Autoplay Policy ---');
-  const heroFilePath = path.join(ROOT_DIR, 'src/components/Hero.tsx');
-  const heroContent = fs.readFileSync(heroFilePath, 'utf8');
+function verifyVideoShowcaseAutoplay() {
+  console.log('\n--- 7. Video Showcase Unmuted Autoplay & Browser Policy Integrity ---');
 
-  // Verify muted attribute is NOT present on <video> tag
-  const videoTagMatch = heroContent.match(/<video[\s\S]*?>/);
-  assertCheck('Hero <video> element exists in Hero.tsx', !!videoTagMatch);
+  const videoComponentPath = path.join(ROOT_DIR, 'src/components/VideoShowcase.tsx');
+  assertCheck('VideoShowcase.tsx component exists', fs.existsSync(videoComponentPath));
 
-  if (videoTagMatch) {
-    const hasMutedAttr = /\bmuted\b/.test(videoTagMatch[0]);
-    assertCheck(
-      'Hero <video> element does NOT have muted attribute',
-      !hasMutedAttr,
-      'Found muted attribute on <video> element'
-    );
-  }
+  const content = fs.readFileSync(videoComponentPath, 'utf8');
 
+  // Video element must NOT have muted constraint
   assertCheck(
-    'Hero component implements play promise handling',
-    heroContent.includes('playPromise') && heroContent.includes('.catch('),
-    'Missing play promise rejection handling'
+    'VideoShowcase video element does not contain hardcoded muted attribute',
+    !/<video[^>]*\smuted(\s|>)/.test(content)
+  );
+
+  // Video element must have autoPlay attribute
+  assertCheck(
+    'VideoShowcase video element contains autoPlay attribute',
+    content.includes('autoPlay')
+  );
+
+  // Handles browser autoplay policy and user gesture unlocking
+  assertCheck(
+    'VideoShowcase implements unmuted autoplay with policy-aware fallback',
+    content.includes('video.muted = false') && content.includes('isAudioBlocked')
   );
 
   assertCheck(
-    'Hero component provides interactive sound toggle control',
-    heroContent.includes('hero-audio-toggle') && heroContent.includes('toggleSound'),
-    'Missing hero-audio-toggle element'
+    'VideoShowcase includes one-click unmute overlay button',
+    content.includes('video-unmute-prompt-btn')
+  );
+
+  // Master video file exists
+  const masterVideoPath = path.join(ROOT_DIR, 'public/FORTH_MASTER_Video_Final-Additional.mp4');
+  assertCheck(
+    'Master presentation video asset exists in public/',
+    fs.existsSync(masterVideoPath) && fs.statSync(masterVideoPath).size > 0
   );
 }
 
@@ -255,7 +263,7 @@ export function runSuite() {
   verifyI18nEngine();
   verifyUiIconPolicy();
   verifyZeroLegacyFiles();
-  verifyHeroVideoSoundPolicy();
+  verifyVideoShowcaseAutoplay();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

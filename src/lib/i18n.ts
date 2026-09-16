@@ -94,7 +94,9 @@ export const I18N_RESOURCES: I18nResources = {
         badge: "System Demonstration & Media Presentation",
         title: "FORTH Master System Operations Video",
         description: "Comprehensive overview and instructional walkthrough of the Super High Frequency (SHF) Repeater Network system operations and maintenance procedures.",
-        fallback: "Your browser does not support HTML5 video playback. Please update your browser."
+        fallback: "Your browser does not support HTML5 video playback. Please update your browser.",
+        enableSound: "Click to Enable Audio (Unmute)",
+        soundActive: "Audio Active"
       },
       actions: {
         openPrimary: "Launch Primary System: {{title}}",
@@ -189,7 +191,9 @@ export const I18N_RESOURCES: I18nResources = {
         badge: "การสาธิตระบบและสื่อนำเสนอ",
         title: "วิดีโอนำเสนอการปฏิบัติการระบบ FORTH Master",
         description: "ภาพรวมและขั้นตอนการปฏิบัติการโครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF) และกระบวนการบำรุงรักษา",
-        fallback: "เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ HTML5 กรุณาอัปเดตเบราว์เซอร์"
+        fallback: "เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ HTML5 กรุณาอัปเดตเบราว์เซอร์",
+        enableSound: "คลิกเพื่อเปิดเสียง (Unmute)",
+        soundActive: "ระบบเสียงทำงานปกติ"
       },
       actions: {
         openPrimary: "เปิดระบบหลัก: {{title}}",

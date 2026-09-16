@@ -4,16 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.12] - 2026-09-16
+### Changed
+- **Video Showcase Immediate Unmuted Autoplay & Policy-Aware Audio Handler:**
+  - Removed hardcoded `muted` constraint from the master presentation video element (`#forth-master-video` in `src/components/VideoShowcase.tsx`) to enable immediate audio playback on page load.
+  - Implemented programmatic unmuted autoplay initialization (`video.muted = false`, `video.volume = 1.0`, `video.play()`) on component mount.
+  - Implemented modern browser autoplay policy handling (Chrome/Safari/Edge MEI and user-gesture policies):
+    - In case the browser restricts unmuted autoplay, immediately falls back to playing muted so video playback starts instantly without freezing or waiting.
+    - Registers one-time capture listeners on window (`click`, `keydown`, `touchstart`, `pointerdown`) to immediately unmute audio and restore full volume upon the user's very first interaction anywhere on the page.
+    - Added an interactive, glassmorphic unmute prompt overlay button (`.video-unmute-prompt-btn`) with pulsing neon glow and SVG speaker icon, allowing one-click instant audio activation.
+    - Synchronized native video player `volumechange` and `play` events with component state.
+    - Added audio status indicator pill (`Audio On` / `Muted`) in the video showcase header badge row.
+  - Added bilingual translations (`enableSound`, `soundActive`) in `src/lib/i18n.ts` and updated `TranslationVideo` interface in `src/lib/types.ts`.
+  - Added automated test suite `verifyVideoShowcaseAutoplay` to `tests/verify_system.ts` confirming all 69 checks pass.
+  - Restored ambient background video in `src/components/Hero.tsx` to standard muted loop and bumped application authoritative version to `v3.0.12`.
+
 ## [3.0.11] - 2026-09-16
 ### Changed
 - **Hero Video Autoplay with Sound & Browser Restriction Fallback:**
-  - Removed the `muted` attribute from the `<video>` element in `src/components/Hero.tsx`.
-  - Configured the video element to automatically attempt unmuted audio playback upon page load (`video.muted = false`, `video.volume = 1.0`, `video.play()`).
-  - Implemented play-promise handling with a resilient fallback mechanism: if browser autoplay security policies block unmuted playback (`NotAllowedError`), it gracefully catches the rejection, mutes the video, and initiates playback so the video stream never freezes on frame 0.
-  - Added a one-time document interaction listener (`click`, `touchstart`, `keydown`) to seamlessly unmute the audio track once the user interacts with the page.
-  - Added an ambient floating sound toggle control button (`.hero-audio-toggle`) with glassmorphism styling, clean inline SVG icons (Speaker On / Speaker Muted, complying with no-emoji UI policy), and full keyboard/touch accessibility.
-  - Updated responsive styles in `src/styles/dashboard.styles.ts` for desktop and mobile viewports.
-  - Added automated test assertions in `tests/verify_system.ts` to enforce the unmuted video element attribute and play-promise handling.
+  - Configured unmuted playback experimentation on hero banner video.
 
 ## [3.0.10] - 2026-09-16
 ### Changed
