@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: src/components/ModuleCard.tsx
  * Purpose: Interactive Card for Operational Module
- * Version: 3.0.0
+ * Version: 3.0.14
  * ===================================================================
  */
 

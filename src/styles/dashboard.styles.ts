@@ -808,12 +808,36 @@ export const dashboardGlobalStyles: string = `
     height: 52px;
     border-radius: var(--radius-md);
     background: var(--primary-50);
+    border: 1px solid rgba(219, 234, 254, 0.7);
     color: var(--primary-600);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 12px;
-    transition: all var(--anim-base);
+    position: relative;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.05);
+    transition: 
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.35s ease,
+      color 0.3s ease;
+  }
+
+  /* Glowing Aura Backdrop for Micro-interaction */
+  .card-icon-box::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: calc(var(--radius-md) + 4px);
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(37, 99, 235, 0.1) 50%, transparent 75%);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: 
+      opacity 0.38s ease,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    z-index: 0;
   }
 
   .card-icon-box svg,
@@ -827,6 +851,12 @@ export const dashboardGlobalStyles: string = `
     stroke-linejoin: round;
     display: inline-block;
     vertical-align: middle;
+    position: relative;
+    z-index: 1;
+    transition: 
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.35s ease,
+      stroke 0.3s ease;
   }
 
   .ui-icon-xs {
@@ -841,10 +871,42 @@ export const dashboardGlobalStyles: string = `
     vertical-align: middle;
   }
 
+  /* Engaging Hover Effects & Smooth Micro-Interactions */
   .card-btn:hover .card-icon-box {
-    background: var(--primary-100);
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: rgba(59, 130, 246, 0.45);
     color: var(--primary-700);
-    transform: scale(1.08);
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12), 0 8px 20px rgba(37, 99, 235, 0.18);
+  }
+
+  .card-btn:hover .card-icon-box::before {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  .card-btn:hover .card-icon-box svg {
+    animation: iconSpringBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    filter: drop-shadow(0 3px 8px rgba(37, 99, 235, 0.4));
+  }
+
+  /* Micro-Interaction Keyframes: Subtle Scale-Up, Rotation, & Spring Bounce */
+  @keyframes iconSpringBounce {
+    0% {
+      transform: scale(1) rotate(0deg);
+    }
+    30% {
+      transform: scale(1.22) rotate(-7deg);
+    }
+    60% {
+      transform: scale(1.1) rotate(4deg);
+    }
+    85% {
+      transform: scale(1.18) rotate(-2deg);
+    }
+    100% {
+      transform: scale(1.15) rotate(0deg);
+    }
   }
 
   .card-label-text {
@@ -869,9 +931,16 @@ export const dashboardGlobalStyles: string = `
     display: flex;
     align-items: center;
     gap: 3px;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
   }
 
-  /* Active Card State */
+  .card-btn:hover .external-link-pill {
+    transform: scale(1.08) translate(1px, -1px);
+    background: var(--primary-100);
+    color: var(--primary-700);
+  }
+
+  /* Active Card State with Luminous Glow */
   .card-btn.active {
     background: linear-gradient(145deg, #1d4ed8 0%, #1e40af 100%);
     border-color: #1e40af;
@@ -884,9 +953,33 @@ export const dashboardGlobalStyles: string = `
   }
 
   .card-btn.active .card-icon-box {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.45);
     color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15), 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-btn.active .card-icon-box::before {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(56, 189, 248, 0.25) 50%, transparent 75%);
+    opacity: 0.7;
+    transform: scale(1.08);
+  }
+
+  .card-btn.active:hover .card-icon-box {
+    background: rgba(255, 255, 255, 0.32);
+    border-color: rgba(255, 255, 255, 0.65);
+    transform: translateY(-4px) scale(1.12);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.25), 0 10px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-btn.active:hover .card-icon-box::before {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  .card-btn.active:hover .card-icon-box svg {
+    animation: iconSpringBounce 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85));
   }
 
   .card-btn.active .card-label-text {
@@ -961,6 +1054,12 @@ export const dashboardGlobalStyles: string = `
     justify-content: center;
     color: var(--primary-600);
     flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+  }
+
+  .panel-icon-svg-wrap:hover {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.15), 0 8px 20px rgba(37, 99, 235, 0.2);
   }
 
   .panel-icon-svg-wrap svg {
@@ -1407,8 +1506,13 @@ export const dashboardGlobalStyles: string = `
     .thai-accent,
     .portal-accent,
     .eyebrow-dash,
-    .brand-text {
+    .brand-text,
+    .card-icon-box,
+    .card-icon-box svg,
+    .card-icon-box::before,
+    .panel-icon-svg-wrap {
       animation: none !important;
+      transition: none !important;
     }
   }
 `;

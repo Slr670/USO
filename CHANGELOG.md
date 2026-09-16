@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.14] - 2026-09-16
+### Changed
+- **Service Module Card Icons Visual Micro-Interactions & Hover Dynamics:**
+  - Added smooth, engaging visual micro-interactions to the service module icons (`.card-icon-box` and `.card-icon-box svg`).
+  - Implemented radial glowing aura backdrop (`.card-icon-box::before`) that blooms with a smooth blur on hover (`radial-gradient` transitioning with `cubic-bezier(0.34, 1.56, 0.64, 1)`).
+  - Implemented an interactive spring bounce and rotation micro-animation (`@keyframes iconSpringBounce`) on card hover, subtly scaling up the SVG icon with an elegant tilt and drop-shadow depth.
+  - Enhanced active card state (`.card-btn.active`) with intense white/cyan luminous aura and drop-shadow glow.
+  - Added interactive hover elevation to the detail display icon (`.panel-icon-svg-wrap`).
+  - Added accessibility support in `@media (prefers-reduced-motion: reduce)` to gracefully disable icon spring animations for users who prefer reduced motion.
+  - Added automated test suite `verifyModuleCardMicroInteractions` to `tests/verify_system.ts` confirming all 75 checks pass.
+  - Bumped application authoritative version to `v3.0.14`.
+
 ## [3.0.13] - 2026-09-16
 ### Changed
 - **Removed Audio Toggle Button/Widget & Cleaned Up Associated State:**

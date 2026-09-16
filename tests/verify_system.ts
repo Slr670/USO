@@ -14,7 +14,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.13';
+const EXPECTED_VERSION = '3.0.14';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.13) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.14) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.13',
+    'constants.ts APP_VERSION is 3.0.14',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -258,6 +258,44 @@ function verifyVideoShowcaseAutoplay() {
   );
 }
 
+function verifyModuleCardMicroInteractions() {
+  console.log('\n--- 8. Service Module Card Icon Micro-Interactions & Hover Dynamics ---');
+
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  assertCheck('dashboard.styles.ts exists', fs.existsSync(stylesPath));
+
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+
+  // Check card-icon-box glowing aura backdrop
+  assertCheck(
+    'Styles contain card-icon-box glowing aura backdrop (.card-icon-box::before)',
+    stylesContent.includes('.card-icon-box::before') && stylesContent.includes('radial-gradient')
+  );
+
+  // Check hover spring micro-interaction animation
+  assertCheck(
+    'Styles define iconSpringBounce keyframes for scale-up, rotation and spring bounce',
+    stylesContent.includes('@keyframes iconSpringBounce')
+  );
+
+  assertCheck(
+    'Card hover applies spring bounce animation and glowing aura bloom',
+    stylesContent.includes('animation: iconSpringBounce') && stylesContent.includes('.card-btn:hover .card-icon-box::before')
+  );
+
+  // Check active card hover glow
+  assertCheck(
+    'Active card maintains enhanced hover aura and filter drop-shadow',
+    stylesContent.includes('.card-btn.active:hover .card-icon-box')
+  );
+
+  // Check prefers-reduced-motion compliance
+  assertCheck(
+    'Reduced motion gracefully disables card icon spring animation',
+    stylesContent.includes('.card-icon-box') && stylesContent.includes('prefers-reduced-motion')
+  );
+}
+
 export function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -271,6 +309,7 @@ export function runSuite() {
   verifyUiIconPolicy();
   verifyZeroLegacyFiles();
   verifyVideoShowcaseAutoplay();
+  verifyModuleCardMicroInteractions();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);
