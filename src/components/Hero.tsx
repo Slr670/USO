@@ -46,8 +46,8 @@ export const Hero: React.FC<HeroProps> = ({
             USO
           </span>
           <span className="thai-title">
-            <span className="thai-line">ศูนย์ปฏิบัติการ</span>
-            <span className="thai-line thai-accent">อัจฉริยะ</span>
+            <span className="thai-line">OPERATIONS</span>
+            <span className="thai-line thai-accent">PORTAL</span>
           </span>
         </h1>
         <p className="lead">
