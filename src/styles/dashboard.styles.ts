@@ -342,6 +342,71 @@ export const dashboardGlobalStyles: string = `
     pointer-events: none;
   }
 
+  /* --- Hero Audio Control Button --- */
+  .hero-audio-toggle {
+    position: absolute;
+    bottom: clamp(24px, 4vh, 40px);
+    right: clamp(24px, 4vw, 52px);
+    z-index: 25;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-pill);
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #e2e8f0;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 14px rgba(6, 182, 212, 0.2);
+    transition: all var(--anim-base);
+    user-select: none;
+    pointer-events: auto;
+  }
+
+  .hero-audio-toggle:hover {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(56, 189, 248, 0.7);
+    color: #38bdf8;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 20px rgba(56, 189, 248, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .hero-audio-toggle:active {
+    transform: translateY(0);
+  }
+
+  .hero-audio-toggle .ui-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  .hero-audio-toggle.muted {
+    border-color: rgba(244, 63, 94, 0.4);
+  }
+
+  .hero-audio-toggle.muted:hover {
+    border-color: rgba(244, 63, 94, 0.7);
+    color: #fda4af;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55), 0 0 18px rgba(244, 63, 94, 0.35);
+  }
+
+  .hero-audio-toggle.unmuted {
+    border-color: rgba(52, 211, 153, 0.45);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 16px rgba(52, 211, 153, 0.25);
+  }
+
+  .hero-audio-toggle.unmuted:hover {
+    border-color: rgba(52, 211, 153, 0.75);
+    color: #6ee7b7;
+  }
+
   .container.hero::before,
   .hero::before {
     content: '';
@@ -1374,6 +1439,12 @@ export const dashboardGlobalStyles: string = `
     }
     .quick-list {
       justify-content: flex-start;
+    }
+    .hero-audio-toggle {
+      bottom: 16px;
+      right: 16px;
+      padding: 8px 14px;
+      font-size: 0.78rem;
     }
     .grid-container {
       grid-template-columns: 1fr;

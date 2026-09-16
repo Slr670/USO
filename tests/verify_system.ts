@@ -14,7 +14,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.10';
+const EXPECTED_VERSION = '3.0.11';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.10) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.11) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.10',
+    'constants.ts APP_VERSION is 3.0.11',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -212,6 +212,37 @@ function verifyZeroLegacyFiles() {
   return { legacyJava, legacyHtml, legacyCss, legacyJs };
 }
 
+function verifyHeroVideoSoundPolicy() {
+  console.log('\n--- 7. Hero Video Sound & Autoplay Policy ---');
+  const heroFilePath = path.join(ROOT_DIR, 'src/components/Hero.tsx');
+  const heroContent = fs.readFileSync(heroFilePath, 'utf8');
+
+  // Verify muted attribute is NOT present on <video> tag
+  const videoTagMatch = heroContent.match(/<video[\s\S]*?>/);
+  assertCheck('Hero <video> element exists in Hero.tsx', !!videoTagMatch);
+
+  if (videoTagMatch) {
+    const hasMutedAttr = /\bmuted\b/.test(videoTagMatch[0]);
+    assertCheck(
+      'Hero <video> element does NOT have muted attribute',
+      !hasMutedAttr,
+      'Found muted attribute on <video> element'
+    );
+  }
+
+  assertCheck(
+    'Hero component implements play promise handling',
+    heroContent.includes('playPromise') && heroContent.includes('.catch('),
+    'Missing play promise rejection handling'
+  );
+
+  assertCheck(
+    'Hero component provides interactive sound toggle control',
+    heroContent.includes('hero-audio-toggle') && heroContent.includes('toggleSound'),
+    'Missing hero-audio-toggle element'
+  );
+}
+
 export function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -224,6 +255,7 @@ export function runSuite() {
   verifyI18nEngine();
   verifyUiIconPolicy();
   verifyZeroLegacyFiles();
+  verifyHeroVideoSoundPolicy();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

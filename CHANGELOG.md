@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.11] - 2026-09-16
+### Changed
+- **Hero Video Autoplay with Sound & Browser Restriction Fallback:**
+  - Removed the `muted` attribute from the `<video>` element in `src/components/Hero.tsx`.
+  - Configured the video element to automatically attempt unmuted audio playback upon page load (`video.muted = false`, `video.volume = 1.0`, `video.play()`).
+  - Implemented play-promise handling with a resilient fallback mechanism: if browser autoplay security policies block unmuted playback (`NotAllowedError`), it gracefully catches the rejection, mutes the video, and initiates playback so the video stream never freezes on frame 0.
+  - Added a one-time document interaction listener (`click`, `touchstart`, `keydown`) to seamlessly unmute the audio track once the user interacts with the page.
+  - Added an ambient floating sound toggle control button (`.hero-audio-toggle`) with glassmorphism styling, clean inline SVG icons (Speaker On / Speaker Muted, complying with no-emoji UI policy), and full keyboard/touch accessibility.
+  - Updated responsive styles in `src/styles/dashboard.styles.ts` for desktop and mobile viewports.
+  - Added automated test assertions in `tests/verify_system.ts` to enforce the unmuted video element attribute and play-promise handling.
+
 ## [3.0.10] - 2026-09-16
 ### Changed
 - **Dynamic Gradient Glow Animation & Ultra-Smooth Responsiveness Optimization:**
