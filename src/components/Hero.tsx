@@ -3,7 +3,7 @@
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: src/components/Hero.tsx
  * Purpose: Hero Component with Intelligent Operations Command Banner
- * Version: 3.0.2
+ * Version: 3.0.7
  * ===================================================================
  */
 

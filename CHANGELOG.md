@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.7] - 2026-09-16
+### Changed
+- **Relocated Hero Content Block to Left Side & Flex-Start Layout Alignment:**
+  - Relocated the entire landing hero section (`.container.hero`, `.hero`) content block to the left side of the screen.
+  - Updated container alignment and justification: set `align-items: flex-start`, `text-align: left`, and flexbox justification to `flex-start` across the hero container, inner content wrapper, eyebrow badge, title, subtitle, CTA action button, and quick telemetry pill tags.
+  - Constrained `.hero > div` to `max-width: 1320px; margin: 0 auto; padding: 0 24px;` aligning the hero content with the 1320px grid of the navigation header (`.header-inner`) and operations dashboard container (`.dashboard-container`).
+  - Added width constraints (`max-width: 900px` for `.hero-title` and `max-width: 780px` for `.lead`) with left margin anchoring (`margin: 0 0 32px 0`) to ensure crisp readability without horizontal stretching on ultra-wide screens.
+  - Repositioned the ambient radial glow background (`::before`) to `left: 25%` to create a harmonious visual backdrop behind the left-aligned hero content.
+  - Updated mobile responsive breakpoint `@media (max-width: 640px)` with consistent left alignment and `padding: 0 16px`.
+
 ## [3.0.6] - 2026-09-16
 ### Changed
 - **Full Viewport Height (100vh) Hero Section Layout & Flexbox Centering:**

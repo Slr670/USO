@@ -278,13 +278,13 @@ export const dashboardGlobalStyles: string = `
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background: linear-gradient(180deg, #0b1329 0%, #0f172a 55%, #1e293b 100%);
     color: #ffffff;
-    padding: 60px 24px;
+    padding: 60px 0;
     box-sizing: border-box;
-    text-align: center;
+    text-align: left;
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -295,7 +295,7 @@ export const dashboardGlobalStyles: string = `
     content: '';
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 25%;
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 1100px;
@@ -308,21 +308,23 @@ export const dashboardGlobalStyles: string = `
 
   .container.hero > div,
   .hero > div {
-    max-width: 960px;
+    max-width: 1320px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 24px;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    align-self: flex-start;
     background: rgba(6, 182, 212, 0.12);
     border: 1px solid rgba(6, 182, 212, 0.35);
     color: var(--accent-sky);
@@ -344,9 +346,11 @@ export const dashboardGlobalStyles: string = `
     margin-bottom: 24px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
+    justify-content: flex-start;
     gap: 16px;
+    text-align: left;
+    max-width: 900px;
   }
 
   .uso-word {
@@ -362,10 +366,10 @@ export const dashboardGlobalStyles: string = `
 
   .thai-title {
     display: inline-flex;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .thai-line {
@@ -387,16 +391,18 @@ export const dashboardGlobalStyles: string = `
     line-height: 1.8;
     color: #cbd5e1;
     max-width: 780px;
-    margin: 0 auto 32px;
+    margin: 0 0 32px 0;
     font-weight: 400;
+    text-align: left;
   }
 
   .actions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 16px;
     margin-bottom: 32px;
+    width: 100%;
   }
 
   .btn {
@@ -430,9 +436,10 @@ export const dashboardGlobalStyles: string = `
   .quick-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 12px;
+    width: 100%;
   }
 
   .quick-list span {
@@ -1070,21 +1077,33 @@ export const dashboardGlobalStyles: string = `
   @media (max-width: 640px) {
     .container.hero,
     .hero {
-      padding: 40px 16px;
+      padding: 40px 0;
       min-height: 100vh;
       min-height: 100dvh;
+      text-align: left;
+    }
+    .container.hero > div,
+    .hero > div {
+      padding: 0 16px;
+      align-items: flex-start;
     }
     .hero-title {
       font-size: clamp(1.8rem, 6.5vw, 2.3rem);
       gap: 10px;
+      justify-content: flex-start;
     }
     .lead {
       font-size: 0.96rem;
       line-height: 1.65;
       margin-bottom: 24px;
+      text-align: left;
     }
     .actions {
+      justify-content: flex-start;
       margin-bottom: 24px;
+    }
+    .quick-list {
+      justify-content: flex-start;
     }
     .grid-container {
       grid-template-columns: 1fr;
