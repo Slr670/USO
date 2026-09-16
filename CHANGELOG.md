@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.6] - 2026-09-16
+### Changed
+- **Full Viewport Height (100vh) Hero Section Layout & Flexbox Centering:**
+  - Expanded the landing hero section (`.container.hero`) to fill the full viewport height (`min-height: 100vh; min-height: 100dvh;`).
+  - Implemented vertical and horizontal Flexbox centering (`display: flex; flex-direction: column; align-items: center; justify-content: center;`) with balanced padding (`padding: 60px 24px; box-sizing: border-box;`).
+  - Centered the ambient radial glow pseudo-element behind the hero content without leaving awkward empty gaps below the section.
+  - Added responsive padding and typography scaling in `@media (max-width: 640px)` for mobile screens.
+
 ## [3.0.5] - 2026-09-16
 ### Changed
 - **Header Brand Logo Refinement & Portal Text Integration:**

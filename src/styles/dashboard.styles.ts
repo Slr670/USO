@@ -274,9 +274,16 @@ export const dashboardGlobalStyles: string = `
   /* --- 4. Main Container & Hero Section --- */
   .container.hero,
   .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(180deg, #0b1329 0%, #0f172a 55%, #1e293b 100%);
     color: #ffffff;
-    padding: 60px 24px 72px;
+    padding: 60px 24px;
+    box-sizing: border-box;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -287,12 +294,14 @@ export const dashboardGlobalStyles: string = `
   .hero::before {
     content: '';
     position: absolute;
-    top: -45%;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    width: 950px;
-    height: 500px;
-    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.2) 0%, rgba(37, 99, 235, 0.12) 45%, transparent 75%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1100px;
+    height: 100%;
+    max-height: 700px;
+    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.18) 0%, rgba(37, 99, 235, 0.1) 45%, transparent 75%);
     pointer-events: none;
     z-index: 1;
   }
@@ -300,12 +309,14 @@ export const dashboardGlobalStyles: string = `
   .container.hero > div,
   .hero > div {
     max-width: 960px;
+    width: 100%;
     margin: 0 auto;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .eyebrow {
@@ -1057,6 +1068,24 @@ export const dashboardGlobalStyles: string = `
   }
 
   @media (max-width: 640px) {
+    .container.hero,
+    .hero {
+      padding: 40px 16px;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    .hero-title {
+      font-size: clamp(1.8rem, 6.5vw, 2.3rem);
+      gap: 10px;
+    }
+    .lead {
+      font-size: 0.96rem;
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .actions {
+      margin-bottom: 24px;
+    }
     .grid-container {
       grid-template-columns: 1fr;
     }
