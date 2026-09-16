@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.13] - 2026-09-16
+### Changed
+- **Removed Audio Toggle Button/Widget & Cleaned Up Associated State:**
+  - Removed extraneous `.video-unmute-prompt-btn` overlay button and `.video-audio-pill` badge from `src/components/VideoShowcase.tsx` layout entirely.
+  - Cleaned up state (`isAudioBlocked`, `isMuted`), callback handlers (`handleManualUnmute`, `handleVolumeChange`, `handlePlay`), and window interaction listeners (`click`, `keydown`, `touchstart`, `pointerdown`).
+  - Removed unused CSS rules (`.video-unmute-prompt-btn`, `.video-audio-pill`, `@keyframes videoUnmutePulse`, responsive media queries) from `src/styles/dashboard.styles.ts`.
+  - Cleaned up unused translation keys (`enableSound`, `soundActive`) from `src/lib/types.ts` and `src/lib/i18n.ts`.
+  - Retained clean unmuted autoplay initialization (`video.muted = false`, `video.volume = 1.0`, `video.play()`) with standard HTML5 native video controls.
+  - Bumped application authoritative version to `v3.0.13`.
+
 ## [3.0.12] - 2026-09-16
 ### Changed
 - **Video Showcase Immediate Unmuted Autoplay & Policy-Aware Audio Handler:**

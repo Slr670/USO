@@ -1128,78 +1128,6 @@ export const dashboardGlobalStyles: string = `
     object-fit: contain;
   }
 
-  .video-audio-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.25s ease;
-  }
-
-  .video-audio-pill .video-audio-icon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .video-audio-active {
-    background: rgba(16, 185, 129, 0.15);
-    border-color: rgba(16, 185, 129, 0.4);
-    color: #34d399;
-  }
-
-  .video-audio-muted {
-    background: rgba(245, 158, 11, 0.15);
-    border-color: rgba(245, 158, 11, 0.35);
-    color: #fbbf24;
-  }
-
-  .video-unmute-prompt-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 10;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(15, 23, 42, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(56, 189, 248, 0.5);
-    color: #38bdf8;
-    padding: 8px 16px;
-    border-radius: var(--radius-pill);
-    font-size: 0.84rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.3);
-    transition: all 0.25s ease;
-    animation: videoUnmutePulse 2s infinite ease-in-out;
-  }
-
-  .video-unmute-prompt-btn:hover {
-    background: rgba(56, 189, 248, 0.2);
-    border-color: #38bdf8;
-    color: #ffffff;
-    transform: scale(1.03);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6), 0 0 24px rgba(56, 189, 248, 0.5);
-  }
-
-  .video-unmute-prompt-btn svg {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
-
-  @keyframes videoUnmutePulse {
-    0%, 100% {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(56, 189, 248, 0.3);
-      border-color: rgba(56, 189, 248, 0.5);
-    }
-    50% {
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), 0 0 26px rgba(56, 189, 248, 0.6);
-      border-color: rgba(56, 189, 248, 0.9);
-    }
-  }
-
   .video-caption-bar {
     display: flex;
     align-items: center;
@@ -1465,12 +1393,6 @@ export const dashboardGlobalStyles: string = `
       flex-direction: column;
       align-items: flex-start;
     }
-    .video-unmute-prompt-btn {
-      top: 10px;
-      right: 10px;
-      padding: 6px 12px;
-      font-size: 0.76rem;
-    }
     .footer-inner {
       flex-direction: column;
       text-align: center;
@@ -1485,8 +1407,7 @@ export const dashboardGlobalStyles: string = `
     .thai-accent,
     .portal-accent,
     .eyebrow-dash,
-    .brand-text,
-    .video-unmute-prompt-btn {
+    .brand-text {
       animation: none !important;
     }
   }

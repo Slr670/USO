@@ -14,7 +14,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.12';
+const EXPECTED_VERSION = '3.0.13';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.12) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.13) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.12',
+    'constants.ts APP_VERSION is 3.0.13',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -213,7 +213,7 @@ function verifyZeroLegacyFiles() {
 }
 
 function verifyVideoShowcaseAutoplay() {
-  console.log('\n--- 7. Video Showcase Unmuted Autoplay & Browser Policy Integrity ---');
+  console.log('\n--- 7. Video Showcase Clean Layout & Unmuted Autoplay Integrity ---');
 
   const videoComponentPath = path.join(ROOT_DIR, 'src/components/VideoShowcase.tsx');
   assertCheck('VideoShowcase.tsx component exists', fs.existsSync(videoComponentPath));
@@ -232,15 +232,22 @@ function verifyVideoShowcaseAutoplay() {
     content.includes('autoPlay')
   );
 
-  // Handles browser autoplay policy and user gesture unlocking
+  // Handles browser autoplay policy initialization
   assertCheck(
-    'VideoShowcase implements unmuted autoplay with policy-aware fallback',
-    content.includes('video.muted = false') && content.includes('isAudioBlocked')
+    'VideoShowcase implements unmuted autoplay initialization (video.muted = false)',
+    content.includes('video.muted = false')
   );
 
+  // Audio toggle button and widget are completely removed from layout
   assertCheck(
-    'VideoShowcase includes one-click unmute overlay button',
-    content.includes('video-unmute-prompt-btn')
+    'VideoShowcase has audio toggle button/widget completely removed from layout',
+    !content.includes('video-unmute-prompt-btn') && !content.includes('video-audio-pill')
+  );
+
+  // State and listeners are completely cleaned up
+  assertCheck(
+    'VideoShowcase has state and gesture listeners cleaned up',
+    !content.includes('isAudioBlocked') && !content.includes('unlockAudioOnGesture')
   );
 
   // Master video file exists
