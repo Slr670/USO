@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * - /icons/** สำหรับ Vector SVG Icons
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.8
+ * @version 2.5.0
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

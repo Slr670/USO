@@ -16,7 +16,7 @@ import java.util.List;
  * แล้วส่ง Attributes เข้าสู่ Spring MVC Model เพื่อให้ Thymeleaf Template ทำการ Render
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.8
+ * @version 2.6.0
  */
 @Controller
 public class DashboardController {
@@ -24,7 +24,7 @@ public class DashboardController {
     private final DashboardService dashboardService;
 
     /** เวอร์ชันของแอปพลิเคชันที่อ่านจาก application.yml */
-    @Value("${app.version:2.4.8}")
+    @Value("${app.version:2.6.0}")
     private String appVersion;
 
     /** ชื่อโครงการภาษาไทย */

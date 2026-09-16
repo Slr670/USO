@@ -23,45 +23,9 @@
 </head>
 <body>
 
-    <!-- 1. Header Hero Bar -->
-    <header class="header-hero">
-        <div class="header-inner">
-            <div class="header-left">
-                <!-- SHF Repeater Broadcast Tower SVG Logo -->
-                <div class="header-logo-container" title="SHF Repeater Network Operations Dashboard" data-i18n-attr="title:header.logoTooltip">
-                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
-                        <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
-                        <circle cx="12" cy="12" r="2"/>
-                        <path d="m16.24 16.24-2.83 2.83a2 2 0 0 1-2.82 0l-2.83-2.83"/>
-                        <line x1="12" y1="12" x2="12" y2="22"/>
-                    </svg>
-                </div>
-                <div class="header-title-container">
-                    <div class="header-title-row">
-                        <h1 class="header-main-title" data-i18n="header.mainTitle">Super High Frequency (SHF) Repeater Network Optimization Project</h1>
-                        <span id="app-version" class="version-badge" title="Authoritative System Version" data-i18n-attr="title:header.versionTooltip">
-                            <span class="version-indicator-dot"></span>
-                            <span>v2.4.8</span>
-                        </span>
-                    </div>
-                    <p class="header-sub-title" data-i18n="header.subTitle">Project Operations &amp; Maintenance Center (SHF Network Operations Dashboard)</p>
-                </div>
-            </div>
-
-            <!-- Header Right: React-i18next Language Switcher & Live Status Pill -->
-            <div class="header-right">
-                <div id="react-lang-switcher"></div>
-                <div class="header-status-pill">
-                    <span class="status-pulse-dot"></span>
-                    <span data-i18n="header.status">All Systems Operational (NMS Live)</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- 2. Main Dashboard Container -->
-    <main class="dashboard-container">
+    <div id="root">
+        <!-- Main Dashboard Container -->
+        <main class="dashboard-container">
 
         <!-- Section Navigation Meta Bar -->
         <div class="section-info-bar">
@@ -234,11 +198,8 @@
 
             <!-- Responsive HTML5 Video Player -->
             <div class="video-player-wrapper">
-                <video id="forth-master-video" class="responsive-video-player" src="public/FORTH_MASTER_Video_Final-Additional.mp4" controls autoplay muted playsinline preload="metadata">
+                <video id="forth-master-video" class="responsive-video-player" controls autoplay muted playsinline preload="metadata">
                     <source src="public/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
-                    <source src="/public/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
-                    <source src="/FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
-                    <source src="FORTH_MASTER_Video_Final-Additional.mp4" type="video/mp4">
                     <p data-i18n="video.fallback">Your browser does not support HTML5 video playback. Please update your browser.</p>
                 </video>
             </div>
@@ -264,10 +225,11 @@
                 &copy; 2026 SHF Repeater Network Operations &amp; Maintenance Center. All rights reserved.
             </div>
             <div>
-                <span data-i18n="footer.architecture">System Architecture: <strong>Modular Web Architecture</strong></span> | <span data-i18n="footer.versionLabel">Version:</span> <strong class="app-version-text">v2.4.8</strong>
+                <span data-i18n="footer.architecture">System Architecture: <strong>Modular Web Architecture (Dual-Stack)</strong></span> | <span data-i18n="footer.versionLabel">Version:</span> <strong class="app-version-text">v2.6.4</strong>
             </div>
         </div>
     </footer>
+    </div> <!-- /#root -->
 
     <!-- React & i18next Libraries -->
     <script src="scripts/vendor/i18next.min.js"></script>
@@ -275,9 +237,12 @@
     <script src="scripts/vendor/react-dom.production.min.js"></script>
     <script src="scripts/vendor/react-i18next.min.js"></script>
 
-    <!-- Dedicated External JavaScript Modules -->
+    <!-- Dedicated External TypeScript/JavaScript Modules -->
     <script src="scripts/modules-data.js"></script>
     <script src="scripts/i18n.js"></script>
     <script src="scripts/dashboard.js"></script>
+
+    <!-- React 18 Landing Page Entrypoint -->
+    <script src="scripts/landing.js"></script>
 </body>
 </html>

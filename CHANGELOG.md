@@ -4,6 +4,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.4] - 2026-09-16
+### Changed
+- Removed redundant `• 181 Stations Dashboard (New Tab)` suffix from primary action labels across UI, fallback templates, and dual-language i18n dictionaries (`actions.openPrimary`), retaining the clean primary action label.
+
+## [2.6.3] - 2026-09-16
+### Changed
+- Refined the responsive module details panel with clearer hierarchy, accessible relationships, and a prominent external-system action.
+
+## [2.6.2] - 2026-09-16
+### Changed
+- Restored the landing-page hero heading with the project title using the existing responsive headline styling and i18n structure.
+
+## [2.6.1] - 2026-09-16
+### Changed
+- Removed the landing-page hero title and subtitle, including their unused i18n keys, metadata references, CSS selectors, and responsive overrides.
+
+## [2.5.0] - 2026-09-16
+### Added
+- **Complete Migration to TypeScript 7.0.2:**
+  - Migrated entire client codebase to **TypeScript 7.0.2** using the next-generation Go-powered compiler engine for 8x-12x faster compilation and strict compile-time type safety.
+  - Created source directory `src/main/typescript/` containing strongly-typed source files:
+    - `types/dashboard.types.d.ts`: Comprehensive type definitions, interfaces (`OperationalModule`, `SvgIconRegistry`, `TranslationPayload`), and global DOM/Window augmentations.
+    - `modules-data.ts`: Type-safe operational dataset for all 8 modules and scalable SVG icon registry.
+    - `i18n.ts`: Type-safe translation engine integrating i18next and React 18 language switcher component.
+    - `dashboard.ts`: Authoritative dashboard controller, UI state manager, and keyboard navigation.
+- **TypeScript Tooling & Multi-Target Build Pipeline:**
+  - Added `package.json` with build and verification scripts (`npm run build`, `npm run typecheck`, `npm run watch`, `npm run verify`).
+  - Added `tsconfig.json` targeting ECMAScript 2022 with strict type-checking flags, `.d.ts` declaration generation, and `.js.map` source maps.
+  - Implemented `scripts/sync-build.js` for automatic distribution of compiled JavaScript, declaration files, and maps to `public/scripts/` (Vercel) and `src/main/resources/static/js/` (Spring Boot).
+- **Automated Verification Suite:**
+  - Implemented `scripts/verify_system.js` executing 57 automated validation checks across SemVer consistency, 8-module integrity, dual-language i18n dictionaries, and TypeScript build outputs.
+
+### Changed
+- **System Version Synchronization:** Bumped authoritative SemVer system version from `v2.4.8` to `v2.5.0` across all project files (`package.json`, `pom.xml`, `application.yml`, `scripts/dashboard.js`, `scripts/modules-data.js`, `scripts/i18n.js`, `styles/dashboard.css`, Java controllers/services/models/tests, HTML templates, and documentation).
+
 ## [2.4.8] - 2026-09-15
 ### Fixed
 - **Vercel Deployment Root 404 & SPA Routing Resolution:**

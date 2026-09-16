@@ -18,7 +18,7 @@ import java.util.List;
  * รวมทั้งรองรับ Cross-Origin Resource Sharing (CORS)
  *
  * @author Taksi / USO Engineering Team
- * @version 2.4.8
+ * @version 2.5.0
  */
 @RestController
 @RequestMapping("/api/v1/modules")

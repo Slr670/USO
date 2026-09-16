@@ -2,44 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-    <!-- Header Fragment -->
-    <header th:fragment="dashboardHeader" class="header-hero">
-        <div class="header-inner">
-            <div class="header-left">
-                <div class="header-logo-container" title="SHF Repeater Network Operations Dashboard" data-i18n-attr="title:header.logoTooltip">
-                    <svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
-                        <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
-                        <circle cx="12" cy="12" r="2"/>
-                        <path d="m16.24 16.24-2.83 2.83a2 2 0 0 1-2.82 0l-2.83-2.83"/>
-                        <line x1="12" y1="12" x2="12" y2="22"/>
-                    </svg>
-                </div>
-                <div class="header-title-container">
-                    <div class="header-title-row">
-                        <h1 class="header-main-title" data-i18n="header.mainTitle" th:text="${appTitle}">
-                            Super High Frequency (SHF) Repeater Network Optimization Project
-                        </h1>
-                        <span id="app-version" class="version-badge" title="Authoritative System Version" data-i18n-attr="title:header.versionTooltip">
-                            <span class="version-indicator-dot"></span>
-                            <span th:text="'v' + ${appVersion}">v2.4.8</span>
-                        </span>
-                    </div>
-                    <p class="header-sub-title" data-i18n="header.subTitle" th:text="${appSubtitle}">
-                        Project Operations &amp; Maintenance Center (SHF Network Operations Dashboard)
-                    </p>
-                </div>
-            </div>
-
-            <!-- Language Switcher & Live Status Pill -->
-            <div class="header-right">
-                <div id="react-lang-switcher"></div>
-                <div class="header-status-pill">
-                    <span class="status-pulse-dot"></span>
-                    <span data-i18n="header.status">All Systems Operational (NMS Live)</span>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Header Fragment (Removed) -->
+    <th:block th:fragment="dashboardHeader"></th:block>
 </body>
 </html>

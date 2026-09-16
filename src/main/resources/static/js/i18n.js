@@ -1,29 +1,29 @@
+"use strict";
 /**
  * ===================================================================
  * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: scripts/i18n.js
+ * File: src/main/typescript/i18n.ts
  * Purpose: Translation Engine using i18next + react-i18next
  *          Supports 100% English UI (Default) with Thai localization option
- * Version: 2.4.8
+ * Version: 2.6.4
  * ===================================================================
  */
-
 /**
  * Dual-language Translation Resources (English Default / Thai Localization)
  */
 const I18N_RESOURCES = {
     en: {
         translation: {
-            header: {
-                mainTitle: "Super High Frequency (SHF) Repeater Network Optimization Project",
-                subTitle: "Project Operations & Maintenance Center (SHF Network Operations Dashboard)",
-                status: "All Systems Operational (NMS Live)",
-                logoTooltip: "SHF Repeater Network Operations Dashboard",
-                versionTooltip: "Authoritative System Version"
+            hero: {
+                badge: "Next-Gen Telemetry & Operations Command Hub",
+                title: "Super High Frequency (SHF) Repeater Network Optimization Project",
+                ctaPrimary: "Explore Operational Modules",
+                ctaSecondary: "Watch Master Operations Video"
             },
             section: {
                 title: "Operational Categories & System Services",
-                help: "Select a module card to view operational details or access external systems."
+                help: "Select a module card to view operational details or access external systems.",
+                details: "Module Details"
             },
             modules: {
                 m1: {
@@ -83,41 +83,37 @@ const I18N_RESOURCES = {
                     tooltip: "Asset & Equipment Registry Management (8. Assets & Equipment)"
                 }
             },
-            actions: {
-                openPrimary: "Launch Primary System: {{title}} • 181 Stations Dashboard (New Tab)",
-                openNewTab: "Open in New Tab"
-            },
             video: {
-                sectionTitle: "FORTH Master System Operations Video",
+                sectionTitle: "FORTH Master System Operations",
                 badge: "System Demonstration & Media Presentation",
                 title: "FORTH Master System Operations Video",
                 description: "Comprehensive overview and instructional walkthrough of the Super High Frequency (SHF) Repeater Network system operations and maintenance procedures.",
                 fallback: "Your browser does not support HTML5 video playback. Please update your browser."
             },
+            actions: {
+                openPrimary: "Launch Primary System: {{title}}",
+                openNewTab: "Launch Portal (New Tab)",
+                viewDetails: "Operational Procedures & SLA Specs"
+            },
             footer: {
                 copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
-                architecture: "System Architecture: Modular Web Architecture",
+                architecture: "System Architecture: Modular Web Architecture (Dual-Stack)",
                 versionLabel: "Version:"
-            },
-            lang: {
-                thLabel: "Thai (TH)",
-                enLabel: "English (EN)",
-                switchLangTitle: "Select Language / สลับภาษา"
             }
         }
     },
     th: {
         translation: {
-            header: {
-                mainTitle: "โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)",
-                subTitle: "ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (แดชบอร์ดปฏิบัติการและบำรุงรักษาระบบ SHF)",
-                status: "ระบบออนไลน์ปกติ (สถานะการเฝ้าระวังสด)",
-                logoTooltip: "แดชบอร์ดโครงข่ายอุปกรณ์ทวนสัญญาณ SHF",
-                versionTooltip: "เวอร์ชันระบบอย่างเป็นทางการ"
+            hero: {
+                badge: "ศูนย์บัญชาการและเฝ้าระวังโทรมาตรโครงข่ายยุคใหม่",
+                title: "ศูนย์ปฏิบัติการโครงข่ายทวนสัญญาณ USO",
+                ctaPrimary: "สำรวจโมดูลปฏิบัติการทั้ง 8",
+                ctaSecondary: "รับชมวิดีโอนำเสนอระบบ"
             },
             section: {
                 title: "หมวดหมู่การปฏิบัติงานและบริการระบบ (การปฏิบัติการและบริการโครงข่าย)",
-                help: "คลิกเลือกการ์ดเพื่อดูรายละเอียด หรือเข้าสู่ระบบบริการภายนอก"
+                help: "คลิกเลือกการ์ดเพื่อดูรายละเอียด หรือเข้าสู่ระบบบริการภายนอก",
+                details: "รายละเอียดโมดูล"
             },
             modules: {
                 m1: {
@@ -177,76 +173,72 @@ const I18N_RESOURCES = {
                     tooltip: "การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. Assets & Equipment)"
                 }
             },
-            actions: {
-                openPrimary: "เปิดระบบหลัก: {{title}} • แดชบอร์ด 181 สถานี (แท็บใหม่)",
-                openNewTab: "เปิดในแท็บใหม่"
-            },
             video: {
-                sectionTitle: "วิดีโอสาธิตระบบ FORTH Master",
+                sectionTitle: "วิดีโอนำเสนอการปฏิบัติการระบบ FORTH Master",
                 badge: "การสาธิตระบบและสื่อนำเสนอ",
                 title: "วิดีโอนำเสนอการปฏิบัติการระบบ FORTH Master",
                 description: "ภาพรวมและขั้นตอนการปฏิบัติการโครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF) และกระบวนการบำรุงรักษา",
                 fallback: "เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ HTML5 กรุณาอัปเดตเบราว์เซอร์"
             },
+            actions: {
+                openPrimary: "เปิดระบบหลัก: {{title}}",
+                openNewTab: "เปิดพอร์ทัล (แท็บใหม่)",
+                viewDetails: "รายละเอียดขั้นตอนและข้อกำหนด SLA"
+            },
             footer: {
                 copyright: "© 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.",
-                architecture: "โครงสร้างระบบ: สถาปัตยกรรมเว็บแบบแยกส่วน",
+                architecture: "โครงสร้างระบบ: สถาปัตยกรรมเว็บแบบแยกส่วน (Dual-Stack)",
                 versionLabel: "เวอร์ชัน:"
-            },
-            lang: {
-                thLabel: "ไทย (TH)",
-                enLabel: "English (EN)",
-                switchLangTitle: "สลับภาษา / Select Language"
             }
         }
     }
 };
-
 /**
  * Module Keys Mapping
- * @constant {Array<string>}
  */
 const MODULE_KEYS = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
-
 /**
  * Get stored language from LocalStorage safely (defaults to 'en' for 100% English UI)
- * @returns {string} Language code ('en' or 'th')
  */
 function getStoredLanguage() {
     try {
         if (typeof localStorage !== 'undefined' && localStorage.getItem) {
-            return localStorage.getItem('shf_app_lang') || 'en';
+            const stored = localStorage.getItem('shf_app_lang');
+            if (stored === 'th' || stored === 'en') {
+                return stored;
+            }
         }
-    } catch (e) {}
+    }
+    catch {
+        // Ignore Storage access restrictions
+    }
     return 'en';
 }
-
 /**
  * Persist language code in LocalStorage safely
- * @param {string} lng Language code
  */
 function setStoredLanguage(lng) {
     try {
         if (typeof localStorage !== 'undefined' && localStorage.setItem) {
             localStorage.setItem('shf_app_lang', lng);
         }
-    } catch (e) {}
+    }
+    catch {
+        // Ignore Storage access restrictions
+    }
 }
-
 /**
  * Initialize i18next engine with react-i18next
  */
 function initI18nEngine() {
     const savedLang = getStoredLanguage();
-
-    // Check availability of i18next
-    if (typeof i18next !== 'undefined') {
-        // Integrate react-i18next plugin if available
-        if (typeof ReactI18next !== 'undefined' && ReactI18next.initReactI18next) {
-            i18next.use(ReactI18next.initReactI18next);
+    const i18n = typeof window !== 'undefined' ? window.i18next : undefined;
+    const reactI18next = typeof window !== 'undefined' ? window.ReactI18next : undefined;
+    if (i18n) {
+        if (reactI18next && reactI18next.initReactI18next) {
+            i18n.use(reactI18next.initReactI18next);
         }
-
-        i18next.init({
+        i18n.init({
             lng: savedLang,
             fallbackLng: 'en',
             debug: false,
@@ -254,246 +246,163 @@ function initI18nEngine() {
             interpolation: {
                 escapeValue: false
             }
-        }, (err, t) => {
+        }, (err) => {
             if (err) {
                 console.error('[i18n] Initialization error:', err);
                 return;
             }
             console.log(`[i18n] Engine initialized successfully with language: ${savedLang}`);
             applyTranslations(savedLang);
-            mountReactLanguageSwitcher();
         });
-
         // Listen for language changes
-        i18next.on('languageChanged', (lng) => {
-            setStoredLanguage(lng);
-            applyTranslations(lng);
-            mountReactLanguageSwitcher();
+        i18n.on('languageChanged', (lng) => {
+            const validLng = (lng === 'th' || lng === 'en') ? lng : 'en';
+            setStoredLanguage(validLng);
+            applyTranslations(validLng);
         });
-    } else {
+    }
+    else {
         console.warn('[i18n] i18next library not loaded, using fallback.');
         applyFallbackTranslations(savedLang);
-        mountReactLanguageSwitcher();
     }
 }
-
 /**
  * Translate key with options
- * @param {string} key Translation key (e.g., 'header.mainTitle')
- * @param {Object} [options={}] Interpolation options
- * @returns {string} Translated string
  */
 function t(key, options = {}) {
-    if (typeof i18next !== 'undefined' && i18next.t) {
-        return i18next.t(key, options);
+    const i18n = typeof window !== 'undefined' ? window.i18next : undefined;
+    if (i18n && typeof i18n.t === 'function') {
+        return i18n.t(key, options);
     }
-    // Fallback when i18next is not ready
+    // Fallback when i18next is not loaded
     const currentLang = getStoredLanguage();
-    const dict = I18N_RESOURCES[currentLang]?.translation || I18N_RESOURCES.en.translation;
+    const bundle = I18N_RESOURCES[currentLang] ?? I18N_RESOURCES.en;
     const parts = key.split('.');
-    let val = dict;
+    let val = bundle.translation;
     for (const p of parts) {
         if (val && typeof val === 'object' && p in val) {
             val = val[p];
-        } else {
+        }
+        else {
             return key;
         }
     }
     if (typeof val === 'string') {
         let res = val;
         for (const [k, v] of Object.entries(options)) {
-            res = res.replace(new RegExp(`{{${k}}}`, 'g'), v);
+            res = res.replace(new RegExp(`{{${k}}}`, 'g'), String(v));
         }
         return res;
     }
     return key;
 }
-
 /**
  * Switch system language
- * @param {string} lng Language code ('en' or 'th')
  */
 function changeLanguage(lng) {
-    if (typeof i18next !== 'undefined' && i18next.changeLanguage) {
-        i18next.changeLanguage(lng);
-    } else {
+    const i18n = typeof window !== 'undefined' ? window.i18next : undefined;
+    if (i18n && typeof i18n.changeLanguage === 'function') {
+        i18n.changeLanguage(lng);
+    }
+    else {
         setStoredLanguage(lng);
         applyFallbackTranslations(lng);
-        mountReactLanguageSwitcher();
     }
 }
-
 /**
  * Apply translations to DOM elements and module dataset
- * @param {string} lng Current language code
  */
 function applyTranslations(lng) {
-    document.documentElement.lang = lng;
-
-    // 1. Translate elements with data-i18n
-    const elements = document.querySelectorAll('[data-i18n]');
-    elements.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (key) {
-            el.textContent = t(key);
-        }
-    });
-
-    // 2. Translate attributes with data-i18n-attr (e.g. "title:key,aria-label:key")
-    const attrElements = document.querySelectorAll('[data-i18n-attr]');
-    attrElements.forEach(el => {
-        const spec = el.getAttribute('data-i18n-attr');
-        if (spec) {
-            spec.split(',').forEach(pair => {
-                const [attr, key] = pair.split(':');
-                if (attr && key) {
-                    el.setAttribute(attr.trim(), t(key.trim()));
+    const currentLng = lng ?? getStoredLanguage();
+    if (typeof document !== 'undefined') {
+        document.documentElement.lang = currentLng;
+        // 1. Translate elements with data-i18n
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (key) {
+                el.textContent = t(key);
+            }
+        });
+        // 2. Translate attributes with data-i18n-attr (e.g. "title:key,aria-label:key")
+        const attrElements = document.querySelectorAll('[data-i18n-attr]');
+        attrElements.forEach(el => {
+            const spec = el.getAttribute('data-i18n-attr');
+            if (spec) {
+                spec.split(',').forEach(pair => {
+                    const [attr, key] = pair.split(':');
+                    if (attr && key) {
+                        el.setAttribute(attr.trim(), t(key.trim()));
+                    }
+                });
+            }
+        });
+        // 3. Update MENU_MODULES_DATA dynamically based on active language
+        const menuData = typeof window !== 'undefined' ? window.MENU_MODULES_DATA : undefined;
+        if (Array.isArray(menuData)) {
+            menuData.forEach((item, index) => {
+                const mKey = MODULE_KEYS[index];
+                if (mKey) {
+                    const mutableItem = item;
+                    mutableItem.shortTitle = t(`modules.${mKey}.shortTitle`);
+                    mutableItem.fullTitle = t(`modules.${mKey}.fullTitle`);
+                    mutableItem.badge = t(`modules.${mKey}.badge`);
+                    mutableItem.description = t(`modules.${mKey}.description`);
                 }
             });
-        }
-    });
-
-    // 3. Update MENU_MODULES_DATA dynamically based on active language
-    if (typeof MENU_MODULES_DATA !== 'undefined' && Array.isArray(MENU_MODULES_DATA)) {
-        MENU_MODULES_DATA.forEach((item, index) => {
-            const mKey = MODULE_KEYS[index];
-            if (mKey) {
-                item.shortTitle = t(`modules.${mKey}.shortTitle`);
-                item.fullTitle = t(`modules.${mKey}.fullTitle`);
-                item.badge = t(`modules.${mKey}.badge`);
-                item.description = t(`modules.${mKey}.description`);
-            }
-        });
-
-        // 4. Update the 8 card buttons in the grid
-        const cardButtons = document.querySelectorAll('.card-btn');
-        cardButtons.forEach((btn, index) => {
-            const labelSpan = btn.querySelector('.card-label-text');
-            const mKey = MODULE_KEYS[index];
-            if (labelSpan && mKey) {
-                labelSpan.textContent = t(`modules.${mKey}.shortTitle`);
-            }
-            if (mKey) {
-                btn.title = t(`modules.${mKey}.tooltip`);
-            }
-        });
-
-        // 5. Update active Content Panel
-        if (typeof currentActiveIndex !== 'undefined' && typeof renderPanelDetails === 'function') {
-            const activeItem = MENU_MODULES_DATA[currentActiveIndex];
-            if (activeItem) {
-                renderPanelDetails(activeItem);
+            // 4. Update the 8 card buttons in the grid
+            const cardButtons = document.querySelectorAll('.card-btn');
+            cardButtons.forEach((btn, index) => {
+                const labelSpan = btn.querySelector('.card-label-text');
+                const mKey = MODULE_KEYS[index];
+                if (labelSpan && mKey) {
+                    labelSpan.textContent = t(`modules.${mKey}.shortTitle`);
+                }
+                if (mKey) {
+                    btn.title = t(`modules.${mKey}.tooltip`);
+                }
+            });
+            // 5. Update active Content Panel
+            const activeIdx = typeof window !== 'undefined' ? window.currentActiveIndex : undefined;
+            const renderDetails = typeof window !== 'undefined' ? window.renderPanelDetails : undefined;
+            if (typeof activeIdx === 'number' && typeof renderDetails === 'function') {
+                const activeItem = menuData[activeIdx];
+                if (activeItem) {
+                    renderDetails(activeItem);
+                }
             }
         }
-    }
-
-    // 6. Update document title and meta description
-    document.title = t('header.mainTitle');
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-        metaDesc.setAttribute('content', t('header.subTitle'));
     }
 }
-
 /**
  * Fallback translation handler
- * @param {string} lng Language code
  */
 function applyFallbackTranslations(lng) {
     applyTranslations(lng);
 }
-
-/**
- * React Language Switcher Component powered by react-i18next (useTranslation hook)
- */
-function mountReactLanguageSwitcher() {
-    const container = document.getElementById('react-lang-switcher');
-    if (!container) return;
-
-    if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
-        renderVanillaLanguageSwitcher(container);
-        return;
-    }
-
-    try {
-        // React component using react-i18next useTranslation hook
-        const LanguageSwitcherComponent = () => {
-            let activeLang = 'en';
-            let tFunc = (k) => k;
-            let changeLangFunc = (l) => {};
-
-            if (typeof ReactI18next !== 'undefined' && ReactI18next.useTranslation) {
-                const { t: hookT, i18n: hookI18n } = ReactI18next.useTranslation();
-                activeLang = hookI18n.language || 'en';
-                tFunc = hookT;
-                changeLangFunc = (l) => hookI18n.changeLanguage(l);
-            } else {
-                activeLang = getStoredLanguage();
-                changeLangFunc = changeLanguage;
-            }
-
-            return React.createElement('div', {
-                className: 'lang-switcher-container',
-                role: 'group',
-                'aria-label': t('lang.switchLangTitle')
-            },
-                React.createElement('button', {
-                    type: 'button',
-                    className: `lang-btn ${activeLang === 'en' ? 'active' : ''}`,
-                    onClick: () => changeLangFunc('en'),
-                    title: 'English (EN) — 100% English UI',
-                    'aria-pressed': activeLang === 'en'
-                }, 'EN'),
-                React.createElement('span', { className: 'lang-divider' }, '|'),
-                React.createElement('button', {
-                    type: 'button',
-                    className: `lang-btn ${activeLang === 'th' ? 'active' : ''}`,
-                    onClick: () => changeLangFunc('th'),
-                    title: 'ภาษาไทย (TH) — สลับเป็นภาษาไทย',
-                    'aria-pressed': activeLang === 'th'
-                }, 'TH')
-            );
-        };
-
-        if (ReactDOM.createRoot) {
-            if (!container._reactRoot) {
-                container._reactRoot = ReactDOM.createRoot(container);
-            }
-            container._reactRoot.render(React.createElement(LanguageSwitcherComponent));
-        } else if (ReactDOM.render) {
-            ReactDOM.render(React.createElement(LanguageSwitcherComponent), container);
-        }
-    } catch (e) {
-        console.warn('[i18n] Failed to render React component, fallback to vanilla:', e);
-        renderVanillaLanguageSwitcher(container);
-    }
+// Mount to global Window scope for Standalone Browser Environment
+if (typeof window !== 'undefined') {
+    const win = window;
+    win.I18N_RESOURCES = I18N_RESOURCES;
+    win.MODULE_KEYS = MODULE_KEYS;
+    win.getStoredLanguage = getStoredLanguage;
+    win.setStoredLanguage = setStoredLanguage;
+    win.initI18nEngine = initI18nEngine;
+    win.t = t;
+    win.changeLanguage = changeLanguage;
+    win.applyTranslations = applyTranslations;
+    win.applyFallbackTranslations = applyFallbackTranslations;
 }
-
-/**
- * Vanilla Language Switcher fallback
- * @param {HTMLElement} container Container element
- */
-function renderVanillaLanguageSwitcher(container) {
-    const currentLang = getStoredLanguage();
-    container.innerHTML = `
-        <div class="lang-switcher-container" role="group" aria-label="${t('lang.switchLangTitle')}">
-            <button type="button" class="lang-btn ${currentLang === 'en' ? 'active' : ''}" onclick="changeLanguage('en')" title="English (EN)">EN</button>
-            <span class="lang-divider">|</span>
-            <button type="button" class="lang-btn ${currentLang === 'th' ? 'active' : ''}" onclick="changeLanguage('th')" title="ภาษาไทย (TH)">TH</button>
-        </div>
-    `;
-}
-
-// Attach initialization on script load
+// Attach initialization on script load in browser
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initI18nEngine);
-    } else {
+    }
+    else {
         initI18nEngine();
     }
 }
-
-// Export for Node.js verification environment
+// Export for Node.js / CommonJS verification environment
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         I18N_RESOURCES,
@@ -506,3 +415,4 @@ if (typeof module !== 'undefined' && module.exports) {
         setStoredLanguage
     };
 }
+//# sourceMappingURL=i18n.js.map
