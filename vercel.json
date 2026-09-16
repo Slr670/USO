@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "outputDirectory": ".",
   "cleanUrls": true,
   "headers": [
     {
@@ -29,40 +28,6 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/FORTH_MASTER_Video_Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/assets/media/FORTH_MASTER_Video_Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/media/FORTH_MASTER_Video_Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/FORTH_MASTER_Video%20Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/assets/media/FORTH_MASTER_Video%20Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/media/FORTH_MASTER_Video%20Final-Additional.mp4",
-      "destination": "/public/FORTH_MASTER_Video_Final-Additional.mp4"
-    },
-    {
-      "source": "/((?!api/|_next/|public/|assets/|scripts/|styles/|icons/|favicon\\.ico|.*\\.(?:ico|png|jpg|jpeg|svg|css|js|mp4|mov|webmanifest|json|woff|woff2|ttf|map)$).*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }

@@ -1,7 +1,7 @@
 # โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)
 > **ศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ (Project Operation & Maintenance Dashboard)**  
-> สถาปัตยกรรมระบบ: **Dual-Stack (Java Spring Boot 3 Thymeleaf MVC & Standalone Web Client with TypeScript 7.0.2)**  
-> เวอร์ชันระบบ: **v2.5.0**
+> สถาปัตยกรรมระบบ: **TypeScript-Only Fullstack Architecture (Next.js 16 App Router + React 19 TSX)**  
+> เวอร์ชันระบบ: **v3.0.0**
 
 ---
 
@@ -11,211 +11,171 @@
 - [เทคโนโลยีที่ใช้ (Tech Stack)](#เทคโนโลยีที่ใช้-tech-stack)
 - [โครงสร้างสถาปัตยกรรม (Project Architecture)](#โครงสร้างสถาปัตยกรรม-project-architecture)
 - [รายการหมวดหมู่งาน 8 โมดูล (8 Operational Modules)](#รายการหมวดหมู่งาน-8-โมดูล-8-operational-modules)
-- [ระบบแปลภาษา (i18n Translation Engine)](#ระบบแปลภาษา-i18n-translation-engine)
+- [ระบบแปลภาษา (i18n Bilingual Engine)](#ระบบแปลภาษา-i18n-bilingual-engine)
 - [API Endpoints](#api-endpoints)
 - [วิธีติดตั้งและเรียกใช้งาน (Getting Started)](#วิธีติดตั้งและเรียกใช้งาน-getting-started)
-- [คำสั่งการพัฒนา TypeScript 7.0.2 (TypeScript Development & Build)](#คำสั่งการพัฒนา-typescript-702-typescript-development--build)
-- [การทดสอบระบบ (Testing & Verification)](#การทดสอบระบบ-testing--verification)
+- [คำสั่งการพัฒนาและการทดสอบ (Development & Verification)](#คำสั่งการพัฒนาและการทดสอบ-development--verification)
 - [ประวัติเวอร์ชัน (Changelog)](#ประวัติเวอร์ชัน-changelog)
 
 ---
 
 ## ภาพรวมโครงการ
-ระบบแดชบอร์ดศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ SHF พัฒนาขึ้นเพื่อบริหารจัดการและติดตามการดำเนินงานครอบคลุม **8 หมวดหมู่งานหลัก** ของเครือข่ายสถานีทวนสัญญาณความถี่สูง (SHF) และสถานี USO ทั่วประเทศ พร้อมระบบประสานงานเจ้าหน้าที่รัฐ กรมการปกครอง (DOPA), ระบบแปลภาษาสองภาษา (EN/TH) ผ่าน i18next และ React, สถาปัตยกรรมรองรับทั้ง Spring Boot MVC Server และ Standalone Client ขับเคลื่อนด้วย **TypeScript 7.0.2**
+ระบบแดชบอร์ดศูนย์ปฏิบัติการและติดตามสถานะงานโครงการ SHF ได้รับการยกระดับสถาปัตยกรรมสู่ **TypeScript-Only Fullstack Architecture (v3.0.0)** อย่างสมบูรณ์ 100% โดยขจัดความจำเป็นในการใช้ Java/Spring Boot, Standalone HTML, Standalone CSS, และ JavaScript แบบเดิมทั้งหมด แทนที่ด้วย **Next.js App Router**, **React TSX**, และการจัดการสไตล์ผ่าน **CSS-in-TS** ที่มีความปลอดภัยด้าน Type สูงสุด รองรับการทำงานทั้ง Frontend และ Backend REST API ภายใต้เทคโนโลยี TypeScript เพียงภาษาเดียว
 
 ---
 
 ## ฟีเจอร์เด่นของระบบ (Key Features)
-1. **TypeScript 7.0.2 Architecture:** ซอร์สโค้ดฝั่ง Client พัฒนาด้วย TypeScript 7.0.2 (Go Engine) มอบความปลอดภัยด้าน Type และประสิทธิภาพการคอมไพล์สูงสุด พร้อมกระจาย Production Artifacts สู่ Standalone Web, Vercel, และ Spring Boot
-2. **8 Operational Modules:** ครอบคลุมภารกิจการบำรุงรักษาเชิงป้องกัน (PM), การแก้ไขปัญหา (CM), แผนตรวจเยี่ยมรายไตรมาส, การเคลมอุปกรณ์, มอนิเตอร์โทรมาตรโครงข่าย, วาระเจ้าหน้าที่รัฐ กรมการปกครอง, คลังพัสดุและอะไหล่, และทะเบียนครุภัณฑ์
-3. **Embedded Responsive HTML5 Video Showcase:** ฝังวิดีโอแนะนำและสาธิตการปฏิบัติการระบบ FORTH Master ความละเอียดสูง พร้อมเครื่องเล่นวิดีโอ HTML5 responsive แบบ 16:9 และคำบรรยายสองภาษา
-4. **DOPA Officials' Tenure Portal Integration:** เชื่อมต่อระบบติดตามวาระและภารกิจของเจ้าหน้าที่ฝ่ายปกครองสำหรับ 181 สถานี USO ไปยังระบบหลักภายนอกโดยตรง ([wara5year.vercel.app](https://wara5year.vercel.app/))
-5. **i18next + react-i18next Engine:** รองรับการสลับภาษาแบบ Dynamic On-the-Fly (English 100% เป็นค่าเริ่มต้น และ Thai) ผ่าน React Header Component โดยไม่ต้องรีเฟรชหน้าเว็บ
-6. **UI Icon Policy Compliance:** ออกแบบตามมาตรฐาน UI Icon ระดับมืออาชีพ ปราศจาก Unicode Emojis ทั้งหมด โดยใช้ Scalable Inline SVGs และ Font Awesome 6
-7. **Dual-Stack Architecture:** ใช้งานได้ทั้งแบบ Static Web Client (รันบน CDN/Vercel/Static Host) และ Enterprise Java Spring Boot 3 MVC Server
+1. **TypeScript-Only Architecture (v3.0.0):** ระบบพัฒนาด้วย TypeScript 100% ทั้งฝั่ง Frontend (React TSX) และ Backend REST API Route Handlers
+2. **Zero Standalone HTML & CSS:** โครงสร้าง HTML ทั้งหมดถูกสร้างแบบ Dynamic ผ่าน Next.js `layout.tsx` และการจัดการสไตล์ทั้งหมดเขียนในรูปของ TypeScript (`src/styles/dashboard.styles.ts`)
+3. **8 Operational Modules:** ครอบคลุมภารกิจการบำรุงรักษาเชิงป้องกัน (PM), การแก้ไขปัญหา (CM), แผนตรวจเยี่ยมรายไตรมาส, การเคลมอุปกรณ์, มอนิเตอร์โทรมาตรโครงข่าย, วาระเจ้าหน้าที่รัฐ กรมการปกครอง, คลังพัสดุและอะไหล่, และทะเบียนครุภัณฑ์
+4. **Embedded HTML5 Video Showcase:** ฝังวิดีโอแนะนำและสาธิตการปฏิบัติการระบบ FORTH Master ความละเอียดสูง 1080p Full HD 60 FPS พร้อมการรองรับ Byte-range streaming
+5. **Full Bilingual Engine (EN / TH):** สลับภาษาได้ทันทีผ่าน Header และ Context Hook (`useI18n`) พร้อมจดจำค่าภาษาผ่าน LocalStorage
+6. **UI Icon Policy Compliance:** ใช้ Scalable Vector SVGs บริสุทธิ์ ปราศจาก Unicode Emojis ทั้งหมด
+7. **REST API Parity:** มี Route Handlers `/api/v1/modules` และ `/api/v1/modules/[orderIndex]` คืนค่า JSON สำหรับ Single-Page Application และ Third-Party Integrations
+8. **Automated Verification Suite:** ชุดทดสอบอัตโนมัติ 61 รายการ เขียนด้วย TypeScript ตรวจสอบความถูกต้องของ SemVer, URLs, Backend API, i18n, และตรวจสอบการไม่มีไฟล์ Legacy หลงเหลือ
 
 ---
 
 ## เทคโนโลยีที่ใช้ (Tech Stack)
 
-### Backend (Spring Boot Stack)
-- **Runtime:** Java 17+ (LTS)
-- **Framework:** Spring Boot 3.3.3
-  - `spring-boot-starter-web` (Embedded Tomcat & RESTful Controller)
-  - `spring-boot-starter-thymeleaf` (Server-Side Rendering MVC Views)
-  - `spring-boot-starter-test` (JUnit 5 & Spring Boot Test Suite)
-- **Build Tool:** Apache Maven 3.9+ (พร้อม Maven Wrapper `mvnw` / `mvnw.cmd`)
+### Fullstack Framework & Runtime
+- **Runtime:** Node.js 18+ (ทดสอบบน Node.js 24)
+- **Framework:** Next.js 16 (App Router with Turbopack)
+- **Language:** TypeScript 7.0.2 / ECMAScript 2022
+- **Frontend Library:** React 19 & React-DOM 19
+- **Deployment Platform:** Vercel (Edge & Serverless Native)
 
-### Frontend & Client Stack (TypeScript 7.0.2)
-- **Languages & Compiler:** TypeScript 7.0.2, ECMAScript 2022, Vanilla ES6 JavaScript, React 18, React-DOM 18
-- **Translation Engine:** `i18next` v23+ และ `react-i18next` v13+
-- **Styling System:** Enterprise Glassmorphism UI, Responsive CSS Grid, CSS Variables Design Tokens
-- **Typography:** Google Fonts (Sarabun, Inter, Plus Jakarta Sans, Prompt)
-- **Iconography:** Scalable Vector SVGs และ Font Awesome 6
+### Styling & Design System
+- **Styling Architecture:** Component-Based CSS-in-TS (`src/styles/dashboard.styles.ts`)
+- **Theme:** Modern Deep Navy (`#070e1b`), Radiant Cyan (`#00e5ff`), Glassmorphism, CSS Grid
+- **Typography:** Google Fonts (Sarabun, Inter)
+- **Iconography:** Scalable Vector SVGs (100% Inline SVG, Zero Unicode Emojis)
 
 ---
 
 ## โครงสร้างสถาปัตยกรรม (Project Architecture)
 
 ```text
-d:\APP\USO\
-├── package.json                                 # การตั้งค่าโปรเจกต์ Node.js / TypeScript (v2.5.0)
-├── tsconfig.json                                # การตั้งค่า TypeScript 7.0.2 Compiler
-├── pom.xml                                      # การตั้งค่า Maven & Dependencies (v2.5.0)
-├── mvnw / mvnw.cmd                              # Maven Wrapper Scripts
-├── .gitignore                                   # กรองไฟล์ที่ไม่จำเป็นต่อ Git
-├── README.md                                    # เอกสารคู่มือระบบฉบับสมบูรณ์ (v2.5.0)
-├── CHANGELOG.md                                 # บันทึกประวัติการปรับปรุงระบบ (SemVer)
-├── index.html                                   # หน้าแดชบอร์ดหลักสำหรับ Standalone Web Client
-├── scripts/                                     # JavaScript & Type Definitions ที่คอมไพล์แล้ว
-│   ├── sync-build.js                            # สคริปต์ซิงค์ผลลัพธ์คอมไพล์ TypeScript ไปยัง public/ & static/
-│   ├── verify_system.js                         # สคริปต์ตรวจสอบความถูกต้องของระบบและ SemVer อัตโนมัติ
-│   ├── dashboard.js / dashboard.d.ts            # Logic หลักของ UI State, Routing และ Event Handling
-│   ├── modules-data.js / modules-data.d.ts      # ข้อมูลจำเพาะและ Inline SVG ของทั้ง 8 โมดูล
-│   ├── i18n.js / i18n.d.ts                      # กลไกแปลภาษา i18next & พจนานุกรม EN/TH
-│   └── vendor/                                  # Vendor Libraries แบบ Standalone
+d:\Dashboard รวม/
+├── public/                                      # Static Media & Favicons
+│   ├── assets/icons/favicon.svg                 # SVG Vector Favicon
+│   ├── favicon.ico                              # Fallback ICO Favicon
+│   └── FORTH_MASTER_Video_Final-Additional.mp4  # H.264 HD 1080p Video (<100MB)
 ├── src/
-│   ├── main/
-│   │   ├── typescript/                          # ซอร์สโค้ดต้นทาง TypeScript 7.0.2
-│   │   │   ├── types/
-│   │   │   │   └── dashboard.types.d.ts         # Type Definitions, Interfaces, A11y & DOM Augmentations
-│   │   │   ├── modules-data.ts                  # ข้อมูลโมดูลทั้ง 8 หมวดหมู่ พร้อม SVG Icon Registry
-│   │   │   ├── i18n.ts                          # i18next + React Translation Engine และ Language Switcher
-│   │   │   └── dashboard.ts                     # Core Dashboard Controller, State, Event Handlers (v2.5.0)
-│   │   ├── java/com/uso/dashboard/
-│   │   │   ├── ShfDashboardApplication.java     # Main Spring Boot Application Entry Point
-│   │   │   ├── controller/
-│   │   │   │   ├── DashboardController.java     # Spring MVC Controller เส้นทางหลัก ("/")
-│   │   │   │   └── DashboardApiController.java  # REST API Controller ให้บริการ JSON
-│   │   │   ├── model/
-│   │   │   │   └── DashboardModule.java         # Domain Model ห่อหุ้มข้อมูลโมดูล
-│   │   │   └── service/
-│   │   │       ├── DashboardService.java        # Service Interface กำหนดสัญญาทางธุรกิจ
-│   │   │       └── impl/
-│   │   │           └── DashboardServiceImpl.java # Implementation บรรจุข้อมูลทั้ง 8 โมดูล
-│   │   └── resources/
-│   │       ├── application.yml                  # การตั้งค่าพอร์ตและเมทาดาทาของ Spring Boot
-│   │       ├── static/                          # Static Assets สำหรับ Spring Boot Server
-│   │       │   ├── css/dashboard.css
-│   │       │   └── js/
-│   │       │       ├── dashboard.js
-│   │       │       ├── modules-data.js
-│   │       │       ├── i18n.js
-│   │       │       └── vendor/
-│   │       └── templates/                       # Thymeleaf Templates
-│   │           ├── index.html                   # แม่แบบหน้าแรกของ Spring Boot
-│   │           └── fragments/
-│   │               ├── header.html              # ส่วนหัวเรื่องและ Version Badge
-│   │               └── footer.html              # ส่วนท้ายและสถานะสถาปัตยกรรม
-│   └── test/
-│       └── java/com/uso/dashboard/
-│           └── ShfDashboardApplicationTests.java # Unit Test ตรวจสอบ Context และความถูกต้องของโมดูล
+│   ├── app/                                     # Next.js App Router
+│   │   ├── layout.tsx                           # Root HTML Layout in TSX
+│   │   ├── page.tsx                             # Main Interactive Dashboard Page
+│   │   └── api/v1/modules/                      # TypeScript Backend REST API
+│   │       ├── route.ts                         # GET /api/v1/modules
+│   │       └── [orderIndex]/
+│   │           └── route.ts                     # GET /api/v1/modules/[orderIndex]
+│   ├── components/                              # Modular React TSX Components
+│   │   ├── Header.tsx                           # Top Navigation Bar, Lang & Version
+│   │   ├── Hero.tsx                             # Hero Banner, Telemetry Badge & CTAs
+│   │   ├── ModuleCard.tsx                       # Interactive 8-Module Card
+│   │   ├── ModulesSection.tsx                   # 8-Card Grid & Content Details Panel
+│   │   ├── VideoShowcase.tsx                    # Video Player & Full HD 1080p Badges
+│   │   └── Footer.tsx                           # Architecture & Version Footer
+│   ├── lib/                                     # Core Logic & Services
+│   │   ├── constants.ts                         # Authoritative Version (v3.0.0)
+│   │   ├── types.ts                             # TypeScript Interfaces
+│   │   ├── modules-data.ts                      # 8 Modules Data & SVG Icons
+│   │   ├── modules-service.ts                   # Backend Business Logic (DashboardService)
+│   │   └── i18n.ts                              # Bilingual Engine (EN / TH) & useI18n Hook
+│   └── styles/                                  # Component-Based CSS-in-TS
+│       └── dashboard.styles.ts                  # Pure TypeScript Design System
+├── tests/
+│   └── verify_system.ts                         # Automated Verification Suite (61 Tests)
+├── package.json                                 # Manifest (v3.0.0)
+├── tsconfig.json                                # TypeScript Compiler Config
+├── vercel.json                                  # Vercel Deployment & Streaming Headers
+├── CHANGELOG.md                                 # Release History
+└── README.md                                    # Documentation
 ```
 
 ---
 
 ## รายการหมวดหมู่งาน 8 โมดูล (8 Operational Modules)
-1. **1. Perform PM:** งานบำรุงรักษาเชิงป้องกัน (Preventive Maintenance - PM) — บันทึกผลการตรวจเช็กสถานีฐาน SHF ระดับสัญญาณ RF สายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรอง ([เข้าสู่ระบบ PM](https://pm-5year.vercel.app/))
-2. **2. Handle CM:** งานแก้ไขเหตุขัดข้อง (Corrective Maintenance - CM) — แจ้งซ่อมและจัดการ Incident ปัญหาอุปกรณ์หรือสัญญาณขัดข้องแบบเรียลไทม์ ([เข้าสู่ระบบ CM](https://dtrs-app-uat.forth.co.th/dashboard))
-3. **3. Conduct Quarterly Visits:** การเข้าตรวจเช็ก/เยี่ยมเยือนทุก 3 เดือน — ตรวจสอบสภาพแวดล้อมทางกายภาพและประสานงานเจ้าหน้าที่ผู้ดูแลสถานี ([เข้าสู่ระบบตรวจเช็ก 3 เดือน](https://pre-pm-2.vercel.app/))
-4. **4. Process Claims:** การจัดการและยื่นเคลมอุปกรณ์/ประกัน (RMA & Warranty) — ติดตามสถานะการส่งเคลม การเปลี่ยนทดแทน และประวัติอุปกรณ์ ([เข้าสู่ระบบเคลม](https://equipment-claims.vercel.app/))
-5. **5. Monitor System:** การตรวจสอบและเฝ้าระวังสถานะระบบ (Telemetry & Network Monitoring) — แดชบอร์ดตรวจสอบสถานะออนไลน์ การทำงานของรีพีตเตอร์ และทราฟฟิกโครงข่าย ([เข้าสู่ระบบ Monitor](https://bssc-nine.vercel.app/))
-6. **6. Track DOPA Officials' Tenure:** ติดตามวาระและภารกิจเจ้าหน้าที่รัฐ กรมการปกครอง (Department of Provincial Administration) — ประสานงานและติดตามวาระสถานีเครือข่าย USO 181 แห่ง พร้อมลิงก์ตรง ([เข้าสู่ระบบวาระ DOPA](https://wara5year.vercel.app/))
-7. **7. Manage Inventory:** การบริหารจัดการคลังสินค้า/สต็อกอะไหล่ (Spare Parts Inventory) — บริหารคลังอุปกรณ์ทวนสัญญาณ โมดูลความถี่ สายอากาศ และชิ้นส่วนสำรอง ([เข้าสู่ระบบคลัง](https://www.stockflowth.online/dashboard))
-8. **8. Track Assets & Equipment:** การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (Fixed Asset Registry) — ติดตามทะเบียนทรัพย์สิน หมายเลขครุภัณฑ์ (Asset Tag) และประวัติการโอนย้ายอุปกรณ์ ([เข้าสู่ระบบทะเบียนครุภัณฑ์](https://contion.vercel.app/))
+
+| ลำดับ | รหัสโมดูล | ชื่อหมวดหมู่งาน (English) | ชื่อหมวดหมู่งาน (ภาษาไทย) | ระบบปลายทาง (URL) |
+|:---:|:---:|:---|:---|:---|
+| 1 | `m1` | 1. Perform PM | 1. ปฏิบัติการบำรุงรักษาเชิงป้องกัน | `https://pm-5year.vercel.app/` |
+| 2 | `m2` | 2. Handle CM | 2. ปฏิบัติการแก้ไขเหตุขัดข้อง | `https://dtrs-app-uat.forth.co.th/dashboard` |
+| 3 | `m3` | 3. Quarterly Visits | 3. ดำเนินการตรวจเยี่ยมทุก 3 เดือน | `https://pre-pm-2.vercel.app/` |
+| 4 | `m4` | 4. Process Claims | 4. จัดการและยื่นเคลมอุปกรณ์ | `https://equipment-claims.vercel.app/` |
+| 5 | `m5` | 5. Monitor System | 5. ตรวจสอบและเฝ้าระวังสถานะระบบ | `https://bssc-nine.vercel.app/` |
+| 6 | `m6` | 6. DOPA Tenure | 6. ติดตามวาระเจ้าหน้าที่รัฐ กรมการปกครอง | `https://wara5year.vercel.app/` |
+| 7 | `m7` | 7. Manage Inventory | 7. บริหารจัดการคลังสินค้าและสต็อกอะไหล่ | `https://www.stockflowth.online/dashboard` |
+| 8 | `m8` | 8. Assets & Equipment | 8. ติดตามและจัดการทะเบียนครุภัณฑ์ | `https://contion.vercel.app/` |
 
 ---
 
-## ระบบแปลภาษา (i18n Translation Engine)
-- **ค่าเริ่มต้นภาษาอังกฤษ 100%:** หน้าเว็บทั้งหมดแสดงผลภาษาอังกฤษมาตรฐานธุรกิจและโทรคมนาคมสากล
-- **รองรับภาษาไทยครบทุกส่วน:** รวมทั้งชื่อโมดูล รายละเอียด ป้ายสถานะ และข้อความช่วยเหลือ
-- **ปุ่มสลับภาษา React:** ฝัง React-i18next Switcher บริเวณ Header ให้ผู้ใช้งานเลือกสลับ `EN` และ `TH` ได้ทันที
+## ระบบแปลภาษา (i18n Bilingual Engine)
+- **Default Language:** English (`en`) 100%
+- **Supported Localization:** ภาษาไทย (`th`)
+- **State Management:** Reactive Context ผ่าน `useI18n()`
+- **Persistence:** LocalStorage key `shf_app_lang`
+- **Interpolation:** รองรับ dynamic variable replacement เช่น `{{title}}`
 
 ---
 
 ## API Endpoints
-- `GET /` — แสดงผลหน้าแดชบอร์ดหลัก (Server-Side Rendered ผ่าน Thymeleaf MVC)
-- `GET /api/v1/modules` — ดึงรายการข้อมูลโมดูลทั้งหมด 8 โมดูลในรูปแบบ JSON Array
-- `GET /api/v1/modules/{orderIndex}` — ดึงข้อมูลโมดูลเดี่ยวตามลำดับ (ดัชนี 0 ถึง 7)
+
+### 1. ดึงรายการโมดูลทั้งหมด (All Modules)
+- **Method:** `GET`
+- **Endpoint:** `/api/v1/modules`
+- **Response:** `200 OK` (JSON Array บรรจุ 8 โมดูล พร้อมข้อมูล URL และ SVG Icon)
+
+### 2. ดึงข้อมูลโมดูลเดี่ยวตาม Order Index (Single Module)
+- **Method:** `GET`
+- **Endpoint:** `/api/v1/modules/{orderIndex}` (0 ถึง 7)
+- **Response:** `200 OK` (JSON Object) หรือ `404 Not Found` หากไม่พบ
 
 ---
 
 ## วิธีติดตั้งและเรียกใช้งาน (Getting Started)
 
-### 1. เรียกใช้งานแบบ Standalone Web Client (รวดเร็ว ไม่ต้องติดตั้ง Backend)
-เปิดไฟล์ `index.html` ผ่านเว็บเบราว์เซอร์ หรือรันผ่าน Live Server / Static HTTP Server:
+### ความต้องการของระบบ (Prerequisites)
+- Node.js 18.0.0 ขึ้นไป
+- npm 9.0.0 ขึ้นไป
+
+### การติดตั้งและเริ่มรัน Development Server
 ```bash
-# ตัวอย่างการใช้ npx serve
-npx serve -l 3000 .
+# ติดตั้ง dependencies
+npm install
+
+# รัน Development Server
+npm run dev
 ```
-
-### 2. เรียกใช้งานผ่าน Spring Boot Application
-
-#### ความต้องการของระบบ (Prerequisites)
-- ติดตั้ง **Java Development Kit (JDK) 17 ขึ้นไป**
-
-#### บน Windows (PowerShell / Command Prompt):
-```powershell
-.\mvnw.cmd spring-boot:run
-```
-
-#### บน Linux / macOS:
-```bash
-./mvnw spring-boot:run
-```
-
-หลังจากเริ่มการทำงาน เข้าใช้งานที่:
-```text
-http://localhost:8080
-```
-
-### การสร้าง Executable JAR เพื่อนำไป Deploy
-```bash
-./mvnw clean package
-java -jar target/shf-dashboard-2.5.0.jar
-```
+เปิดเบราว์เซอร์และเข้าไปที่ `http://localhost:3000`
 
 ---
 
-## คำสั่งการพัฒนา TypeScript 7.0.2 (TypeScript Development & Build)
+## คำสั่งการพัฒนาและการทดสอบ (Development & Verification)
 
-### 1. คอมไพล์ซอร์สโค้ด TypeScript และซิงค์ผลลัพธ์ (Build & Sync):
 ```bash
-npm run build
-```
-- คอมไพล์ซอร์สโค้ดจาก `src/main/typescript/` ด้วยคอมไพเลอร์ TypeScript 7.0.2
-- สร้าง Production JavaScript (`.js`), Type Definitions (`.d.ts`), และ Source Maps (`.js.map`)
-- ซิงค์ผลลัพธ์ไปยัง `scripts/`, `public/scripts/`, และ `src/main/resources/static/js/` อัตโนมัติ
-
-### 2. ตรวจสอบ Type Safety โดยไม่สร้างไฟล์ผลลัพธ์ (Type Check):
-```bash
+# ตรวจสอบ TypeScript Types ทั้งหมด
 npm run typecheck
-```
 
-### 3. โหมด Watch ติดตามการเปลี่ยนแปลงโค้ดอัตโนมัติ (Watch Mode):
-```bash
-npm run watch
-```
+# รันชุดทดสอบระบบอัตโนมัติ 61 รายการ
+npm test
 
----
+# สร้าง Production Build ด้วย Next.js Turbopack
+npm run build
 
-## การทดสอบระบบ (Testing & Verification)
-
-### รันการตรวจสอบความถูกต้องของระบบและ SemVer แบบอัตโนมัติ (Verification Pipeline):
-```bash
+# รันการตรวจสอบแบบครบวงจร (Typecheck + Test + Build)
 npm run verify
-```
-หรือ
-```bash
-node scripts/verify_system.js
-```
 
-### รัน Unit Tests ของ Spring Boot:
-```bash
-./mvnw test
+# รัน Production Server บนเครื่อง Local
+npm run start
 ```
 
 ---
 
-## ประวัติเวอร์ชัน (Changelog)
-ดูรายละเอียดการเปลี่ยนแปลงทั้งหมดของระบบในแต่ละรุ่นได้ที่ [CHANGELOG.md](CHANGELOG.md)
+## ข้อมูลไฟล์ Non-TypeScript ที่จำเป็นต้องมี (Unavoidable Files)
+1. `package.json` — กำหนดค่า dependencies และ npm scripts
+2. `tsconfig.json` — คอนฟิกูเรชันสำหรับ TypeScript Compiler
+3. `vercel.json` — กำหนดค่า byte-range headers สำหรับการสตรีมมิ่งไฟล์วิดีโอบน Vercel
+4. `.gitignore` — กำหนดการละเว้นไฟล์ชั่วคราวและ build artifacts
+5. `README.md` & `CHANGELOG.md` — เอกสารประกอบระบบ
+6. `public/` media assets — ไฟล์ Favicon และ MP4 Master Video

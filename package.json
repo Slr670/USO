@@ -1,15 +1,14 @@
 {
   "name": "shf-dashboard",
-  "version": "2.6.4",
+  "version": "3.0.0",
   "description": "Super High Frequency (SHF) Repeater Network Optimization Project - Operations & Maintenance Dashboard",
-  "main": "scripts/dashboard.js",
-  "types": "scripts/dashboard.d.ts",
   "scripts": {
-    "build": "tsc && node scripts/sync-build.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "typecheck": "tsc --noEmit",
-    "watch": "tsc --watch",
-    "test": "node scripts/verify_system.js",
-    "verify": "npm run typecheck && npm test"
+    "test": "npx tsx tests/verify_system.ts",
+    "verify": "npm run typecheck && npm test && npm run build"
   },
   "keywords": [
     "shf",
@@ -17,14 +16,21 @@
     "repeater",
     "dashboard",
     "typescript",
-    "spring-boot"
+    "react",
+    "nextjs"
   ],
   "author": "Taksi / USO Engineering Team",
   "license": "UNLICENSED",
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.19.0",
     "typescript": "7.0.2"
   },
   "engines": {

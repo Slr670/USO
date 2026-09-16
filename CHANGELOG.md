@@ -4,6 +4,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-09-16
+### Added
+- **TypeScript-Only Fullstack Architecture Migration:**
+  - Migrated the entire application stack from multi-language (Java/Spring Boot, JavaScript, standalone HTML, and standalone CSS) to a unified **TypeScript-Only Stack** using **React + Next.js (App Router)**.
+  - **Frontend (React + TypeScript TSX):**
+    - `src/app/layout.tsx`: Root HTML layout written 100% in TSX, completely eliminating standalone HTML files.
+    - `src/app/page.tsx`: Interactive dashboard home page with active state management, keyboard navigation (A11y), and smooth scrolling.
+    - `src/components/Header.tsx`: Navigation bar with SVG broadcast tower logo, bilingual switch (EN/TH), and live authoritative version badge.
+    - `src/components/Hero.tsx`: Telemetry badge with pulse indicator, headline, and primary/secondary action buttons.
+    - `src/components/ModuleCard.tsx`: Scalable module cards with pure SVG icons, active states, and external portal hints.
+    - `src/components/ModulesSection.tsx`: 8-card grid and interactive content details panel with launch portal action.
+    - `src/components/VideoShowcase.tsx`: Responsive HTML5 video player with HD 1080p and 60 FPS badges, captions, and tags.
+    - `src/components/Footer.tsx`: Architecture attribution and version badge.
+  - **Backend (TypeScript Route Handlers):**
+    - `src/app/api/v1/modules/route.ts`: Replaced Java `DashboardApiController.getAllModules()` with high-performance TypeScript Route Handler returning the 8 operational modules with CORS and caching headers.
+    - `src/app/api/v1/modules/[orderIndex]/route.ts`: Replaced Java `DashboardApiController.getModuleByIndex()` with parameter-validated TypeScript Route Handler returning single module details or 404.
+    - `src/lib/modules-service.ts`: Ported Java `DashboardServiceImpl` to TypeScript class `DashboardService`.
+    - `src/lib/modules-data.ts`: Ported authoritative dataset and scalable vector SVG registry.
+    - `src/lib/types.ts`: Comprehensive type safety across frontend and backend.
+    - `src/lib/constants.ts`: Authoritative single source of truth for version (`3.0.0`) and metadata.
+    - `src/lib/i18n.ts`: Full bilingual translation engine and reactive `useI18n()` hook.
+  - **Component-Based CSS-in-TS:**
+    - `src/styles/dashboard.styles.ts`: Replaced ~1,000 lines of standalone `.css` files with a pure TypeScript design system, design tokens, glassmorphism, responsive breakpoints, and keyframe animations.
+  - **Automated Verification Suite:**
+    - `tests/verify_system.ts`: 61 automated tests verifying SemVer v3.0.0 integrity, operational module URLs, backend service parity, bilingual coverage, SVG icon compliance, and zero legacy files.
+
+### Removed
+- **Legacy Java / Spring Boot Artifacts:**
+  - Removed `pom.xml`, Maven wrappers (`mvnw`, `mvnw.cmd`, `.mvn/`), `src/main/java/`, `src/test/java/`, and `src/main/resources/`.
+- **Standalone HTML & CSS:**
+  - Removed standalone `index.html`, `public/index.html`, `gemini-code-1789376108233.html`, and `styles/dashboard.css`.
+- **Legacy JavaScript & Build Scripts:**
+  - Removed legacy JavaScript files (`scripts/*.js`, `public/scripts/`, `scripts/vendor/`).
+
+### Changed
+- **System Version Synchronization:** Bumped authoritative SemVer system version to `v3.0.0` across all metadata, APIs, and UI components.
+- **Vercel Configuration:** Updated `vercel.json` for Next.js and byte-range video streaming.
+
 ## [2.6.4] - 2026-09-16
 ### Changed
 - Removed redundant `• 181 Stations Dashboard (New Tab)` suffix from primary action labels across UI, fallback templates, and dual-language i18n dictionaries (`actions.openPrimary`), retaining the clean primary action label.
