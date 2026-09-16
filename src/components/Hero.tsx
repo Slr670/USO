@@ -2,24 +2,44 @@
  * ===================================================================
  * Super High Frequency (SHF) Repeater Network Optimization Project
  * File: src/components/Hero.tsx
- * Purpose: Hero Component with Intelligent Operations Command Banner
- * Version: 3.0.7
+ * Purpose: Hero Component with Operations Command Banner & Full-Screen Video Background
+ * Version: 3.0.8
  * ===================================================================
  */
 
 'use client';
 
 import React from 'react';
+import { HERO_BG_VIDEO_SRC } from '../lib/constants';
 
 interface HeroProps {
   onExploreClick?: () => void;
   onVideoClick?: () => void;
+  videoSrc?: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
+export const Hero: React.FC<HeroProps> = ({
+  onExploreClick,
+  videoSrc = HERO_BG_VIDEO_SRC,
+}) => {
   return (
     <section className="container hero">
-      <div>
+      {/* Full-Screen Background Video Container */}
+      <div className="hero-video-wrapper" aria-hidden="true">
+        <video
+          className="hero-background-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+        <div className="hero-video-overlay" />
+      </div>
+
+      <div className="hero-inner">
         <div className="eyebrow">USO TELECOMMUNICATION OPERATIONS</div>
         <h1 className="hero-title">
           <span className="uso-word" data-text="USO">

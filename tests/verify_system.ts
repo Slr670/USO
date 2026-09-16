@@ -8,13 +8,13 @@
 
 import fs from 'fs';
 import path from 'path';
-import { APP_VERSION } from '../src/lib/constants';
+import { APP_VERSION, HERO_BG_VIDEO_SRC } from '../src/lib/constants';
 import { MENU_MODULES_DATA, ICONS } from '../src/lib/modules-data';
 import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.7';
+const EXPECTED_VERSION = '3.0.8';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +32,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version Integrity (v3.0.0) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.8) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.0',
+    'constants.ts APP_VERSION is 3.0.8',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -52,6 +52,19 @@ function verifyVersionIntegrity() {
   } catch (e: any) {
     assertCheck('package.json readable', false, e.message);
   }
+
+  assertCheck(
+    'HERO_BG_VIDEO_SRC constant is /assets/image/VEO1.mp4',
+    HERO_BG_VIDEO_SRC === '/assets/image/VEO1.mp4',
+    `Found: ${HERO_BG_VIDEO_SRC}`
+  );
+
+  const videoAssetPath = path.join(ROOT_DIR, 'public/assets/image/VEO1.mp4');
+  assertCheck(
+    'VEO1 background video asset exists in public/assets/image/',
+    fs.existsSync(videoAssetPath) && fs.statSync(videoAssetPath).size > 0,
+    `Missing or empty: ${videoAssetPath}`
+  );
 }
 
 function verifyModulesDataAndUrls() {

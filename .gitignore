@@ -53,6 +53,8 @@ src/main/resources/static/assets/media/*
 
 # Allow optimized video file (<100MB) in public/ for Vercel deployment
 !public/FORTH_MASTER_Video_Final-Additional.mp4
+!public/assets/image/VEO1.mp4
+!assets/image/VEO1.mp4
 node_modules
 
 # Next.js build output & TypeScript build info

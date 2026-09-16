@@ -290,6 +290,46 @@ export const dashboardGlobalStyles: string = `
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  /* --- Full-Screen Background Video Layer --- */
+  .hero-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+    filter: brightness(0.65) contrast(1.15);
+  }
+
+  .hero-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(11, 19, 41, 0.78) 0%,
+      rgba(15, 23, 42, 0.82) 45%,
+      rgba(15, 23, 42, 0.94) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
   .container.hero::before,
   .hero::before {
     content: '';
@@ -301,19 +341,21 @@ export const dashboardGlobalStyles: string = `
     max-width: 1100px;
     height: 100%;
     max-height: 700px;
-    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.18) 0%, rgba(37, 99, 235, 0.1) 45%, transparent 75%);
+    background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.2) 0%, rgba(37, 99, 235, 0.1) 45%, transparent 75%);
     pointer-events: none;
-    z-index: 1;
+    z-index: 3;
   }
 
-  .container.hero > div,
-  .hero > div {
+  .container.hero > .hero-inner,
+  .hero > .hero-inner,
+  .container.hero > div:not(.hero-video-wrapper),
+  .hero > div:not(.hero-video-wrapper) {
     max-width: 1320px;
     width: 100%;
     margin: 0 auto;
     padding: 0 24px;
     position: relative;
-    z-index: 2;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -351,6 +393,7 @@ export const dashboardGlobalStyles: string = `
     gap: 16px;
     text-align: left;
     max-width: 900px;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.9));
   }
 
   .uso-word {
@@ -389,11 +432,12 @@ export const dashboardGlobalStyles: string = `
   .lead {
     font-size: clamp(1.02rem, 1.8vw, 1.18rem);
     line-height: 1.8;
-    color: #cbd5e1;
+    color: #e2e8f0;
     max-width: 780px;
     margin: 0 0 32px 0;
     font-weight: 400;
     text-align: left;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
   }
 
   .actions {
@@ -1082,8 +1126,10 @@ export const dashboardGlobalStyles: string = `
       min-height: 100dvh;
       text-align: left;
     }
-    .container.hero > div,
-    .hero > div {
+    .container.hero > .hero-inner,
+    .hero > .hero-inner,
+    .container.hero > div:not(.hero-video-wrapper),
+    .hero > div:not(.hero-video-wrapper) {
       padding: 0 16px;
       align-items: flex-start;
     }
