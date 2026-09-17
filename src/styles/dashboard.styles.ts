@@ -261,28 +261,6 @@ export const dashboardGlobalStyles: string = `
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
   }
 
-  .version-pill {
-    background: rgba(30, 58, 138, 0.6);
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    color: var(--primary-200);
-    padding: 5px 12px;
-    border-radius: var(--radius-pill);
-    font-size: 0.78rem;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .version-indicator-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent-emerald);
-    box-shadow: 0 0 8px var(--accent-emerald);
-    animation: pulse 2s infinite;
-  }
-
   /* --- 4. Main Container & Hero Section --- */
   .container.hero,
   .hero {
@@ -1137,18 +1115,10 @@ export const dashboardGlobalStyles: string = `
     height: 24px;
   }
 
-  .video-heading-wrap h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1.3;
-  }
-
   .video-badge {
     background: rgba(6, 182, 212, 0.15);
     border-color: rgba(6, 182, 212, 0.3);
     color: var(--accent-cyan);
-    margin-bottom: 4px;
   }
 
 

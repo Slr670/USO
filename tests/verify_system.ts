@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.18';
+const EXPECTED_VERSION = '3.0.21';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.18) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.21) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.18',
+    'constants.ts APP_VERSION is 3.0.21',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -131,8 +131,8 @@ function verifyI18nEngine() {
   // Translation interpolation test
   const enResolved = resolveTranslation('en', 'actions.openPrimary', { title: 'Test' });
   assertCheck(
-    'resolveTranslation handles interpolation',
-    enResolved === 'Launch Primary System: Test',
+    'resolveTranslation handles interpolation without Launch Primary System prefix',
+    enResolved === 'Test',
     `Resolved: ${enResolved}`
   );
 }
@@ -252,6 +252,23 @@ function verifyVideoShowcaseAutoplay() {
     !stylesContent.includes('.video-spec-pill')
   );
 
+  // Video heading h2 and unused CSS/i18n removal
+  assertCheck(
+    'VideoShowcase does not contain h2 heading or video.title',
+    !content.includes('<h2>') && !content.includes("t('video.title')")
+  );
+  assertCheck(
+    'dashboard.styles.ts has .video-heading-wrap h2 completely removed',
+    !stylesContent.includes('.video-heading-wrap h2')
+  );
+  const i18nPath = path.join(ROOT_DIR, 'src/lib/i18n.ts');
+  const i18nContent = fs.readFileSync(i18nPath, 'utf8');
+  assertCheck(
+    'i18n.ts does not contain FORTH Master System Operations Video title key',
+    !('title' in (I18N_RESOURCES.en.translation.video as any)) &&
+    !('title' in (I18N_RESOURCES.th.translation.video as any))
+  );
+
   // Master video file exists
   const masterVideoPath = path.join(ROOT_DIR, 'public/FORTH_MASTER_Video_Final-Additional.mp4');
   assertCheck(
@@ -317,6 +334,37 @@ function verifyModuleCardMicroInteractions() {
   assertCheck(
     'ModulesSection.tsx does not contain panel-action-hint',
     !modulesSectionContent.includes('panel-action-hint')
+  );
+
+  // Check no "Launch Primary System:" prefix in i18n or ModulesSection
+  const i18nPath = path.join(ROOT_DIR, 'src/lib/i18n.ts');
+  const i18nContent = fs.readFileSync(i18nPath, 'utf8');
+  assertCheck(
+    'i18n.ts does not contain "Launch Primary System:" or "เปิดระบบหลัก:"',
+    !i18nContent.includes('Launch Primary System:') && !i18nContent.includes('เปิดระบบหลัก:')
+  );
+  assertCheck(
+    'ModulesSection.tsx does not contain "Launch Primary System:"',
+    !modulesSectionContent.includes('Launch Primary System:')
+  );
+
+  // Check version-pill element and styles removal
+  const headerPath = path.join(ROOT_DIR, 'src/components/Header.tsx');
+  const headerContent = fs.readFileSync(headerPath, 'utf8');
+  assertCheck(
+    'Header.tsx does not contain version-pill, version-indicator-dot, or Authoritative Version',
+    !headerContent.includes('version-pill') &&
+    !headerContent.includes('version-indicator-dot') &&
+    !headerContent.includes('Authoritative Version')
+  );
+  assertCheck(
+    'Header.tsx does not have unused APP_VERSION import',
+    !headerContent.includes('APP_VERSION')
+  );
+  assertCheck(
+    'dashboard.styles.ts has version-pill and version-indicator-dot styles completely removed',
+    !stylesContent.includes('.version-pill') &&
+    !stylesContent.includes('.version-indicator-dot')
   );
 }
 

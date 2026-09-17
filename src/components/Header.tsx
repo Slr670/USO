@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useI18n } from '../lib/i18n';
-import { APP_VERSION } from '../lib/constants';
 import { USO_LOGO_SRC } from '../assets/uso-logo';
 
 export const Header: React.FC = () => {
@@ -40,11 +39,6 @@ export const Header: React.FC = () => {
           >
             TH
           </button>
-
-          <div className="version-pill" title={`Authoritative Version: v${APP_VERSION}`}>
-            <span className="version-indicator-dot" aria-hidden="true" />
-            <span>v{APP_VERSION}</span>
-          </div>
         </div>
       </div>
     </header>

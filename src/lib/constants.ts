@@ -1,4 +1,4 @@
-export const APP_VERSION = '3.0.18';
+export const APP_VERSION = '3.0.21';
 export const APP_TITLE_EN = 'Super High Frequency (SHF) Repeater Network Optimization Project';
 export const APP_TITLE_TH = 'โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)';
 export const APP_SUBTITLE_EN = 'Operations & Maintenance Dashboard';

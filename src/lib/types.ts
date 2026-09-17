@@ -68,7 +68,6 @@ export interface TranslationSection {
 export interface TranslationVideo {
   readonly sectionTitle: string;
   readonly badge: string;
-  readonly title: string;
   readonly description: string;
   readonly fallback: string;
 }

@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.21] - 2026-09-17
+### Changed
+- **UI Clean-Up: Removal of Video Showcase `<h2>` Heading:**
+  - Removed `<h2>{t('video.title')}</h2>` ("FORTH Master System Operations Video") heading from `src/components/VideoShowcase.tsx`.
+  - Removed unused `.video-heading-wrap h2` CSS rule and adjusted `.video-badge` margin from `src/styles/dashboard.styles.ts`.
+  - Removed unused `title` property from `TranslationVideo` interface in `src/lib/types.ts` and bilingual resources in `src/lib/i18n.ts`.
+  - Preserved clean vertical alignment and responsive layout of the video section badge and showcase player.
+  - Expanded test suite in `tests/verify_system.ts` with assertions verifying absence of heading, style rules, and translation keys (88 checks).
+  - Bumped application authoritative version to `v3.0.21`.
+
+## [3.0.20] - 2026-09-17
+### Changed
+- **UI Clean-Up: Removal of Version Pill:**
+  - Removed `.version-pill` element from `src/components/Header.tsx`, including the indicator dot, version text, and `Authoritative Version` tooltip.
+  - Removed unused `APP_VERSION` import from `src/components/Header.tsx`.
+  - Removed `.version-pill` and `.version-indicator-dot` CSS rules from `src/styles/dashboard.styles.ts`.
+  - Preserved header alignment, spacing, language toggle functionality (`EN` / `TH`), and responsive layout.
+  - Retained authoritative version display in `src/components/Footer.tsx` (`app-version-text`).
+  - Expanded test suite in `tests/verify_system.ts` with assertions verifying absence of `version-pill` elements and styles (85 checks).
+  - Bumped application authoritative version to `v3.0.20`.
+
+## [3.0.19] - 2026-09-17
+### Changed
+- **UI Clean-Up: Removal of "Launch Primary System:" Prefix:**
+  - Removed `Launch Primary System:` prefix from English dictionary (`actions.openPrimary`) in `src/lib/i18n.ts`.
+  - Removed `เปิดระบบหลัก:` prefix from Thai dictionary (`actions.openPrimary`) in `src/lib/i18n.ts`.
+  - Updated primary action button labels and `aria-label` across all operational module panels to display clean module title (e.g. `1. Perform PM`).
+  - Preserved button functionality, external link arrow SVG icon, accessibility semantics, and responsive layout.
+  - Expanded test suite in `tests/verify_system.ts` with assertions verifying absence of prefixes across components and translations (82 checks).
+  - Bumped application authoritative version to `v3.0.19`.
+
 ## [3.0.18] - 2026-09-17
 ### Changed
 - **UI Clean-Up: Removal of External Link Pills, Hints & Unused Keys:**

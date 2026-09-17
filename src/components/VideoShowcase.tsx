@@ -98,7 +98,6 @@ export const VideoShowcase: React.FC = () => {
               <span className="status-badge video-badge">
                 {t('video.badge')}
               </span>
-              <h2>{t('video.title')}</h2>
             </div>
           </div>
         </div>
