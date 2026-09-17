@@ -917,28 +917,6 @@ export const dashboardGlobalStyles: string = `
     transition: color var(--anim-base);
   }
 
-  /* External Link Pill on Card */
-  .external-link-pill {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 0.7rem;
-    color: var(--primary-500);
-    background: var(--primary-50);
-    border: 1px solid var(--primary-100);
-    border-radius: var(--radius-pill);
-    padding: 2px 6px;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease;
-  }
-
-  .card-btn:hover .external-link-pill {
-    transform: scale(1.08) translate(1px, -1px);
-    background: var(--primary-100);
-    color: var(--primary-700);
-  }
 
   /* Active Card State with Luminous Glow */
   .card-btn.active {
@@ -986,11 +964,6 @@ export const dashboardGlobalStyles: string = `
     color: #ffffff;
   }
 
-  .card-btn.active .external-link-pill {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.4);
-    color: #ffffff;
-  }
 
   /* --- 7. Content Details Panel --- */
   .content-panel {
@@ -1094,10 +1067,6 @@ export const dashboardGlobalStyles: string = `
     flex-wrap: wrap;
   }
 
-  .panel-action-hint {
-    font-size: 0.82rem;
-    color: var(--slate-400);
-  }
 
   .btn-action-primary {
     background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
@@ -1182,34 +1151,6 @@ export const dashboardGlobalStyles: string = `
     margin-bottom: 4px;
   }
 
-  .video-meta-badges {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .video-hd-pill {
-    background: rgba(16, 185, 129, 0.15);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #34d399;
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 0.75rem;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .video-spec-pill {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--slate-300);
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
 
   .video-player-wrapper {
     position: relative;

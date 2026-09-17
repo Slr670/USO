@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/components/Hero.tsx
- * Purpose: Hero Component with Operations Command Banner & Full-Screen Video Background
- * Version: 3.0.10
- * ===================================================================
- */
-
 'use client';
 
 import React from 'react';

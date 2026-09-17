@@ -1,13 +1,4 @@
 /**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/lib/types.ts
- * Purpose: TypeScript Type Definitions & Interfaces
- * Version: 3.0.0
- * ===================================================================
- */
-
-/**
  * Operational Module Specification Interface
  * Represents each of the 8 core operational domains in the SHF Network
  */
@@ -84,13 +75,11 @@ export interface TranslationVideo {
 
 export interface TranslationActions {
   readonly openPrimary: string;
-  readonly openNewTab: string;
   readonly viewDetails: string;
 }
 
 export interface TranslationFooter {
   readonly copyright: string;
-  readonly architecture: string;
   readonly versionLabel: string;
 }
 

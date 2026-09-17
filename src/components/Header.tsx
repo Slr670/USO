@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/components/Header.tsx
- * Purpose: Top Navigation Header with Brand, Lang Switcher & Version Badge
- * Version: 3.0.3
- * ===================================================================
- */
-
 'use client';
 
 import React from 'react';

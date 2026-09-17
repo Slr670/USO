@@ -1,11 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: tests/verify_system.ts
- * Purpose: TypeScript Automated Verification Suite (v3.0.0)
- * ===================================================================
- */
-
 import fs from 'fs';
 import path from 'path';
 import { APP_VERSION, HERO_BG_VIDEO_SRC } from '../src/lib/constants';
@@ -14,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.14';
+const EXPECTED_VERSION = '3.0.18';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -32,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.14) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.18) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.14',
+    'constants.ts APP_VERSION is 3.0.18',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -213,41 +205,51 @@ function verifyZeroLegacyFiles() {
 }
 
 function verifyVideoShowcaseAutoplay() {
-  console.log('\n--- 7. Video Showcase Clean Layout & Unmuted Autoplay Integrity ---');
+  console.log('\n--- 7. Video Showcase Clean Layout, Continuous Looping & Autoplay Integrity ---');
 
   const videoComponentPath = path.join(ROOT_DIR, 'src/components/VideoShowcase.tsx');
   assertCheck('VideoShowcase.tsx component exists', fs.existsSync(videoComponentPath));
 
   const content = fs.readFileSync(videoComponentPath, 'utf8');
 
-  // Video element must NOT have muted constraint
-  assertCheck(
-    'VideoShowcase video element does not contain hardcoded muted attribute',
-    !/<video[^>]*\smuted(\s|>)/.test(content)
-  );
-
-  // Video element must have autoPlay attribute
+  // Video element contains autoPlay attribute
   assertCheck(
     'VideoShowcase video element contains autoPlay attribute',
     content.includes('autoPlay')
   );
 
-  // Handles browser autoplay policy initialization
+  // Video element configured for continuous looping
   assertCheck(
-    'VideoShowcase implements unmuted autoplay initialization (video.muted = false)',
-    content.includes('video.muted = false')
+    'VideoShowcase video element contains loop attribute for continuous playback',
+    content.includes('loop')
   );
 
-  // Audio toggle button and widget are completely removed from layout
+  // Video element preserves controls, playsInline, and preload="auto"
   assertCheck(
-    'VideoShowcase has audio toggle button/widget completely removed from layout',
-    !content.includes('video-unmute-prompt-btn') && !content.includes('video-audio-pill')
+    'VideoShowcase video element preserves controls, playsInline, and preload="auto"',
+    content.includes('controls') && content.includes('playsInline') && content.includes('preload="auto"')
   );
 
-  // State and listeners are completely cleaned up
+  // Handles unmuted-first autoplay with muted fallback
   assertCheck(
-    'VideoShowcase has state and gesture listeners cleaned up',
-    !content.includes('isAudioBlocked') && !content.includes('unlockAudioOnGesture')
+    'VideoShowcase configures audio enabled by default with muted fallback',
+    content.includes('video.muted = false') && content.includes('video.muted = true')
+  );
+
+  // Video meta badges (1080p, 60 FPS, HD icon) completely removed from component
+  assertCheck(
+    'VideoShowcase has video-meta-badges block (1080p, 60 FPS) completely removed',
+    !content.includes('video-meta-badges') && !content.includes('1080p Full HD') && !content.includes('60 FPS')
+  );
+
+  // Stylesheet has unused badge CSS rules removed
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+  assertCheck(
+    'dashboard.styles.ts has unused badge CSS classes completely removed',
+    !stylesContent.includes('.video-meta-badges') &&
+    !stylesContent.includes('.video-hd-pill') &&
+    !stylesContent.includes('.video-spec-pill')
   );
 
   // Master video file exists
@@ -293,6 +295,28 @@ function verifyModuleCardMicroInteractions() {
   assertCheck(
     'Reduced motion gracefully disables card icon spring animation',
     stylesContent.includes('.card-icon-box') && stylesContent.includes('prefers-reduced-motion')
+  );
+
+  // Check external-link-pill and panel-action-hint removal from styles
+  assertCheck(
+    'dashboard.styles.ts has external-link-pill and panel-action-hint styles completely removed',
+    !stylesContent.includes('.external-link-pill') && !stylesContent.includes('.panel-action-hint')
+  );
+
+  // Check ModuleCard.tsx has external-link-pill and openNewTab removed
+  const moduleCardPath = path.join(ROOT_DIR, 'src/components/ModuleCard.tsx');
+  const moduleCardContent = fs.readFileSync(moduleCardPath, 'utf8');
+  assertCheck(
+    'ModuleCard.tsx does not contain external-link-pill or openNewTab',
+    !moduleCardContent.includes('external-link-pill') && !moduleCardContent.includes('openNewTab')
+  );
+
+  // Check ModulesSection.tsx has panel-action-hint removed
+  const modulesSectionPath = path.join(ROOT_DIR, 'src/components/ModulesSection.tsx');
+  const modulesSectionContent = fs.readFileSync(modulesSectionPath, 'utf8');
+  assertCheck(
+    'ModulesSection.tsx does not contain panel-action-hint',
+    !modulesSectionContent.includes('panel-action-hint')
   );
 }
 

@@ -4,6 +4,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.18] - 2026-09-17
+### Changed
+- **UI Clean-Up: Removal of External Link Pills, Hints & Unused Keys:**
+  - Removed `.external-link-pill` and its nested external arrow SVG icon from `src/components/ModuleCard.tsx`.
+  - Removed unnecessary `title="Launch Portal (New Tab)"` attribute from module card buttons.
+  - Removed `<span class="panel-action-hint">Launch Portal (New Tab)</span>` from `src/components/ModulesSection.tsx`.
+  - Cleaned up unused CSS classes (`.external-link-pill`, `.card-btn:hover .external-link-pill`, `.card-btn.active .external-link-pill`, `.panel-action-hint`) from `src/styles/dashboard.styles.ts`.
+  - Cleaned up unused i18n key `openNewTab` from `TranslationActions` in `src/lib/types.ts` and `src/lib/i18n.ts`.
+  - Preserved full functionality and layout of primary launch buttons (`.btn-action-primary`).
+  - Confirmed `content.js` and messaging errors (`onMessage`, `sendMessage`, `Receiving end does not exist`) are external browser extension artifacts, requiring zero application modification, keeping Next.js HMR intact.
+  - Updated test suite in `tests/verify_system.ts` confirming all 80 checks pass.
+  - Bumped application authoritative version to `v3.0.18`.
+
+## [3.0.17] - 2026-09-17
+### Changed
+- **Codebase Clean-Up: Removal of File Header Banner Comments:**
+  - Removed all redundant file-level banner/header comment blocks (project/file/purpose/version headers) across all 18 codebase files.
+  - Preserved all functional comments, imports, application logic, and type declarations intact.
+  - Updated test suite in `tests/verify_system.ts` confirming all 77 checks pass.
+  - Bumped application authoritative version to `v3.0.17`.
+
+## [3.0.16] - 2026-09-17
+### Changed
+- **Video Section Continuous Looping, Audio Optimization & Meta-Badge Clean Up:**
+  - Configured `#forth-master-video` for continuous looping (`loop`), autoplay, and audio enabled by default whenever browser policy permits.
+  - Implemented automatic fallback to muted autoplay if unmuted playback is restricted, restoring sound upon the first user interaction (`click`, `keydown`, `touchstart`, `pointerdown`).
+  - Preserved `controls`, `playsinline`, and `preload="auto"` video player attributes.
+  - Removed the entire `video-meta-badges` block (`1080p Full HD`, `60 FPS`, and HD icon) from `src/components/VideoShowcase.tsx`.
+  - Cleaned up unused CSS rules (`.video-meta-badges`, `.video-hd-pill`, `.video-spec-pill`) from `src/styles/dashboard.styles.ts`.
+  - Removed `System Architecture: TypeScript-Only Fullstack Architecture (Next.js App Router + React TSX)` span and unused references from `src/components/Footer.tsx`, `src/lib/types.ts`, `src/lib/i18n.ts`, and `src/lib/constants.ts`.
+  - Updated test suite in `tests/verify_system.ts` confirming all 77 checks pass.
+  - Bumped application authoritative version to `v3.0.16`.
+
+## [3.0.15] - 2026-09-17
+### Fixed
+- **Video Showcase Autoplay Policy Compliance & Audio Restoration:**
+  - Configured `<video>` element with `muted` fallback to strictly comply with modern browser autoplay policies (eliminating `NotAllowedError` and duplicate autoplay rejections).
+  - Implemented one-time user interaction listeners (`click`, `keydown`, `touchstart`, `pointerdown`) to unmute video and restore sound upon explicit user action.
+  - Eliminated duplicate autoplay calls (`video.paused` check) and removed console policy warnings (`[VideoShowcase] Unmuted autoplay restricted by browser policy`).
+  - Diagnosed browser messaging errors (`content.js`, `onMessage`, `sendMessage`, `Receiving end does not exist`) as external browser extension artifacts; verified zero application-owned messaging code, preserving Next.js HMR stability.
+  - Updated test suite `verifyVideoShowcaseAutoplay` in `tests/verify_system.ts` confirming all 76 checks pass.
+  - Bumped application authoritative version to `v3.0.15`.
+
 ## [3.0.14] - 2026-09-16
 ### Changed
 - **Service Module Card Icons Visual Micro-Interactions & Hover Dynamics:**

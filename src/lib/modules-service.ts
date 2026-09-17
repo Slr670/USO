@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/lib/modules-service.ts
- * Purpose: Business logic service for Dashboard Modules (replaces Java DashboardServiceImpl)
- * Version: 3.0.0
- * ===================================================================
- */
-
 import { MENU_MODULES_DATA } from './modules-data';
 import type { OperationalModule, IDashboardService } from './types';
 

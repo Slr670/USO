@@ -1,18 +1,8 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/components/ModuleCard.tsx
- * Purpose: Interactive Card for Operational Module
- * Version: 3.0.14
- * ===================================================================
- */
-
 'use client';
 
 import React from 'react';
 import type { OperationalModule } from '../lib/types';
 import { useI18n } from '../lib/i18n';
-import { ICONS } from '../lib/modules-data';
 
 interface ModuleCardProps {
   module: OperationalModule;
@@ -40,15 +30,6 @@ export const ModuleCard: React.FC<ModuleCardProps> = ({
       id={`btn-module-${module.orderIndex}`}
       title={tooltip}
     >
-      {module.isExternal && (
-        <span
-          className="external-link-pill"
-          title={t('actions.openNewTab')}
-          dangerouslySetInnerHTML={{ __html: ICONS.externalArrow }}
-          aria-hidden="true"
-        />
-      )}
-
       <div
         className="card-icon-box"
         dangerouslySetInnerHTML={{ __html: module.svgIcon }}

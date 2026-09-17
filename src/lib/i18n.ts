@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/lib/i18n.ts
- * Purpose: Full TypeScript Bilingual Engine (EN / TH) & React Hook
- * Version: 3.0.0
- * ===================================================================
- */
-
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
@@ -98,12 +89,10 @@ export const I18N_RESOURCES: I18nResources = {
       },
       actions: {
         openPrimary: "Launch Primary System: {{title}}",
-        openNewTab: "Launch Portal (New Tab)",
         viewDetails: "Operational Procedures & SLA Specs"
       },
       footer: {
         copyright: "© 2026 SHF Repeater Network Operations & Maintenance Center. All rights reserved.",
-        architecture: "System Architecture: TypeScript-Only Fullstack Architecture (Next.js App Router + React TSX)",
         versionLabel: "Version:"
       }
     }
@@ -193,12 +182,10 @@ export const I18N_RESOURCES: I18nResources = {
       },
       actions: {
         openPrimary: "เปิดระบบหลัก: {{title}}",
-        openNewTab: "เปิดพอร์ทัล (แท็บใหม่)",
         viewDetails: "รายละเอียดขั้นตอนและข้อกำหนด SLA"
       },
       footer: {
         copyright: "© 2026 ศูนย์ปฏิบัติการและบำรุงรักษาโครงข่าย SHF. สงวนลิขสิทธิ์ทั้งหมด.",
-        architecture: "โครงสร้างระบบ: สถาปัตยกรรม TypeScript เต็มรูปแบบ (Next.js App Router + React TSX)",
         versionLabel: "เวอร์ชัน:"
       }
     }

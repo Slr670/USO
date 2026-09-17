@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/components/VideoShowcase.tsx
- * Purpose: Responsive Video Presentation Player & Showcase Metadata
- * Version: 3.0.13
- * ===================================================================
- */
-
 'use client';
 
 import React, { useRef, useEffect } from 'react';
@@ -16,27 +7,68 @@ export const VideoShowcase: React.FC = () => {
   const { t } = useI18n();
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Immediate unmuted autoplay with policy-aware fallback (no extraneous UI toggle widgets)
+  // Autoplay with unmuted audio default whenever policy allows; fallback to muted + interaction unlock
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Remove muted constraints and initiate playback with sound enabled
+    let hasStarted = false;
+
+    // Enable audio by default whenever browser policy allows
     video.muted = false;
-    video.defaultMuted = false;
     video.volume = 1.0;
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch((policyError) => {
-        console.warn(
-          '[VideoShowcase] Unmuted autoplay restricted by browser policy. Initiating fallback playback:',
-          policyError
-        );
-        video.muted = true;
-        video.play().catch(() => {});
-      });
+      playPromise
+        .then(() => {
+          hasStarted = true;
+        })
+        .catch(() => {
+          // If unmuted autoplay is restricted by browser policy, fall back to muted autoplay
+          if (!hasStarted) {
+            video.muted = true;
+            video.play().catch(() => {});
+            attachInteractionListener();
+          }
+        });
     }
+
+    // Enable audio upon first explicit user interaction
+    const enableAudioOnInteraction = () => {
+      if (video) {
+        video.muted = false;
+        video.volume = 1.0;
+      }
+      detachInteractionListener();
+    };
+
+    const interactionEvents = ['click', 'keydown', 'touchstart', 'pointerdown'];
+    let listenersAttached = false;
+
+    const attachInteractionListener = () => {
+      if (listenersAttached) return;
+      listenersAttached = true;
+      interactionEvents.forEach((evt) => {
+        window.addEventListener(evt, enableAudioOnInteraction, {
+          capture: true,
+          once: true,
+          passive: true
+        });
+      });
+    };
+
+    const detachInteractionListener = () => {
+      if (!listenersAttached) return;
+      listenersAttached = false;
+      interactionEvents.forEach((evt) => {
+        window.removeEventListener(evt, enableAudioOnInteraction, true);
+      });
+    };
+
+    return () => {
+      detachInteractionListener();
+    };
   }, []);
 
   return (
@@ -69,27 +101,6 @@ export const VideoShowcase: React.FC = () => {
               <h2>{t('video.title')}</h2>
             </div>
           </div>
-
-          <div className="video-meta-badges">
-            <span className="video-hd-pill">
-              <svg
-                className="ui-icon video-hd-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                <line x1="8" y1="21" x2="16" y2="21" />
-                <line x1="12" y1="17" x2="12" y2="21" />
-              </svg>
-              <span>1080p Full HD</span>
-            </span>
-            <span className="video-spec-pill">60 FPS</span>
-          </div>
         </div>
 
         <div className="video-player-wrapper">
@@ -99,6 +110,7 @@ export const VideoShowcase: React.FC = () => {
             className="responsive-video-player"
             controls
             autoPlay
+            loop
             playsInline
             preload="auto"
           >

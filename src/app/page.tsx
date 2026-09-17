@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/app/page.tsx
- * Purpose: Main Dashboard Page (React 19 / Next.js TSX)
- * Version: 3.0.0
- * ===================================================================
- */
-
 'use client';
 
 import React, { useState, useEffect } from 'react';

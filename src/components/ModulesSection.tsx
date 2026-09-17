@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/components/ModulesSection.tsx
- * Purpose: 8-Module Grid & Active Content Details Panel
- * Version: 3.0.0
- * ===================================================================
- */
-
 'use client';
 
 import React from 'react';
@@ -118,22 +109,19 @@ export const ModulesSection: React.FC<ModulesSectionProps> = ({
 
           <div id="panel-action-container" className="panel-action-area">
             {activeModule.isExternal && activeModule.externalUrl && (
-              <>
-                <span className="panel-action-hint">{t('actions.openNewTab')}</span>
-                <button
-                  type="button"
-                  className="btn-action-primary"
-                  onClick={handleLaunchPortal}
-                  title={panelTitle}
-                  aria-label={openActionText}
-                >
-                  <span
-                    dangerouslySetInnerHTML={{ __html: ICONS.externalArrow }}
-                    aria-hidden="true"
-                  />
-                  <span>{openActionText}</span>
-                </button>
-              </>
+              <button
+                type="button"
+                className="btn-action-primary"
+                onClick={handleLaunchPortal}
+                title={panelTitle}
+                aria-label={openActionText}
+              >
+                <span
+                  dangerouslySetInnerHTML={{ __html: ICONS.externalArrow }}
+                  aria-hidden="true"
+                />
+                <span>{openActionText}</span>
+              </button>
             )}
           </div>
         </div>

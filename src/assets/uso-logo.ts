@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/assets/uso-logo.ts
- * Purpose: Authoritative USO Portal Icon (USO_portal_icon.png)
- * Version: 3.0.4
- * ===================================================================
- */
-
 export const USO_LOGO_SRC = '/assets/image/USO_portal_icon.png';
 
 export const USO_LOGO_BASE64 =

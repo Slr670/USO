@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/app/layout.tsx
- * Purpose: Next.js Root Layout (100% TSX, Zero Standalone HTML/CSS)
- * Version: 3.0.0
- * ===================================================================
- */
-
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { dashboardGlobalStyles } from '../styles/dashboard.styles';

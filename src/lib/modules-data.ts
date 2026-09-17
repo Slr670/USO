@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/lib/modules-data.ts
- * Purpose: Authoritative dataset and pure SVG icons for SHF Operations
- * Version: 3.0.0
- * ===================================================================
- */
-
 import type { OperationalModule, SvgIconRegistry } from './types';
 
 /**

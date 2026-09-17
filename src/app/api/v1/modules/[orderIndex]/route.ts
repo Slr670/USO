@@ -1,12 +1,3 @@
-/**
- * ===================================================================
- * Super High Frequency (SHF) Repeater Network Optimization Project
- * File: src/app/api/v1/modules/[orderIndex]/route.ts
- * Purpose: REST API Route Handler for single module by order index
- * Version: 3.0.0
- * ===================================================================
- */
-
 import { NextResponse } from 'next/server';
 import { dashboardService } from '../../../../../lib/modules-service';
 
