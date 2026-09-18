@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.22] - 2026-09-18
+### Changed
+- **Configured 'Enter System' / 'Login' Button Action & Default PM Module:**
+  - Configured the 'Enter System' button in `src/components/Hero.tsx` with dedicated identifier `id="btn-enter-system"` and bilingual localization (`hero.enterSystem`: "Enter System" for EN, "เข้าสู่ระบบงาน" for TH).
+  - Updated `handleExploreClick` in `src/app/page.tsx` to explicitly activate and select module 0 (`1. Perform PM`) by default whenever users click 'Enter System'.
+  - Enhanced navigation with smooth scrolling (`scrollIntoView({ behavior: 'smooth', block: 'start' })`) directly to `#systems` (USO OPERATIONS PORTAL dashboard view) and updated URL history state.
+  - Added URL hash listener on initial page mount in `src/app/page.tsx` to automatically activate the '1. Perform PM' module and scroll into the dashboard view if accessed with `#systems` or `#modules-section`.
+  - Added `scroll-margin-top: 80px` to `.dashboard-container` and `#systems` in `src/styles/dashboard.styles.ts` to ensure the dashboard view and section header bar are never obscured by the sticky top header.
+  - Added `enterSystem` to `TranslationHero` interface in `src/lib/types.ts` and bilingual resources in `src/lib/i18n.ts`.
+  - Expanded test suite in `tests/verify_system.ts` with 11 new assertions verifying 'Enter System' button action, default active module index 0, i18n support, and scroll margins (99 total checks).
+  - Bumped application authoritative version to `v3.0.22`.
+
 ## [3.0.21] - 2026-09-17
 ### Changed
 - **UI Clean-Up: Removal of Video Showcase `<h2>` Heading:**

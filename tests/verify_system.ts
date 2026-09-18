@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.21';
+const EXPECTED_VERSION = '3.0.22';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.21) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.22) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.21',
+    'constants.ts APP_VERSION is 3.0.22',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -368,6 +368,73 @@ function verifyModuleCardMicroInteractions() {
   );
 }
 
+function verifyEnterSystemButtonAction() {
+  console.log('\n--- 9. Enter System Button Action & PM Module Selection Integrity ---');
+
+  // Verify i18n support for enterSystem in EN and TH
+  assertCheck(
+    'I18N_RESOURCES.en contains hero.enterSystem: "Enter System"',
+    I18N_RESOURCES.en.translation.hero.enterSystem === 'Enter System'
+  );
+  assertCheck(
+    'I18N_RESOURCES.th contains hero.enterSystem: "เข้าสู่ระบบงาน"',
+    I18N_RESOURCES.th.translation.hero.enterSystem === 'เข้าสู่ระบบงาน'
+  );
+
+  // Verify Hero component button configuration
+  const heroPath = path.join(ROOT_DIR, 'src/components/Hero.tsx');
+  assertCheck('Hero.tsx component exists', fs.existsSync(heroPath));
+  const heroContent = fs.readFileSync(heroPath, 'utf8');
+
+  assertCheck(
+    'Hero.tsx imports and uses useI18n',
+    heroContent.includes("import { useI18n } from '../lib/i18n';") &&
+    heroContent.includes('const { t } = useI18n();')
+  );
+  assertCheck(
+    'Hero.tsx contains id="btn-enter-system" on the action button',
+    heroContent.includes('id="btn-enter-system"')
+  );
+  assertCheck(
+    'Hero.tsx primary button renders translated enterSystem label and arrow',
+    heroContent.includes("{t('hero.enterSystem')} &rarr;")
+  );
+  assertCheck(
+    'Hero.tsx button links to #systems anchor with onExploreClick handler',
+    heroContent.includes('href="#systems"') && heroContent.includes('onExploreClick();')
+  );
+
+  // Verify page.tsx handleExploreClick sets module 0 and scrolls to dashboard
+  const pagePath = path.join(ROOT_DIR, 'src/app/page.tsx');
+  assertCheck('page.tsx exists', fs.existsSync(pagePath));
+  const pageContent = fs.readFileSync(pagePath, 'utf8');
+
+  assertCheck(
+    'page.tsx handleExploreClick explicitly sets activeModuleIndex to 0 (1. Perform PM)',
+    pageContent.includes('setActiveModuleIndex(0);')
+  );
+  assertCheck(
+    'page.tsx handleExploreClick smoothly scrolls to systems section',
+    pageContent.includes("el.scrollIntoView({ behavior: 'smooth', block: 'start' });")
+  );
+  assertCheck(
+    'page.tsx updates browser history state to #systems on click',
+    pageContent.includes("window.history.pushState(null, '', '#systems');")
+  );
+  assertCheck(
+    'page.tsx handles direct load with #systems hash to activate PM module and scroll',
+    pageContent.includes("hash === '#systems'")
+  );
+
+  // Verify dashboard.styles.ts scroll-margin-top for #systems
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+  assertCheck(
+    'dashboard.styles.ts configures scroll-margin-top: 80px for #systems and .dashboard-container',
+    stylesContent.includes('#systems') && stylesContent.includes('scroll-margin-top: 80px;')
+  );
+}
+
 export function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -382,6 +449,7 @@ export function runSuite() {
   verifyZeroLegacyFiles();
   verifyVideoShowcaseAutoplay();
   verifyModuleCardMicroInteractions();
+  verifyEnterSystemButtonAction();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

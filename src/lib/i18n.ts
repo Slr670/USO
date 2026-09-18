@@ -15,7 +15,8 @@ export const I18N_RESOURCES: I18nResources = {
         badge: "Next-Gen Telemetry & Operations Command Hub",
         title: "Super High Frequency (SHF) Repeater Network Optimization Project",
         ctaPrimary: "Explore Operational Modules",
-        ctaSecondary: "Watch Master Operations Video"
+        ctaSecondary: "Watch Master Operations Video",
+        enterSystem: "Enter System"
       },
       section: {
         title: "Operational Categories & System Services",
@@ -107,7 +108,8 @@ export const I18N_RESOURCES: I18nResources = {
         badge: "ศูนย์บัญชาการและเฝ้าระวังโทรมาตรโครงข่ายยุคใหม่",
         title: "โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)",
         ctaPrimary: "สำรวจโมดูลปฏิบัติการทั้ง 8",
-        ctaSecondary: "รับชมวิดีโอนำเสนอระบบ"
+        ctaSecondary: "รับชมวิดีโอนำเสนอระบบ",
+        enterSystem: "เข้าสู่ระบบงาน"
       },
       section: {
         title: "หมวดหมู่การปฏิบัติงานและบริการระบบ (Operational Categories)",

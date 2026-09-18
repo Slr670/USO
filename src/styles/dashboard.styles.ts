@@ -693,12 +693,14 @@ export const dashboardGlobalStyles: string = `
   }
 
   /* --- 5. Main Dashboard Container & Section Meta --- */
-  .dashboard-container {
+  .dashboard-container,
+  #systems {
     max-width: 1320px;
     margin: 32px auto;
     padding: 0 24px;
     width: 100%;
     flex: 1;
+    scroll-margin-top: 80px;
   }
 
   .section-info-bar {

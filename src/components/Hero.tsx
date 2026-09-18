@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useI18n } from '../lib/i18n';
 import { HERO_BG_VIDEO_SRC } from '../lib/constants';
 
 interface HeroProps {
@@ -13,6 +14,8 @@ export const Hero: React.FC<HeroProps> = ({
   onExploreClick,
   videoSrc = HERO_BG_VIDEO_SRC,
 }) => {
+  const { t } = useI18n();
+
   return (
     <section className="container hero">
       {/* Full-Screen Background Video Container */}
@@ -52,6 +55,7 @@ export const Hero: React.FC<HeroProps> = ({
         </p>
         <div className="actions">
           <a
+            id="btn-enter-system"
             className="btn btn-primary"
             href="#systems"
             onClick={(e) => {
@@ -60,8 +64,10 @@ export const Hero: React.FC<HeroProps> = ({
                 onExploreClick();
               }
             }}
+            title={t('hero.enterSystem')}
+            aria-label={t('hero.enterSystem')}
           >
-            เข้าสู่ระบบงาน &rarr;
+            {t('hero.enterSystem')} &rarr;
           </a>
         </div>
         <div className="quick-list">

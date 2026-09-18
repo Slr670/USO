@@ -10,16 +10,20 @@ export default function DashboardPage() {
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0);
 
   const handleExploreClick = () => {
+    setActiveModuleIndex(0);
     const el = document.getElementById('systems') || document.getElementById('modules-section');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (typeof window !== 'undefined' && window.history.pushState) {
+        window.history.pushState(null, '', '#systems');
+      }
     }
   };
 
   const handleVideoClick = () => {
     const el = document.getElementById('video-section');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -39,6 +43,23 @@ export default function DashboardPage() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Handle direct navigation to #systems or #modules-section on initial load
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash === '#systems' || hash === '#modules-section') {
+        setActiveModuleIndex(0);
+        const timer = setTimeout(() => {
+          const el = document.getElementById('systems') || document.getElementById('modules-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
   }, []);
 
   return (

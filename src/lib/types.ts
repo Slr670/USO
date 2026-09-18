@@ -57,6 +57,7 @@ export interface TranslationHero {
   readonly title: string;
   readonly ctaPrimary: string;
   readonly ctaSecondary: string;
+  readonly enterSystem: string;
 }
 
 export interface TranslationSection {
