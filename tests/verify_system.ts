@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.1.1';
+const EXPECTED_VERSION = '3.1.2';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.1) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.2) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.1.1',
+    'constants.ts APP_VERSION is 3.1.2',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -248,6 +248,12 @@ function verifyVideoShowcaseAutoplay() {
   assertCheck(
     'VideoShowcase configures audio enabled by default with muted fallback',
     content.includes('video.muted = false') && content.includes('video.muted = true')
+  );
+
+  // Video default volume level configured to 50% (0.5)
+  assertCheck(
+    'VideoShowcase configures default volume to 50% (video.volume = 0.5)',
+    content.includes('video.volume = 0.5;')
   );
 
   // Video meta badges (1080p, 60 FPS, HD icon) completely removed from component

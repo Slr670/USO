@@ -16,7 +16,7 @@ export const VideoShowcase: React.FC = () => {
 
     // Enable audio by default whenever browser policy allows
     video.muted = false;
-    video.volume = 1.0;
+    video.volume = 0.5;
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
@@ -38,7 +38,7 @@ export const VideoShowcase: React.FC = () => {
     const enableAudioOnInteraction = () => {
       if (video) {
         video.muted = false;
-        video.volume = 1.0;
+        video.volume = 0.5;
       }
       detachInteractionListener();
     };
