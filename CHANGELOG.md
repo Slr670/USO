@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.3] - 2026-09-21
+### Added
+- **Auto-Scroll Interaction on Service Module Cards:**
+  - Added smooth auto-scroll interaction when clicking any service module card in `src/components/ModulesSection.tsx`, smoothly navigating the viewport directly to the 'MODULE DETAILS' panel (`detailsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' })`).
+  - Configured `scroll-margin-top: 80px;` on `#dashboard-content-panel` and `.content-panel` in `src/styles/dashboard.styles.ts` to ensure the header eyebrow and status badge of the detail panel are never clipped beneath the sticky top navigation header.
+  - Expanded verification suite in `tests/verify_system.ts` with assertions for auto-scroll interaction and `scroll-margin-top` compliance (115 checks passing).
+  - Bumped application authoritative version to `v3.1.3`.
+
 ## [3.1.2] - 2026-09-21
 ### Changed
 - **Configured Video Player Default Volume to 50%:**

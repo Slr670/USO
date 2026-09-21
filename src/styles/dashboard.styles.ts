@@ -946,6 +946,7 @@ export const dashboardGlobalStyles: string = `
 
 
   /* --- 7. Content Details Panel --- */
+  #dashboard-content-panel,
   .content-panel {
     display: flex;
     flex-direction: column;
@@ -957,6 +958,7 @@ export const dashboardGlobalStyles: string = `
     box-shadow: var(--shadow-lg);
     margin-bottom: 40px;
     transition: all var(--anim-smooth);
+    scroll-margin-top: 80px;
   }
 
   .panel-header-row {

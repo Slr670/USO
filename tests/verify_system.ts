@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.1.2';
+const EXPECTED_VERSION = '3.1.3';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.2) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.3) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.1.2',
+    'constants.ts APP_VERSION is 3.1.3',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -372,6 +372,17 @@ function verifyModuleCardMicroInteractions() {
   assertCheck(
     'ModulesSection.tsx does not contain panel-action-hint',
     !modulesSectionContent.includes('panel-action-hint')
+  );
+
+  // Check auto-scroll interaction on module card selection to MODULE DETAILS panel
+  assertCheck(
+    'ModulesSection.tsx contains auto-scroll interaction with scrollIntoView smooth block start',
+    modulesSectionContent.includes("detailsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' })") &&
+    modulesSectionContent.includes('dashboard-content-panel')
+  );
+  assertCheck(
+    'dashboard.styles.ts configures scroll-margin-top: 80px for #dashboard-content-panel and .content-panel',
+    stylesContent.includes('.content-panel') && stylesContent.includes('scroll-margin-top: 80px;')
   );
 
   // Check no "Launch Primary System:" prefix in i18n or ModulesSection

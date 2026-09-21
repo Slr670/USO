@@ -33,6 +33,16 @@ export const ModulesSection: React.FC<ModulesSectionProps> = ({
     }
   };
 
+  const handleSelectModule = (index: number) => {
+    onSelectModule(index);
+    if (typeof window !== 'undefined') {
+      const detailsPanel = document.getElementById('dashboard-content-panel');
+      if (detailsPanel && typeof detailsPanel.scrollIntoView === 'function') {
+        detailsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <section id="systems" className="dashboard-container">
       <span id="modules-section" aria-hidden="true" style={{ display: 'none' }} />
@@ -69,7 +79,7 @@ export const ModulesSection: React.FC<ModulesSectionProps> = ({
             key={m.id}
             module={m}
             isActive={idx === activeIndex}
-            onSelect={onSelectModule}
+            onSelect={handleSelectModule}
           />
         ))}
       </div>
