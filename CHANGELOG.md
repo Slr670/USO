@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.1] - 2026-09-21
+### Changed
+- **Aligned Card 9 Click Behavior & Dedicated Telecom Antenna Icon:**
+  - Aligned the click behavior of Card 9 with the other modules in `src/components/ModuleCard.tsx`, selecting and displaying its detail card in-place via `onSelect(module.orderIndex)` rather than navigating away directly.
+  - Retained external link navigation exclusively on the action button (`.btn-action-primary`) inside the detail panel (`ModulesSection.tsx`).
+  - Removed `.card-ext-badge` external link indicator from Card 9 and cleaned up associated styles from `src/styles/dashboard.styles.ts`.
+  - Replaced Card 9 icon in `ICONS` (`src/lib/modules-data.ts`) with a dedicated telecom antenna SVG icon (Lucide `antenna`), adhering strictly to UI Icon Policy (pure scalable vector SVG, no emojis).
+  - Updated verification suite in `tests/verify_system.ts` confirming aligned click behavior, detail panel action button retention, and Lucide antenna icon verification (112 checks passing).
+  - Bumped application authoritative version to `v3.1.1`.
+
 ## [3.1.0] - 2026-09-21
 ### Added
 - **9th Operational Module: Calculate Antenna Spacing (ระบบคำนวณระยะติดตั้งสายอากาศ):**

@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.1.0';
+const EXPECTED_VERSION = '3.1.1';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.0) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.1) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.1.0',
+    'constants.ts APP_VERSION is 3.1.1',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -91,11 +91,14 @@ function verifyModulesDataAndUrls() {
     );
   }
 
-  // Verify 9th module external indicator
+  // Verify 9th module dedicated telecom antenna icon
   const mod9 = MENU_MODULES_DATA[8];
   assertCheck(
-    'Module 9 has showExternalIndicator flag enabled',
-    mod9 !== undefined && mod9.showExternalIndicator === true
+    'Module 9 uses dedicated telecom antenna SVG icon (Lucide antenna)',
+    mod9 !== undefined &&
+    typeof mod9.svgIcon === 'string' &&
+    mod9.svgIcon.includes('M2 12h7') &&
+    mod9.svgIcon.includes('M7 12v6a3 3 0 0 0 6 0v-6')
   );
 }
 
@@ -339,24 +342,27 @@ function verifyModuleCardMicroInteractions() {
     !moduleCardContent.includes('external-link-pill') && !moduleCardContent.includes('openNewTab')
   );
 
-  // Check 9th Module Card external link indicator and click behavior
+  // Check Card 9 aligned click behavior and in-place detail panel display
   assertCheck(
-    'ModuleCard.tsx contains card-ext-badge for external link indicator',
-    moduleCardContent.includes('card-ext-badge')
+    'ModuleCard.tsx delegates onClick directly to onSelect for in-place selection',
+    moduleCardContent.includes('onClick={() => onSelect(module.orderIndex)}')
   );
   assertCheck(
-    'ModuleCard.tsx configures module 9 to open externalUrl in a new tab upon click',
-    moduleCardContent.includes('module.id === 9 && module.externalUrl') &&
-    moduleCardContent.includes("window.open(module.externalUrl, '_blank', 'noopener,noreferrer')")
+    'ModuleCard.tsx does not directly open external links on card click',
+    !moduleCardContent.includes('window.open')
   );
   assertCheck(
-    'dashboard.styles.ts defines .card-ext-badge styling',
-    stylesContent.includes('.card-ext-badge')
+    'ModuleCard.tsx and dashboard.styles.ts have card-ext-badge completely removed',
+    !moduleCardContent.includes('card-ext-badge') && !stylesContent.includes('.card-ext-badge')
   );
 
-  // Check ModulesSection.tsx has panel-action-hint removed
+  // Check ModulesSection.tsx has panel-action-hint removed and retains action button
   const modulesSectionPath = path.join(ROOT_DIR, 'src/components/ModulesSection.tsx');
   const modulesSectionContent = fs.readFileSync(modulesSectionPath, 'utf8');
+  assertCheck(
+    'ModulesSection.tsx retains external link launch on the detail panel action button',
+    modulesSectionContent.includes('handleLaunchPortal') && modulesSectionContent.includes('btn-action-primary')
+  );
   assertCheck(
     'ModulesSection.tsx does not contain panel-action-hint',
     !modulesSectionContent.includes('panel-action-hint')

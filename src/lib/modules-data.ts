@@ -105,13 +105,13 @@ export const ICONS: SvgIconRegistry = {
     <path d="M3.34 19a10 10 0 1 1 17.32 0"/>
   </svg>`,
 
-  // 9. Calculate Antenna Spacing: Super High Frequency Antenna Tower
+  // 9. Calculate Antenna Spacing: Dedicated Telecom Antenna (Lucide Antenna)
   antennaTower: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
-    <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
-    <circle cx="12" cy="12" r="2"/>
-    <path d="m16.24 16.24-2.83 2.83a2 2 0 0 1-2.82 0l-2.83-2.83"/>
-    <line x1="12" y1="12" x2="12" y2="22"/>
+    <path d="M2 12h7"/>
+    <path d="M7 12v6a3 3 0 0 0 6 0v-6"/>
+    <path d="M13 12h9"/>
+    <circle cx="12" cy="5" r="2"/>
+    <path d="M12 7v5"/>
   </svg>`
 };
 
@@ -226,7 +226,6 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     svgIcon: ICONS.antennaTower,
     description: "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations.",
     externalUrl: "https://antenna-inky.vercel.app/",
-    isExternal: true,
-    showExternalIndicator: true
+    isExternal: true
   }
 ];
