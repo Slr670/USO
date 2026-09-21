@@ -36,6 +36,7 @@ export interface SvgIconRegistry {
   readonly shieldCheck?: string;
   readonly speedMeter?: string;
   readonly antennaTower: string;
+  readonly azimuthCompass: string;
 }
 
 /**

@@ -86,6 +86,13 @@ export const I18N_RESOURCES: I18nResources = {
           badge: "Category: Antenna Spacing Calculation",
           description: "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations.",
           tooltip: "Calculate Antenna Spacing (9. Calculate Antenna Spacing)"
+        },
+        m10: {
+          shortTitle: "10. Calculate Antenna Azimuth",
+          fullTitle: "10. Calculate Antenna Azimuth (Antenna Direction & Bearing)",
+          badge: "Category: Antenna Azimuth Calculation",
+          description: "Calculate directional azimuth, compass bearing, tilt angles, and optimal orientation alignment for SHF repeater parabolic antennas and RF microwave links.",
+          tooltip: "Calculate Antenna Azimuth (10. Calculate Antenna Azimuth)"
         }
       },
       video: {
@@ -186,6 +193,13 @@ export const I18N_RESOURCES: I18nResources = {
           badge: "หมวดหมู่งาน: คำนวณระยะติดตั้งสายอากาศ",
           description: "ระบบคำนวณระยะห่างการติดตั้งสายอากาศ (Vertical and Horizontal Spacing) ระยะแยกตามแนวดิ่งและแนวราบเพื่อป้องกันการรบกวนของสัญญาณคลื่นความถี่สูงสำหรับสถานีทวนสัญญาณและเสาสื่อสาร",
           tooltip: "ระบบคำนวณระยะติดตั้งสายอากาศ (9. Calculate Antenna Spacing)"
+        },
+        m10: {
+          shortTitle: "10. Calculate Antenna Azimuth",
+          fullTitle: "10. ระบบคำนวณทิศทางองศาของสายอากาศ (Calculate Antenna Azimuth)",
+          badge: "หมวดหมู่งาน: คำนวณทิศทางองศาของสายอากาศ",
+          description: "ระบบคำนวณทิศทางองศาของสายอากาศ (Azimuth Calculation) คำนวณมุมทิศ องศาเข็มทิศ มุมก้ม-เงย (Tilt Angle) และการปรับทิศทางจานพาราโบลาทวนสัญญาณ SHF เพื่อประสิทธิภาพการเชื่อมโยงสัญญาณสูงสุด",
+          tooltip: "ระบบคำนวณทิศทางองศาของสายอากาศ (10. Calculate Antenna Azimuth)"
         }
       },
       video: {
@@ -206,7 +220,7 @@ export const I18N_RESOURCES: I18nResources = {
   }
 };
 
-export const MODULE_KEYS: readonly string[] = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9'];
+export const MODULE_KEYS: readonly string[] = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10'];
 
 /**
  * Nested key resolver for translations

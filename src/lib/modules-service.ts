@@ -9,21 +9,21 @@ export class DashboardService implements IDashboardService {
   }
 
   /**
-   * Retrieve all 9 operational modules
+   * Retrieve all 10 operational modules
    */
   public getAllModules(): OperationalModule[] {
     return [...this.modules];
   }
 
   /**
-   * Retrieve a single module by order index (0 to 8)
+   * Retrieve a single module by order index (0 to 9)
    */
   public getModuleByOrderIndex(orderIndex: number): OperationalModule | undefined {
     return this.modules.find((m) => m.orderIndex === orderIndex);
   }
 
   /**
-   * Retrieve a single module by id (1 to 9)
+   * Retrieve a single module by id (1 to 10)
    */
   public getModuleById(id: number): OperationalModule | undefined {
     return this.modules.find((m) => m.id === id);

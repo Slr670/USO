@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-09-21
+### Added
+- **10th Operational Module: Calculate Antenna Azimuth (ระบบคำนวณทิศทางองศาของสายอากาศ):**
+  - Added 10th operational module `'10. Calculate Antenna Azimuth'` (`ระบบคำนวณทิศทางองศาของสายอากาศ`) to `src/lib/modules-data.ts` (id 10, orderIndex 9).
+  - Integrated dedicated directional azimuth & compass bearing SVG icon (`azimuthCompass` / Lucide `compass`) strictly adhering to the UI Icon Policy (pure scalable vector SVG, zero Unicode emoji).
+  - Aligned click interaction so selecting Card 10 smoothly scrolls the viewport directly into view of the 'MODULE DETAILS' panel (`scrollIntoView({ behavior: 'smooth', block: 'start' })`).
+  - Configured detail action button (`.btn-action-primary`) to open `https://azmuth-kappa.vercel.app/` in a new tab (`window.open(..., '_blank', 'noopener,noreferrer')`).
+  - Added bilingual translations (`m10`) for English and Thai in `src/lib/i18n.ts` and registered in `MODULE_KEYS`.
+  - Updated `.grid-container` in `src/styles/dashboard.styles.ts` to `grid-template-columns: repeat(5, 1fr)` for a balanced 5x2 grid layout of 10 cards on desktop with responsive breakpoints.
+  - Updated `DashboardService` in `src/lib/modules-service.ts` and dynamic route error handling in `src/app/api/v1/modules/[orderIndex]/route.ts`.
+  - Expanded verification suite in `tests/verify_system.ts` with assertions for 10 modules, module 10 URL, Lucide compass SVG icon, and service parity (120 checks passing).
+  - Bumped application authoritative version to `v3.2.0` (MINOR feature release).
+
 ## [3.1.3] - 2026-09-21
 ### Added
 - **Auto-Scroll Interaction on Service Module Cards:**

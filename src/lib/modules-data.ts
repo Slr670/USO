@@ -112,11 +112,17 @@ export const ICONS: SvgIconRegistry = {
     <path d="M13 12h9"/>
     <circle cx="12" cy="5" r="2"/>
     <path d="M12 7v5"/>
+  </svg>`,
+
+  // 10. Calculate Antenna Azimuth: Directional Azimuth & Compass Bearing (Lucide Compass)
+  azimuthCompass: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
   </svg>`
 };
 
 /**
- * Authoritative Operational Modules Dataset (9 Core Systems)
+ * Authoritative Operational Modules Dataset (10 Core Systems)
  * 181 SHF Repeater Station Network Optimization & Telemetry Operations
  */
 export const MENU_MODULES_DATA: readonly OperationalModule[] = [
@@ -226,6 +232,18 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     svgIcon: ICONS.antennaTower,
     description: "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations.",
     externalUrl: "https://antenna-inky.vercel.app/",
+    isExternal: true
+  },
+  {
+    id: 10,
+    orderIndex: 9,
+    shortTitle: "10. Calculate Antenna Azimuth",
+    fullTitle: "10. Calculate Antenna Azimuth (Antenna Direction & Bearing)",
+    badge: "Category: Antenna Azimuth Calculation",
+    icon: "fa-solid fa-compass",
+    svgIcon: ICONS.azimuthCompass,
+    description: "Calculate directional azimuth, compass bearing, tilt angles, and optimal orientation alignment for SHF repeater parabolic antennas and RF microwave links.",
+    externalUrl: "https://azmuth-kappa.vercel.app/",
     isExternal: true
   }
 ];

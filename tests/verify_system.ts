@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.1.3';
+const EXPECTED_VERSION = '3.2.0';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.3) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.2.0) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.1.3',
+    'constants.ts APP_VERSION is 3.2.0',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -62,7 +62,7 @@ function verifyVersionIntegrity() {
 function verifyModulesDataAndUrls() {
   console.log('\n--- 2. Modules Data & Operational URLs ---');
 
-  assertCheck('Loaded exactly 9 operational modules', MENU_MODULES_DATA.length === 9);
+  assertCheck('Loaded exactly 10 operational modules', MENU_MODULES_DATA.length === 10);
 
   const expectedUrls: Record<number, string> = {
     0: 'https://pm-5year.vercel.app/',
@@ -73,7 +73,8 @@ function verifyModulesDataAndUrls() {
     5: 'https://wara5year.vercel.app/',
     6: 'https://www.stockflowth.online/dashboard',
     7: 'https://contion.vercel.app/',
-    8: 'https://antenna-inky.vercel.app/'
+    8: 'https://antenna-inky.vercel.app/',
+    9: 'https://azmuth-kappa.vercel.app/'
   };
 
   for (const [idxStr, expectedUrl] of Object.entries(expectedUrls)) {
@@ -100,13 +101,23 @@ function verifyModulesDataAndUrls() {
     mod9.svgIcon.includes('M2 12h7') &&
     mod9.svgIcon.includes('M7 12v6a3 3 0 0 0 6 0v-6')
   );
+
+  // Verify 10th module dedicated directional azimuth compass icon
+  const mod10 = MENU_MODULES_DATA[9];
+  assertCheck(
+    'Module 10 uses dedicated directional azimuth compass SVG icon (Lucide compass)',
+    mod10 !== undefined &&
+    typeof mod10.svgIcon === 'string' &&
+    mod10.svgIcon.includes('circle cx="12" cy="12" r="10"') &&
+    mod10.svgIcon.includes('polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"')
+  );
 }
 
 function verifyBackendService() {
   console.log('\n--- 3. TypeScript Backend Service Parity ---');
 
   const allMods = dashboardService.getAllModules();
-  assertCheck('DashboardService.getAllModules returns 9 items', allMods.length === 9);
+  assertCheck('DashboardService.getAllModules returns 10 items', allMods.length === 10);
 
   const defaultMod = dashboardService.getDefaultModule();
   assertCheck('DashboardService.getDefaultModule returns PM module (index 0)', defaultMod.orderIndex === 0);
@@ -117,6 +128,9 @@ function verifyBackendService() {
   const mod8 = dashboardService.getModuleByOrderIndex(8);
   assertCheck('DashboardService.getModuleByOrderIndex(8) found module 9', mod8 !== undefined && mod8.id === 9);
 
+  const mod9 = dashboardService.getModuleByOrderIndex(9);
+  assertCheck('DashboardService.getModuleByOrderIndex(9) found module 10', mod9 !== undefined && mod9.id === 10);
+
   const modInvalid = dashboardService.getModuleByOrderIndex(99);
   assertCheck('DashboardService.getModuleByOrderIndex(99) returns undefined', modInvalid === undefined);
 }
@@ -126,7 +140,7 @@ function verifyI18nEngine() {
 
   assertCheck('I18N_RESOURCES contains English', !!I18N_RESOURCES.en);
   assertCheck('I18N_RESOURCES contains Thai', !!I18N_RESOURCES.th);
-  assertCheck('MODULE_KEYS has 9 keys', MODULE_KEYS.length === 9);
+  assertCheck('MODULE_KEYS has 10 keys', MODULE_KEYS.length === 10);
 
   for (const key of MODULE_KEYS) {
     const enMod = I18N_RESOURCES.en.translation.modules[key];

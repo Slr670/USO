@@ -10,7 +10,7 @@ export async function GET(
 
   if (isNaN(index)) {
     return NextResponse.json(
-      { error: 'Invalid orderIndex parameter. Must be an integer 0-7.' },
+      { error: 'Invalid orderIndex parameter. Must be an integer 0-9.' },
       { status: 400 }
     );
   }

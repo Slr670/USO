@@ -734,10 +734,10 @@ export const dashboardGlobalStyles: string = `
     color: var(--slate-500);
   }
 
-  /* --- 6. 9-Module Grid Cards --- */
+  /* --- 6. 10-Module Grid Cards --- */
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     margin-bottom: 32px;
   }
@@ -1327,7 +1327,13 @@ export const dashboardGlobalStyles: string = `
   }
 
   /* --- 11. Responsive Breakpoints --- */
-  @media (max-width: 1024px) {
+  @media (max-width: 1200px) {
+    .grid-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 880px) {
     .grid-container {
       grid-template-columns: repeat(2, 1fr);
     }
