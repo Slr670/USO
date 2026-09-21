@@ -1,6 +1,6 @@
 {
   "name": "shf-dashboard",
-  "version": "3.0.22",
+  "version": "3.1.0",
   "description": "Super High Frequency (SHF) Repeater Network Optimization Project - Operations & Maintenance Dashboard",
   "scripts": {
     "dev": "next dev",

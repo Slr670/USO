@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-09-21
+### Added
+- **9th Operational Module: Calculate Antenna Spacing (ระบบคำนวณระยะติดตั้งสายอากาศ):**
+  - Added 9th module card titled `'9. Calculate Antenna Spacing'` (`ระบบคำนวณระยะติดตั้งสายอากาศ`) to `src/lib/modules-data.ts` (id 9, orderIndex 8).
+  - Integrated custom antenna/tower SVG icon (`antennaTower`) in `ICONS` adhering strictly to the UI Icon Policy (pure SVG, zero emojis).
+  - Added external link indicator badge (`.card-ext-badge`) with external arrow SVG icon on the card with subtle cyan luminous glow and hover micro-interaction.
+  - Configured click handler on the 9th module card in `src/components/ModuleCard.tsx` to automatically open `https://antenna-inky.vercel.app/` in a new tab (`window.open(..., '_blank', 'noopener,noreferrer')`) while selecting the card in the dashboard state.
+  - Added complete bilingual translations (`m9`) for English and Thai in `src/lib/i18n.ts` and registered in `MODULE_KEYS`.
+  - Refactored `.grid-container` in `src/styles/dashboard.styles.ts` to `grid-template-columns: repeat(3, 1fr)` for a balanced 3x3 layout of 9 cards on desktop.
+  - Updated `OperationalModule` with optional `showExternalIndicator?: boolean` and `SvgIconRegistry` with `antennaTower: string`.
+  - Updated `DashboardService` in `src/lib/modules-service.ts` to support 9 operational modules.
+  - Expanded verification suite in `tests/verify_system.ts` with checks for 9 modules, module 9 URL, external indicator, and click behavior (111 checks passing).
+  - Bumped application authoritative version to `v3.1.0`.
+
 ## [3.0.22] - 2026-09-18
 ### Changed
 - **Configured 'Enter System' / 'Login' Button Action & Default PM Module:**

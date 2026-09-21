@@ -79,6 +79,13 @@ export const I18N_RESOURCES: I18nResources = {
           badge: "Category: Asset & Equipment Registry",
           description: "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
           tooltip: "Asset & Equipment Registry Management (8. Assets & Equipment)"
+        },
+        m9: {
+          shortTitle: "9. Calculate Antenna Spacing",
+          fullTitle: "9. Calculate Antenna Spacing (Antenna Separation System)",
+          badge: "Category: Antenna Spacing Calculation",
+          description: "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations.",
+          tooltip: "Calculate Antenna Spacing (9. Calculate Antenna Spacing)"
         }
       },
       video: {
@@ -107,7 +114,7 @@ export const I18N_RESOURCES: I18nResources = {
       hero: {
         badge: "ศูนย์บัญชาการและเฝ้าระวังโทรมาตรโครงข่ายยุคใหม่",
         title: "โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)",
-        ctaPrimary: "สำรวจโมดูลปฏิบัติการทั้ง 8",
+        ctaPrimary: "สำรวจโมดูลปฏิบัติการทั้ง 9",
         ctaSecondary: "รับชมวิดีโอนำเสนอระบบ",
         enterSystem: "เข้าสู่ระบบงาน"
       },
@@ -172,6 +179,13 @@ export const I18N_RESOURCES: I18nResources = {
           badge: "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
           description: "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (รหัสทรัพย์สิน/หมายเลขประจำเครื่อง), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน",
           tooltip: "การจัดการทะเบียนครุภัณฑ์และทรัพย์สิน (8. Assets & Equipment)"
+        },
+        m9: {
+          shortTitle: "9. Calculate Antenna Spacing",
+          fullTitle: "9. ระบบคำนวณระยะติดตั้งสายอากาศ (Calculate Antenna Spacing)",
+          badge: "หมวดหมู่งาน: คำนวณระยะติดตั้งสายอากาศ",
+          description: "ระบบคำนวณระยะห่างการติดตั้งสายอากาศ (Vertical and Horizontal Spacing) ระยะแยกตามแนวดิ่งและแนวราบเพื่อป้องกันการรบกวนของสัญญาณคลื่นความถี่สูงสำหรับสถานีทวนสัญญาณและเสาสื่อสาร",
+          tooltip: "ระบบคำนวณระยะติดตั้งสายอากาศ (9. Calculate Antenna Spacing)"
         }
       },
       video: {
@@ -192,7 +206,7 @@ export const I18N_RESOURCES: I18nResources = {
   }
 };
 
-export const MODULE_KEYS: readonly string[] = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8'];
+export const MODULE_KEYS: readonly string[] = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9'];
 
 /**
  * Nested key resolver for translations

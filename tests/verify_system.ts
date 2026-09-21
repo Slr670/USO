@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.0.22';
+const EXPECTED_VERSION = '3.1.0';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.0.22) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.1.0) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.0.22',
+    'constants.ts APP_VERSION is 3.1.0',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -62,7 +62,7 @@ function verifyVersionIntegrity() {
 function verifyModulesDataAndUrls() {
   console.log('\n--- 2. Modules Data & Operational URLs ---');
 
-  assertCheck('Loaded exactly 8 operational modules', MENU_MODULES_DATA.length === 8);
+  assertCheck('Loaded exactly 9 operational modules', MENU_MODULES_DATA.length === 9);
 
   const expectedUrls: Record<number, string> = {
     0: 'https://pm-5year.vercel.app/',
@@ -72,7 +72,8 @@ function verifyModulesDataAndUrls() {
     4: 'https://bssc-nine.vercel.app/',
     5: 'https://wara5year.vercel.app/',
     6: 'https://www.stockflowth.online/dashboard',
-    7: 'https://contion.vercel.app/'
+    7: 'https://contion.vercel.app/',
+    8: 'https://antenna-inky.vercel.app/'
   };
 
   for (const [idxStr, expectedUrl] of Object.entries(expectedUrls)) {
@@ -89,19 +90,29 @@ function verifyModulesDataAndUrls() {
       `Missing SVG in module ${idx + 1}`
     );
   }
+
+  // Verify 9th module external indicator
+  const mod9 = MENU_MODULES_DATA[8];
+  assertCheck(
+    'Module 9 has showExternalIndicator flag enabled',
+    mod9 !== undefined && mod9.showExternalIndicator === true
+  );
 }
 
 function verifyBackendService() {
   console.log('\n--- 3. TypeScript Backend Service Parity ---');
 
   const allMods = dashboardService.getAllModules();
-  assertCheck('DashboardService.getAllModules returns 8 items', allMods.length === 8);
+  assertCheck('DashboardService.getAllModules returns 9 items', allMods.length === 9);
 
   const defaultMod = dashboardService.getDefaultModule();
   assertCheck('DashboardService.getDefaultModule returns PM module (index 0)', defaultMod.orderIndex === 0);
 
   const mod0 = dashboardService.getModuleByOrderIndex(0);
   assertCheck('DashboardService.getModuleByOrderIndex(0) found', mod0 !== undefined && mod0.id === 1);
+
+  const mod8 = dashboardService.getModuleByOrderIndex(8);
+  assertCheck('DashboardService.getModuleByOrderIndex(8) found module 9', mod8 !== undefined && mod8.id === 9);
 
   const modInvalid = dashboardService.getModuleByOrderIndex(99);
   assertCheck('DashboardService.getModuleByOrderIndex(99) returns undefined', modInvalid === undefined);
@@ -112,7 +123,7 @@ function verifyI18nEngine() {
 
   assertCheck('I18N_RESOURCES contains English', !!I18N_RESOURCES.en);
   assertCheck('I18N_RESOURCES contains Thai', !!I18N_RESOURCES.th);
-  assertCheck('MODULE_KEYS has 8 keys', MODULE_KEYS.length === 8);
+  assertCheck('MODULE_KEYS has 9 keys', MODULE_KEYS.length === 9);
 
   for (const key of MODULE_KEYS) {
     const enMod = I18N_RESOURCES.en.translation.modules[key];
@@ -326,6 +337,21 @@ function verifyModuleCardMicroInteractions() {
   assertCheck(
     'ModuleCard.tsx does not contain external-link-pill or openNewTab',
     !moduleCardContent.includes('external-link-pill') && !moduleCardContent.includes('openNewTab')
+  );
+
+  // Check 9th Module Card external link indicator and click behavior
+  assertCheck(
+    'ModuleCard.tsx contains card-ext-badge for external link indicator',
+    moduleCardContent.includes('card-ext-badge')
+  );
+  assertCheck(
+    'ModuleCard.tsx configures module 9 to open externalUrl in a new tab upon click',
+    moduleCardContent.includes('module.id === 9 && module.externalUrl') &&
+    moduleCardContent.includes("window.open(module.externalUrl, '_blank', 'noopener,noreferrer')")
+  );
+  assertCheck(
+    'dashboard.styles.ts defines .card-ext-badge styling',
+    stylesContent.includes('.card-ext-badge')
   );
 
   // Check ModulesSection.tsx has panel-action-hint removed

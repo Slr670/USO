@@ -734,10 +734,10 @@ export const dashboardGlobalStyles: string = `
     color: var(--slate-500);
   }
 
-  /* --- 6. 8-Module Grid Cards --- */
+  /* --- 6. 9-Module Grid Cards --- */
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-bottom: 32px;
   }
@@ -781,6 +781,43 @@ export const dashboardGlobalStyles: string = `
 
   .card-btn:hover::before {
     background: var(--primary-400);
+  }
+
+  .card-ext-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    background: rgba(14, 165, 233, 0.08);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--primary-400);
+    transition: all var(--anim-base);
+    pointer-events: none;
+  }
+
+  .card-ext-badge svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .card-btn:hover .card-ext-badge {
+    background: rgba(14, 165, 233, 0.2);
+    border-color: var(--primary-400);
+    color: #38bdf8;
+    transform: translate(1px, -1px);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  }
+
+  .card-btn.active .card-ext-badge {
+    background: rgba(56, 189, 248, 0.25);
+    border-color: var(--primary-300);
+    color: #e0f2fe;
+    box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
   }
 
   .card-icon-box {

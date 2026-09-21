@@ -103,11 +103,20 @@ export const ICONS: SvgIconRegistry = {
   speedMeter: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="m12 14 4-4"/>
     <path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+  </svg>`,
+
+  // 9. Calculate Antenna Spacing: Super High Frequency Antenna Tower
+  antennaTower: `<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.93 4.93a10 10 0 0 1 14.14 0"/>
+    <path d="M7.76 7.76a6 6 0 0 1 8.48 0"/>
+    <circle cx="12" cy="12" r="2"/>
+    <path d="m16.24 16.24-2.83 2.83a2 2 0 0 1-2.82 0l-2.83-2.83"/>
+    <line x1="12" y1="12" x2="12" y2="22"/>
   </svg>`
 };
 
 /**
- * Authoritative Operational Modules Dataset (8 Core Systems)
+ * Authoritative Operational Modules Dataset (9 Core Systems)
  * 181 SHF Repeater Station Network Optimization & Telemetry Operations
  */
 export const MENU_MODULES_DATA: readonly OperationalModule[] = [
@@ -206,5 +215,18 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     description: "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories.",
     externalUrl: "https://contion.vercel.app/",
     isExternal: true
+  },
+  {
+    id: 9,
+    orderIndex: 8,
+    shortTitle: "9. Calculate Antenna Spacing",
+    fullTitle: "9. Calculate Antenna Spacing (Antenna Separation & Colocation)",
+    badge: "Category: Antenna Spacing Calculation",
+    icon: "fa-solid fa-tower-broadcast",
+    svgIcon: ICONS.antennaTower,
+    description: "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations.",
+    externalUrl: "https://antenna-inky.vercel.app/",
+    isExternal: true,
+    showExternalIndicator: true
   }
 ];

@@ -1,6 +1,6 @@
 /**
  * Operational Module Specification Interface
- * Represents each of the 8 core operational domains in the SHF Network
+ * Represents each of the core operational domains in the SHF Network
  */
 export interface OperationalModule {
   readonly id: number;
@@ -13,6 +13,7 @@ export interface OperationalModule {
   readonly description: string;
   readonly externalUrl: string;
   readonly isExternal: boolean;
+  readonly showExternalIndicator?: boolean;
 }
 
 /**
@@ -34,6 +35,7 @@ export interface SvgIconRegistry {
   readonly serverStack?: string;
   readonly shieldCheck?: string;
   readonly speedMeter?: string;
+  readonly antennaTower: string;
 }
 
 /**
