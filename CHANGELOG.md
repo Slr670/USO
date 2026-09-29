@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.1] - 2026-09-29
+### Added
+- **Secondary 'View Presentation' Hero Navigation Button:**
+  - Added a secondary navigation button `'View Presentation'` (`รับชมวิดีโอนำเสนอ`) next to the primary `'เข้าสู่ระบบงาน'` (`Enter System`) button on the landing hero section (`src/components/Hero.tsx`) with dedicated identifier `id="btn-view-presentation"`.
+  - Configured glassmorphic secondary button styling (`.btn-secondary`) with frosted backdrop blur, luminous border, smooth hover lift, cyan glow accent, and responsive flex-wrap alignment in `src/styles/dashboard.styles.ts`.
+  - Integrated scalable vector play SVG icon (`.btn-icon`) with micro-interaction hover scaling, fully compliant with the UI Icon Policy (zero Unicode emoji).
+  - Wired click action to smooth-scroll directly to the system video player section below (`#video-section`) via `onVideoClick` and fallback `scrollIntoView({ behavior: 'smooth', block: 'start' })`.
+  - Added full bilingual support with `hero.viewPresentation` in `src/lib/types.ts` and `src/lib/i18n.ts` ("View Presentation" for EN, "รับชมวิดีโอนำเสนอ" for TH).
+  - Enhanced `src/app/page.tsx` with browser history pushState (`#video-section`) and initial page load hash navigation support.
+  - Configured `scroll-margin-top: 80px;` on `#video-section` in `src/styles/dashboard.styles.ts` ensuring clean offset below sticky navigation header.
+  - Expanded automated verification suite in `tests/verify_system.ts` with dedicated test group (133 checks passing).
+  - Bumped application authoritative version to `v3.2.1` (PATCH release).
+
+### Changed
+- **Updated Module 4 (Process Claims) Service URL:**
+  - Updated operational external URL for Module 4 (`4. Process Claims`) to `https://claims-nu-taupe.vercel.app/` in `src/lib/modules-data.ts` and synchronized integration test suite assertions.
+
 ## [3.2.0] - 2026-09-21
 ### Added
 - **10th Operational Module: Calculate Antenna Azimuth (ระบบคำนวณทิศทางองศาของสายอากาศ):**

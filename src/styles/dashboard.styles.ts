@@ -515,6 +515,7 @@ export const dashboardGlobalStyles: string = `
     gap: 16px;
     margin-bottom: 32px;
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .btn {
@@ -543,6 +544,40 @@ export const dashboardGlobalStyles: string = `
     box-shadow: 0 8px 26px rgba(37, 99, 235, 0.65);
     background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-400) 100%);
     color: #ffffff;
+  }
+
+  .btn-secondary {
+    background: rgba(15, 23, 42, 0.65);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    background: rgba(30, 41, 59, 0.85);
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.55);
+    box-shadow: 0 8px 26px rgba(56, 189, 248, 0.25);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform var(--anim-fast);
+  }
+
+  .btn-secondary:hover .btn-icon {
+    transform: scale(1.15);
+    color: #38bdf8;
   }
 
   .quick-list {
@@ -694,7 +729,8 @@ export const dashboardGlobalStyles: string = `
 
   /* --- 5. Main Dashboard Container & Section Meta --- */
   .dashboard-container,
-  #systems {
+  #systems,
+  #video-section {
     max-width: 1320px;
     margin: 32px auto;
     padding: 0 24px;

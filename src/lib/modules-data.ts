@@ -171,7 +171,7 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     icon: "fa-solid fa-shield-halved",
     svgIcon: ICONS.warranty,
     description: "Manage Return Merchandise Authorization (RMA) workflows for defective SHF transceiver modules, microwave feedhorns, and power supply units with equipment vendors, maintaining complete replacement audit trails.",
-    externalUrl: "https://equipment-claims.vercel.app/",
+    externalUrl: "https://claims-nu-taupe.vercel.app/",
     isExternal: true
   },
   {

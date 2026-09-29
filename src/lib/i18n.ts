@@ -16,7 +16,8 @@ export const I18N_RESOURCES: I18nResources = {
         title: "Super High Frequency (SHF) Repeater Network Optimization Project",
         ctaPrimary: "Explore Operational Modules",
         ctaSecondary: "Watch Master Operations Video",
-        enterSystem: "Enter System"
+        enterSystem: "Enter System",
+        viewPresentation: "View Presentation"
       },
       section: {
         title: "Operational Categories & System Services",
@@ -123,7 +124,8 @@ export const I18N_RESOURCES: I18nResources = {
         title: "โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)",
         ctaPrimary: "สำรวจโมดูลปฏิบัติการทั้ง 9",
         ctaSecondary: "รับชมวิดีโอนำเสนอระบบ",
-        enterSystem: "เข้าสู่ระบบงาน"
+        enterSystem: "เข้าสู่ระบบงาน",
+        viewPresentation: "รับชมวิดีโอนำเสนอ"
       },
       section: {
         title: "หมวดหมู่การปฏิบัติงานและบริการระบบ (Operational Categories)",

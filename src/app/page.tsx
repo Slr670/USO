@@ -24,6 +24,9 @@ export default function DashboardPage() {
     const el = document.getElementById('video-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (typeof window !== 'undefined' && window.history.pushState) {
+        window.history.pushState(null, '', '#video-section');
+      }
     }
   };
 
@@ -45,7 +48,7 @@ export default function DashboardPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Handle direct navigation to #systems or #modules-section on initial load
+  // Handle direct navigation to #systems, #modules-section, or #video-section on initial load
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash;
@@ -53,6 +56,14 @@ export default function DashboardPage() {
         setActiveModuleIndex(0);
         const timer = setTimeout(() => {
           const el = document.getElementById('systems') || document.getElementById('modules-section');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+        return () => clearTimeout(timer);
+      } else if (hash === '#video-section') {
+        const timer = setTimeout(() => {
+          const el = document.getElementById('video-section');
           if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }

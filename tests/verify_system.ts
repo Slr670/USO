@@ -6,7 +6,7 @@ import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
-const EXPECTED_VERSION = '3.2.0';
+const EXPECTED_VERSION = '3.2.1';
 
 let totalChecks = 0;
 let passedChecks = 0;
@@ -24,10 +24,10 @@ function assertCheck(name: string, condition: boolean, errorMsg: string = '') {
 }
 
 function verifyVersionIntegrity() {
-  console.log('\n--- 1. System Version & Core Assets Integrity (v3.2.0) ---');
+  console.log('\n--- 1. System Version & Core Assets Integrity (v3.2.1) ---');
 
   assertCheck(
-    'constants.ts APP_VERSION is 3.2.0',
+    'constants.ts APP_VERSION is 3.2.1',
     APP_VERSION === EXPECTED_VERSION,
     `Found: ${APP_VERSION}`
   );
@@ -68,7 +68,7 @@ function verifyModulesDataAndUrls() {
     0: 'https://pm-5year.vercel.app/',
     1: 'https://dtrs-app-uat.forth.co.th/dashboard',
     2: 'https://pre-pm-2.vercel.app/',
-    3: 'https://equipment-claims.vercel.app/',
+    3: 'https://claims-nu-taupe.vercel.app/',
     4: 'https://bssc-nine.vercel.app/',
     5: 'https://wara5year.vercel.app/',
     6: 'https://www.stockflowth.online/dashboard',
@@ -498,6 +498,70 @@ function verifyEnterSystemButtonAction() {
   );
 }
 
+function verifyViewPresentationButtonAction() {
+  console.log('\n--- 10. Secondary View Presentation Button & Video Navigation Integrity ---');
+
+  // Verify i18n support for viewPresentation in EN and TH
+  assertCheck(
+    'I18N_RESOURCES.en contains hero.viewPresentation: "View Presentation"',
+    I18N_RESOURCES.en.translation.hero.viewPresentation === 'View Presentation'
+  );
+  assertCheck(
+    'I18N_RESOURCES.th contains hero.viewPresentation: "รับชมวิดีโอนำเสนอ"',
+    I18N_RESOURCES.th.translation.hero.viewPresentation === 'รับชมวิดีโอนำเสนอ'
+  );
+
+  // Verify Hero component secondary button configuration
+  const heroPath = path.join(ROOT_DIR, 'src/components/Hero.tsx');
+  const heroContent = fs.readFileSync(heroPath, 'utf8');
+
+  assertCheck(
+    'Hero.tsx contains id="btn-view-presentation" on the secondary button',
+    heroContent.includes('id="btn-view-presentation"')
+  );
+  assertCheck(
+    'Hero.tsx secondary button has className="btn btn-secondary"',
+    heroContent.includes('className="btn btn-secondary"')
+  );
+  assertCheck(
+    'Hero.tsx secondary button links to #video-section with onVideoClick handler',
+    heroContent.includes('href="#video-section"') && heroContent.includes('onVideoClick();')
+  );
+  assertCheck(
+    'Hero.tsx secondary button includes scalable SVG play icon (No Unicode Emoji)',
+    heroContent.includes('<svg') && heroContent.includes('polygon points="6 3 20 12 6 21 6 3"')
+  );
+
+  // Verify page.tsx handleVideoClick scrolls to video section
+  const pagePath = path.join(ROOT_DIR, 'src/app/page.tsx');
+  const pageContent = fs.readFileSync(pagePath, 'utf8');
+
+  assertCheck(
+    'page.tsx handleVideoClick smoothly scrolls to video-section',
+    pageContent.includes("el.scrollIntoView({ behavior: 'smooth', block: 'start' });")
+  );
+  assertCheck(
+    'page.tsx handleVideoClick updates browser history to #video-section',
+    pageContent.includes("window.history.pushState(null, '', '#video-section');")
+  );
+  assertCheck(
+    'page.tsx handles direct load with #video-section hash to scroll into view',
+    pageContent.includes("hash === '#video-section'")
+  );
+
+  // Verify dashboard.styles.ts defines .btn-secondary and #video-section scroll-margin
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+  assertCheck(
+    'dashboard.styles.ts defines .btn-secondary glassmorphic styles',
+    stylesContent.includes('.btn-secondary {') && stylesContent.includes('.btn-secondary:hover {')
+  );
+  assertCheck(
+    'dashboard.styles.ts includes #video-section with scroll-margin-top: 80px',
+    stylesContent.includes('#video-section') && stylesContent.includes('scroll-margin-top: 80px;')
+  );
+}
+
 export function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -513,6 +577,7 @@ export function runSuite() {
   verifyVideoShowcaseAutoplay();
   verifyModuleCardMicroInteractions();
   verifyEnterSystemButtonAction();
+  verifyViewPresentationButtonAction();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

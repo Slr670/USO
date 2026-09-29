@@ -61,6 +61,7 @@ export interface TranslationHero {
   readonly ctaPrimary: string;
   readonly ctaSecondary: string;
   readonly enterSystem: string;
+  readonly viewPresentation: string;
 }
 
 export interface TranslationSection {
