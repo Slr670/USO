@@ -159,7 +159,7 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     icon: "fa-solid fa-calendar-check",
     svgIcon: ICONS.calendar,
     description: "Every-3-month on-site field engineering audit schedules, physical tower infrastructure integrity verification, RF alignment checks, and station environment surveys.",
-    externalUrl: "https://prepm2.netlify.app/dashboard",
+    externalUrl: "https://pub-bc30fda8b7654fa09add325ab0f468e0.r2.dev/index.html",
     isExternal: true
   },
   {
