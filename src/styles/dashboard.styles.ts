@@ -1687,6 +1687,16 @@ export const dashboardGlobalStyles: string = `
     transition: all var(--anim-fast);
   }
 
+  .admin-text-input[type="password"] {
+    letter-spacing: 0.22em;
+    font-size: 1.05rem;
+  }
+
+  .admin-text-input[type="password"]::placeholder {
+    letter-spacing: normal;
+    font-size: 0.9rem;
+  }
+
   .admin-text-input:focus {
     outline: none;
     border-color: var(--accent-cyan);

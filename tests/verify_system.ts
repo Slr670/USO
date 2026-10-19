@@ -608,12 +608,24 @@ function verifyAdminPasscodeAndModuleConfig() {
   assertCheck('AdminAuthModal.tsx component exists', fs.existsSync(authModalPath));
   const authContent = fs.readFileSync(authModalPath, 'utf8');
   assertCheck(
-    'AdminAuthModal.tsx handles passcode authentication with 258025 verification',
-    authContent.includes('authenticate(passcode)') && authContent.includes('258025')
+    'AdminAuthModal.tsx handles passcode authentication via authenticate(passcode)',
+    authContent.includes('authenticate(passcode)')
   );
   assertCheck(
-    'AdminAuthModal.tsx includes password visibility toggle and error state',
-    authContent.includes('showPasscode') && authContent.includes('input-error')
+    'AdminAuthModal.tsx masks input field as secure password type (type="password")',
+    authContent.includes('type="password"')
+  );
+  assertCheck(
+    'AdminAuthModal.tsx removes plaintext passcode hint (258025) from subtitle and placeholder',
+    !authContent.includes('(258025)') && !authContent.includes('placeholder="Enter passcode (258025)"')
+  );
+  assertCheck(
+    'AdminAuthModal.tsx includes input-error styling state',
+    authContent.includes('input-error')
+  );
+  assertCheck(
+    'Header.tsx enforces ephemeral authentication by requiring passcode re-entry on every gear click',
+    headerContent.includes('logout()') && headerContent.includes('openAuthModal()')
   );
 
   // 4. Verify AdminConfigModal Component

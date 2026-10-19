@@ -151,10 +151,19 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
     }
   }, []);
 
-  const openAuthModal = useCallback(() => setIsAuthModalOpen(true), []);
-  const closeAuthModal = useCallback(() => setIsAuthModalOpen(false), []);
+  const openAuthModal = useCallback(() => {
+    setIsAuthenticated(false);
+    setIsAuthModalOpen(true);
+  }, []);
+  const closeAuthModal = useCallback(() => {
+    setIsAuthenticated(false);
+    setIsAuthModalOpen(false);
+  }, []);
   const openConfigModal = useCallback(() => setIsConfigModalOpen(true), []);
-  const closeConfigModal = useCallback(() => setIsConfigModalOpen(false), []);
+  const closeConfigModal = useCallback(() => {
+    setIsAuthenticated(false);
+    setIsConfigModalOpen(false);
+  }, []);
 
   const authenticate = useCallback((passcode: string): boolean => {
     if (passcode.trim() === ADMIN_PASSCODE) {
@@ -167,6 +176,7 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
   const logout = useCallback(() => {
     setIsAuthenticated(false);
     setIsConfigModalOpen(false);
+    setIsAuthModalOpen(false);
   }, []);
 
   const updateModuleConfig = useCallback((id: number, updates: Partial<ModuleItemCustomConfig>) => {
