@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { dashboardGlobalStyles } from '../styles/dashboard.styles';
-import { I18nProvider } from '../lib/i18n';
+import { AppProviders } from '../components/AppProviders';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 
@@ -46,11 +46,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <I18nProvider>
+        <AppProviders>
           <Header />
           <main style={{ minHeight: 'calc(100vh - 150px)' }}>{children}</main>
           <Footer />
-        </I18nProvider>
+        </AppProviders>
       </body>
     </html>
   );

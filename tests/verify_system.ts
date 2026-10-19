@@ -4,6 +4,14 @@ import { APP_VERSION, HERO_BG_VIDEO_SRC } from '../src/lib/constants';
 import { MENU_MODULES_DATA, ICONS } from '../src/lib/modules-data';
 import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
+import {
+  ADMIN_PASSCODE,
+  getDefaultModuleConfigs,
+  getOperationalModulesFromConfig,
+  getTranslationOverrides,
+  LOCAL_STORAGE_CONFIG_KEY
+} from '../src/lib/modules-config';
+
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const EXPECTED_VERSION = '3.2.1';
@@ -66,8 +74,8 @@ function verifyModulesDataAndUrls() {
 
   const expectedUrls: Record<number, string> = {
     0: 'https://pm-5year.vercel.app/',
-    1: 'https://dtrs-app-uat.forth.co.th/dashboard',
-    2: 'https://pre-pm-2.vercel.app/',
+    1: 'https://dtrs-app-uat.forth.co.th/public/report',
+    2: 'https://pub-bc30fda8b7654fa09add325ab0f468e0.r2.dev/index.html',
     3: 'https://claims-nu-taupe.vercel.app/',
     4: 'https://bssc-nine.vercel.app/',
     5: 'https://wara5year.vercel.app/',
@@ -562,6 +570,144 @@ function verifyViewPresentationButtonAction() {
   );
 }
 
+function verifyAdminPasscodeAndModuleConfig() {
+  console.log('\n--- 11. Admin Passcode (258025) & Dynamic Module Configuration Panel ---');
+
+  // 1. Verify Passcode Constant
+  assertCheck(
+    'ADMIN_PASSCODE is strictly set to 258025',
+    ADMIN_PASSCODE === '258025',
+    `Found: ${ADMIN_PASSCODE}`
+  );
+
+  assertCheck(
+    'LOCAL_STORAGE_CONFIG_KEY is configured for dashboard persistence',
+    LOCAL_STORAGE_CONFIG_KEY === 'shf_modules_custom_config_v1'
+  );
+
+  // 2. Verify Header Settings Button Integration
+  const headerPath = path.join(ROOT_DIR, 'src/components/Header.tsx');
+  assertCheck('Header.tsx exists', fs.existsSync(headerPath));
+  const headerContent = fs.readFileSync(headerPath, 'utf8');
+
+  assertCheck(
+    'Header.tsx contains gear/settings icon button with id="btn-admin-settings"',
+    headerContent.includes('id="btn-admin-settings"') && headerContent.includes('admin-gear-btn')
+  );
+  assertCheck(
+    'Header.tsx gear button uses valid Scalable Vector SVG (No Unicode Emoji)',
+    headerContent.includes('<svg') && headerContent.includes('<circle cx="12" cy="12" r="3"')
+  );
+  assertCheck(
+    'Header.tsx mounts AdminAuthModal and AdminConfigModal',
+    headerContent.includes('<AdminAuthModal') && headerContent.includes('<AdminConfigModal')
+  );
+
+  // 3. Verify AdminAuthModal Component
+  const authModalPath = path.join(ROOT_DIR, 'src/components/AdminAuthModal.tsx');
+  assertCheck('AdminAuthModal.tsx component exists', fs.existsSync(authModalPath));
+  const authContent = fs.readFileSync(authModalPath, 'utf8');
+  assertCheck(
+    'AdminAuthModal.tsx handles passcode authentication with 258025 verification',
+    authContent.includes('authenticate(passcode)') && authContent.includes('258025')
+  );
+  assertCheck(
+    'AdminAuthModal.tsx includes password visibility toggle and error state',
+    authContent.includes('showPasscode') && authContent.includes('input-error')
+  );
+
+  // 4. Verify AdminConfigModal Component
+  const configModalPath = path.join(ROOT_DIR, 'src/components/AdminConfigModal.tsx');
+  assertCheck('AdminConfigModal.tsx component exists', fs.existsSync(configModalPath));
+  const configContent = fs.readFileSync(configModalPath, 'utf8');
+  assertCheck(
+    'AdminConfigModal.tsx allows editing externalUrl, shortTitle, and fullTitle for modules',
+    configContent.includes('externalUrl') &&
+    configContent.includes('shortTitle') &&
+    configContent.includes('fullTitle')
+  );
+  assertCheck(
+    'AdminConfigModal.tsx supports dual view, EN and TH language tabs',
+    configContent.includes('activeLangTab') &&
+    configContent.includes('English (EN)') &&
+    configContent.includes('ภาษาไทย (TH)')
+  );
+  assertCheck(
+    'AdminConfigModal.tsx provides Save, Reset to Defaults, and Test Link actions',
+    configContent.includes('saveAllConfig') &&
+    configContent.includes('resetToDefaults') &&
+    configContent.includes('Test Link')
+  );
+
+  // 5. Verify Default Configuration Generator
+  const defaults = getDefaultModuleConfigs();
+  const defaultKeys = Object.keys(defaults);
+  assertCheck(
+    'getDefaultModuleConfigs returns configuration for all 10 modules',
+    defaultKeys.length === 10
+  );
+  for (let i = 1; i <= 10; i++) {
+    const item = defaults[i];
+    assertCheck(
+      `Module ${i} config has valid URL and bilingual short/full titles`,
+      !!(item && item.externalUrl && item.en.shortTitle && item.en.fullTitle && item.th.shortTitle && item.th.fullTitle)
+    );
+  }
+
+  // 6. Verify Dynamic Transformation and Overrides
+  const testConfig = { ...defaults };
+  testConfig[1] = {
+    ...testConfig[1],
+    externalUrl: 'https://custom-pm.example.com/',
+    en: {
+      ...testConfig[1].en,
+      shortTitle: '1. Custom PM Title',
+      fullTitle: '1. Custom Full PM Description'
+    }
+  };
+
+  const dynamicMods = getOperationalModulesFromConfig(testConfig, 'en');
+  assertCheck(
+    'getOperationalModulesFromConfig dynamically updates module 1 externalUrl',
+    dynamicMods[0].externalUrl === 'https://custom-pm.example.com/'
+  );
+  assertCheck(
+    'getOperationalModulesFromConfig dynamically updates module 1 shortTitle',
+    dynamicMods[0].shortTitle === '1. Custom PM Title'
+  );
+
+  const overrides = getTranslationOverrides(testConfig);
+  assertCheck(
+    'getTranslationOverrides produces valid translation key path for i18n',
+    overrides.en['modules.m1.shortTitle'] === '1. Custom PM Title' &&
+    overrides.en['modules.m1.fullTitle'] === '1. Custom Full PM Description'
+  );
+
+  // 7. Verify Styling in dashboard.styles.ts
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+  assertCheck(
+    'dashboard.styles.ts includes .admin-gear-btn styles and hover glow',
+    stylesContent.includes('.admin-gear-btn') && stylesContent.includes('.admin-gear-btn:hover')
+  );
+  assertCheck(
+    'dashboard.styles.ts includes modal backdrop, cards, and animation keyframes',
+    stylesContent.includes('.admin-modal-backdrop') &&
+    stylesContent.includes('.admin-auth-card') &&
+    stylesContent.includes('.admin-config-card') &&
+    stylesContent.includes('@keyframes modalFadeIn') &&
+    stylesContent.includes('@keyframes shakeModal')
+  );
+
+  // 8. Verify AppProviders and layout.tsx
+  const layoutPath = path.join(ROOT_DIR, 'src/app/layout.tsx');
+  const layoutContent = fs.readFileSync(layoutPath, 'utf8');
+  assertCheck(
+    'layout.tsx wraps children in AppProviders',
+    layoutContent.includes('<AppProviders>') && layoutContent.includes('</AppProviders>')
+  );
+}
+
 export function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -578,6 +724,8 @@ export function runSuite() {
   verifyModuleCardMicroInteractions();
   verifyEnterSystemButtonAction();
   verifyViewPresentationButtonAction();
+  verifyAdminPasscodeAndModuleConfig();
+
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

@@ -226,12 +226,25 @@ export const MODULE_KEYS: readonly string[] = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6
 
 /**
  * Nested key resolver for translations
+ * Supports dynamic runtime overrides for custom titles & labels
  */
 export function resolveTranslation(
   lng: LanguageCode,
   keyPath: string,
-  variables?: Record<string, string>
+  variables?: Record<string, string>,
+  overrides?: Record<string, Record<string, string>>
 ): string {
+  // Check dynamic overrides first
+  if (overrides && overrides[lng] && keyPath in overrides[lng]) {
+    let result = overrides[lng][keyPath];
+    if (variables) {
+      for (const [varName, varVal] of Object.entries(variables)) {
+        result = result.replace(new RegExp(`{{${varName}}}`, 'g'), varVal);
+      }
+    }
+    return result;
+  }
+
   const resource = I18N_RESOURCES[lng]?.translation;
   if (!resource) return keyPath;
 
@@ -279,7 +292,10 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
-export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const I18nProvider: React.FC<{
+  children: ReactNode;
+  overrides?: Record<string, Record<string, string>>;
+}> = ({ children, overrides }) => {
   const [language, setLangState] = useState<LanguageCode>('en');
 
   useEffect(() => {
@@ -307,9 +323,9 @@ export const I18nProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const t = useCallback(
     (keyPath: string, variables?: Record<string, string>) => {
-      return resolveTranslation(language, keyPath, variables);
+      return resolveTranslation(language, keyPath, variables, overrides);
     },
-    [language]
+    [language, overrides]
   );
 
   return React.createElement(

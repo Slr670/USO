@@ -4,9 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { Hero } from '../components/Hero';
 import { ModulesSection } from '../components/ModulesSection';
 import { VideoShowcase } from '../components/VideoShowcase';
-import { MENU_MODULES_DATA } from '../lib/modules-data';
+import { useI18n } from '../lib/i18n';
+import { useModulesConfig } from '../lib/modules-config';
 
 export default function DashboardPage() {
+  const { language } = useI18n();
+  const { getModules } = useModulesConfig();
+  const modules = getModules(language);
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0);
 
   const handleExploreClick = () => {
@@ -33,20 +37,19 @@ export default function DashboardPage() {
   // Keyboard navigation support across cards
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const count = modules.length || 10;
       if (['ArrowRight', 'ArrowDown'].includes(e.key)) {
         e.preventDefault();
-        setActiveModuleIndex((prev) => (prev + 1) % MENU_MODULES_DATA.length);
+        setActiveModuleIndex((prev) => (prev + 1) % count);
       } else if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
         e.preventDefault();
-        setActiveModuleIndex(
-          (prev) => (prev - 1 + MENU_MODULES_DATA.length) % MENU_MODULES_DATA.length
-        );
+        setActiveModuleIndex((prev) => (prev - 1 + count) % count);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [modules.length]);
 
   // Handle direct navigation to #systems, #modules-section, or #video-section on initial load
   useEffect(() => {
@@ -81,7 +84,7 @@ export default function DashboardPage() {
       />
 
       <ModulesSection
-        modules={MENU_MODULES_DATA}
+        modules={modules}
         activeIndex={activeModuleIndex}
         onSelectModule={setActiveModuleIndex}
       />

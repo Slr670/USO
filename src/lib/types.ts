@@ -128,3 +128,44 @@ export interface IDashboardService {
   getModuleById(id: number): OperationalModule | undefined;
   getDefaultModule(): OperationalModule;
 }
+
+/**
+ * Dynamic Configuration for an Operational Module
+ * Allows administrators to customize card labels, titles, and destination URLs
+ */
+export interface ModuleItemCustomConfig {
+  id: number;
+  externalUrl: string;
+  en: {
+    shortTitle: string;
+    fullTitle: string;
+    badge?: string;
+    description?: string;
+  };
+  th: {
+    shortTitle: string;
+    fullTitle: string;
+    badge?: string;
+    description?: string;
+  };
+}
+
+export type ModulesCustomConfigMap = Record<number, ModuleItemCustomConfig>;
+
+export interface ModulesConfigContextType {
+  config: ModulesCustomConfigMap;
+  updateModuleConfig: (id: number, updates: Partial<ModuleItemCustomConfig>) => void;
+  saveAllConfig: (newConfig: ModulesCustomConfigMap) => void;
+  resetToDefaults: () => void;
+  getModules: (language: LanguageCode) => OperationalModule[];
+  isAuthModalOpen: boolean;
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
+  isConfigModalOpen: boolean;
+  openConfigModal: () => void;
+  closeConfigModal: () => void;
+  isAuthenticated: boolean;
+  authenticate: (passcode: string) => boolean;
+  logout: () => void;
+}
+
