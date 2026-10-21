@@ -155,8 +155,8 @@ export type ModulesCustomConfigMap = Record<number, ModuleItemCustomConfig>;
 export interface ModulesConfigContextType {
   config: ModulesCustomConfigMap;
   updateModuleConfig: (id: number, updates: Partial<ModuleItemCustomConfig>) => void;
-  saveAllConfig: (newConfig: ModulesCustomConfigMap) => void;
-  resetToDefaults: () => void;
+  saveAllConfig: (newConfig: ModulesCustomConfigMap) => Promise<boolean> | void;
+  resetToDefaults: () => Promise<boolean> | void;
   getModules: (language: LanguageCode) => OperationalModule[];
   isAuthModalOpen: boolean;
   openAuthModal: () => void;
@@ -167,5 +167,9 @@ export interface ModulesConfigContextType {
   isAuthenticated: boolean;
   authenticate: (passcode: string) => boolean;
   logout: () => void;
+  isSyncing?: boolean;
+  syncStatus?: 'idle' | 'syncing' | 'synced' | 'error';
+  lastSyncedAt?: Date | null;
+  refreshConfig?: () => Promise<void>;
 }
 

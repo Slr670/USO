@@ -11,6 +11,13 @@ import {
   getTranslationOverrides,
   LOCAL_STORAGE_CONFIG_KEY
 } from '../src/lib/modules-config';
+import {
+  getStoredModulesConfig,
+  getStoredModulesConfigWithMeta,
+  saveStoredModulesConfig,
+  resetStoredModulesConfig,
+  mergeConfigWithDefaults
+} from '../src/lib/server-config-store';
 
 
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -720,7 +727,108 @@ function verifyAdminPasscodeAndModuleConfig() {
   );
 }
 
-export function runSuite() {
+async function verifyGlobalConfigurationSynchronization() {
+  console.log('\n--- 12. Shared Backend / Database Configuration Global Synchronization ---');
+
+  // 1. Verify server-config-store exists and is functional
+  const storePath = path.join(ROOT_DIR, 'src/lib/server-config-store.ts');
+  assertCheck('server-config-store.ts exists', fs.existsSync(storePath));
+
+  const initialConfig = await getStoredModulesConfig();
+  assertCheck('getStoredModulesConfig returns all 10 modules', Object.keys(initialConfig).length === 10);
+
+  // 2. Test global mutation & persistence
+  const mutatedConfig = { ...initialConfig };
+  mutatedConfig[4] = {
+    ...mutatedConfig[4],
+    externalUrl: 'https://claims-global-updated.vercel.app/',
+    en: {
+      ...mutatedConfig[4].en,
+      shortTitle: '4. Global Claims Management'
+    }
+  };
+
+  const saveRes = await saveStoredModulesConfig(mutatedConfig);
+  assertCheck('saveStoredModulesConfig returns success', saveRes.success === true);
+  assertCheck(
+    'saveStoredModulesConfig registers persistence targets',
+    saveRes.persistedTo.length > 0 && saveRes.persistedTo.includes('memory')
+  );
+
+  const reloaded = await getStoredModulesConfig();
+  assertCheck(
+    'getStoredModulesConfig reflects mutated module URL across all server callers',
+    reloaded[4]?.externalUrl === 'https://claims-global-updated.vercel.app/'
+  );
+  assertCheck(
+    'getStoredModulesConfig reflects mutated module shortTitle',
+    reloaded[4]?.en?.shortTitle === '4. Global Claims Management'
+  );
+
+  // 3. Test reset restores system defaults
+  const resetRes = await resetStoredModulesConfig();
+  assertCheck('resetStoredModulesConfig succeeds', resetRes.success === true);
+
+  const postResetConfig = await getStoredModulesConfig();
+  assertCheck(
+    'After reset, module 4 externalUrl is restored to authoritative default',
+    postResetConfig[4]?.externalUrl === 'https://claims-nu-taupe.vercel.app/'
+  );
+
+  // 4. Verify API route endpoints exist and export HTTP handlers
+  const apiRoutePath = path.join(ROOT_DIR, 'src/app/api/v1/modules/config/route.ts');
+  assertCheck('api/v1/modules/config/route.ts endpoint exists', fs.existsSync(apiRoutePath));
+  const apiRouteContent = fs.readFileSync(apiRoutePath, 'utf8');
+  assertCheck('api/v1/modules/config handles GET requests', apiRouteContent.includes('export async function GET'));
+  assertCheck('api/v1/modules/config handles POST requests', apiRouteContent.includes('export async function POST'));
+  assertCheck('api/v1/modules/config handles DELETE requests', apiRouteContent.includes('export async function DELETE'));
+  assertCheck('api/v1/modules/config handles OPTIONS preflight', apiRouteContent.includes('export async function OPTIONS'));
+  assertCheck('api/v1/modules/config validates ADMIN_PASSCODE', apiRouteContent.includes('ADMIN_PASSCODE'));
+
+  const aliasRoutePath = path.join(ROOT_DIR, 'src/app/api/v1/config/route.ts');
+  assertCheck('api/v1/config/route.ts alias endpoint exists', fs.existsSync(aliasRoutePath));
+
+  // 5. Verify modules-config.tsx client synchronization
+  const clientConfigPath = path.join(ROOT_DIR, 'src/lib/modules-config.tsx');
+  const clientConfigContent = fs.readFileSync(clientConfigPath, 'utf8');
+  assertCheck(
+    'modules-config.tsx fetches from /api/v1/modules/config on load',
+    clientConfigContent.includes('/api/v1/modules/config')
+  );
+  assertCheck(
+    'modules-config.tsx re-syncs on window focus for multi-client real-time synchronization',
+    clientConfigContent.includes("window.addEventListener('focus'")
+  );
+  assertCheck(
+    'modules-config.tsx POSTs to /api/v1/modules/config on saveAllConfig',
+    clientConfigContent.includes("method: 'POST'") && clientConfigContent.includes('saveAllConfig')
+  );
+  assertCheck(
+    'modules-config.tsx sends DELETE to /api/v1/modules/config on resetToDefaults',
+    clientConfigContent.includes("method: 'DELETE'") && clientConfigContent.includes('resetToDefaults')
+  );
+
+  // 6. Verify AdminConfigModal global sync indicator and loading state
+  const modalPath = path.join(ROOT_DIR, 'src/components/AdminConfigModal.tsx');
+  const modalContent = fs.readFileSync(modalPath, 'utf8');
+  assertCheck(
+    'AdminConfigModal displays GLOBAL SYNC ACTIVE indicator badge',
+    modalContent.includes('admin-sync-badge') && modalContent.includes('GLOBAL SYNC ACTIVE')
+  );
+  assertCheck(
+    'AdminConfigModal manages isSubmitting saving spinner state',
+    modalContent.includes('isSubmitting') && modalContent.includes('admin-btn-spinner')
+  );
+
+  // 7. Verify styles for global sync badge and spinner in dashboard.styles.ts
+  const stylesPath = path.join(ROOT_DIR, 'src/styles/dashboard.styles.ts');
+  const stylesContent = fs.readFileSync(stylesPath, 'utf8');
+  assertCheck('dashboard.styles.ts defines .admin-sync-badge styles', stylesContent.includes('.admin-sync-badge'));
+  assertCheck('dashboard.styles.ts defines .admin-sync-dot animation states', stylesContent.includes('.admin-sync-dot') && stylesContent.includes('syncDotPulse'));
+  assertCheck('dashboard.styles.ts defines .admin-btn-spinner keyframes', stylesContent.includes('.admin-btn-spinner') && stylesContent.includes('@keyframes adminSpin'));
+}
+
+export async function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
   console.log(`Version: v${EXPECTED_VERSION}`);
@@ -737,7 +845,7 @@ export function runSuite() {
   verifyEnterSystemButtonAction();
   verifyViewPresentationButtonAction();
   verifyAdminPasscodeAndModuleConfig();
-
+  await verifyGlobalConfigurationSynchronization();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);
@@ -752,5 +860,8 @@ export function runSuite() {
 }
 
 if (require.main === module || process.argv[1]?.endsWith('verify_system.ts')) {
-  runSuite();
+  runSuite().catch((err) => {
+    console.error('Fatal test runner error:', err);
+    process.exit(1);
+  });
 }

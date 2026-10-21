@@ -1791,6 +1791,14 @@ export const dashboardGlobalStyles: string = `
     flex-direction: column;
   }
 
+  .admin-config-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
   .admin-config-badge {
     display: inline-flex;
     align-items: center;
@@ -1803,8 +1811,55 @@ export const dashboardGlobalStyles: string = `
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.06em;
-    margin-bottom: 8px;
     width: fit-content;
+  }
+
+  .admin-sync-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    color: var(--accent-cyan);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    width: fit-content;
+  }
+
+  .admin-sync-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .admin-sync-dot.synced {
+    background: #06b6d4;
+    box-shadow: 0 0 8px #06b6d4;
+  }
+
+  .admin-sync-dot.syncing {
+    background: #f59e0b;
+    box-shadow: 0 0 8px #f59e0b;
+    animation: syncDotPulse 1.2s infinite ease-in-out;
+  }
+
+  .admin-sync-dot.error {
+    background: #ef4444;
+    box-shadow: 0 0 8px #ef4444;
+  }
+
+  @keyframes syncDotPulse {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
   }
 
   .admin-status-dot {
@@ -2233,6 +2288,22 @@ export const dashboardGlobalStyles: string = `
 
   .admin-btn-save {
     padding: 8px 22px;
+  }
+
+  .admin-btn-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: adminSpin 0.7s linear infinite;
+    display: inline-block;
+  }
+
+  @keyframes adminSpin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 768px) {

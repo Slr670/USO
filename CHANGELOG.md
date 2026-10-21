@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- **Global Shared Backend/Database Configuration Synchronization:**
+  - Implemented multi-tier server-side configuration store (`src/lib/server-config-store.ts`) supporting Vercel KV / Upstash Redis REST API (`KV_REST_API_URL` & `KV_REST_API_TOKEN`), Supabase REST API (`SUPABASE_URL`), local filesystem persistence (`data/modules-config.json` & `/tmp/`), and global in-memory singleton cache.
+  - Added RESTful API endpoints at `/api/v1/modules/config` and `/api/v1/config` supporting `GET` (fetch shared config), `POST`/`PUT` (persist global config updates with passcode authorization), `DELETE` (revert to defaults), and `OPTIONS` (CORS preflight).
+  - Updated `/api/v1/modules` and dynamic route `/api/v1/modules/[orderIndex]` to serve dynamically customized module titles and URLs from the shared server configuration store.
+  - Enhanced `ModulesConfigProvider` in `src/lib/modules-config.tsx` with dual-tier synchronization: instant client hydration from `localStorage` followed by immediate authoritative backend fetch on initial page load, and real-time re-synchronization on browser window focus.
+  - Integrated visual global cloud sync status indicator (`.admin-sync-badge`, `.admin-sync-dot`) and asynchronous submission spinner states (`.admin-btn-spinner`) in `AdminConfigModal.tsx`.
+  - Expanded automated verification suite in `tests/verify_system.ts` with test group 12 covering shared persistence, API endpoints, and synchronization lifecycle (190 checks passing).
+
 ## [3.2.1] - 2026-09-29
 ### Added
 - **Secondary 'View Presentation' Hero Navigation Button:**

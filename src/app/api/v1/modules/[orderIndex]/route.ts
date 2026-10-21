@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { dashboardService } from '../../../../../lib/modules-service';
+import { getStoredModulesConfig } from '../../../../../lib/server-config-store';
+import { getOperationalModulesFromConfig } from '../../../../../lib/modules-config';
 
 export async function GET(
   _request: Request,
@@ -15,7 +17,18 @@ export async function GET(
     );
   }
 
-  const moduleItem = dashboardService.getModuleByOrderIndex(index);
+  let moduleItem = dashboardService.getModuleByOrderIndex(index);
+
+  try {
+    const config = await getStoredModulesConfig();
+    const modules = getOperationalModulesFromConfig(config, 'en');
+    const dynamicItem = modules.find((m) => m.orderIndex === index);
+    if (dynamicItem) {
+      moduleItem = dynamicItem;
+    }
+  } catch (err) {
+    console.warn(`Failed to load shared config for module index ${index}:`, err);
+  }
 
   if (!moduleItem) {
     return NextResponse.json(
@@ -28,7 +41,7 @@ export async function GET(
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=59'
+      'Cache-Control': 'no-cache, no-store, must-revalidate'
     }
   });
 }

@@ -14,7 +14,7 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
   isOpen,
   onClose
 }) => {
-  const { config, saveAllConfig, resetToDefaults, logout } = useModulesConfig();
+  const { config, saveAllConfig, resetToDefaults, logout, syncStatus } = useModulesConfig();
 
   // Local draft state for editing before committing
   const [draftConfig, setDraftConfig] = useState<ModulesCustomConfigMap>(config);
@@ -22,6 +22,7 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [expandedAdvanced, setExpandedAdvanced] = useState<Record<number, boolean>>({});
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Sync draft state with global config when modal opens or config updates
   useEffect(() => {
@@ -102,25 +103,43 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
     });
   };
 
-  const handleSave = () => {
-    saveAllConfig(draftConfig);
-    showToast('Configuration successfully saved and persisted across the dashboard!');
-    setTimeout(() => {
-      onClose();
-    }, 700);
+  const handleSave = async () => {
+    setIsSubmitting(true);
+    try {
+      const success = await saveAllConfig(draftConfig);
+      if (success !== false) {
+        showToast('Configuration successfully saved and synced globally across all users!');
+        setTimeout(() => {
+          onClose();
+        }, 700);
+      } else {
+        showToast('Configuration saved locally, but server synchronization failed.');
+      }
+    } catch (e: any) {
+      showToast(`Save failed: ${e?.message || 'Server error'}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (
       window.confirm(
-        'Are you sure you want to revert all 10 modules to their original system defaults?'
+        'Are you sure you want to revert all 10 modules to their original system defaults across all users?'
       )
     ) {
-      resetToDefaults();
-      showToast('Configuration reset to system default values.');
-      setTimeout(() => {
-        onClose();
-      }, 700);
+      setIsSubmitting(true);
+      try {
+        await resetToDefaults();
+        showToast('Configuration reset to system default values globally.');
+        setTimeout(() => {
+          onClose();
+        }, 700);
+      } catch (e: any) {
+        showToast(`Reset failed: ${e?.message || 'Server error'}`);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -188,9 +207,18 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
         {/* Modal Header */}
         <div className="admin-config-header">
           <div className="admin-config-title-group">
-            <div className="admin-config-badge">
-              <span className="admin-status-dot" />
-              <span>ADMIN ACCESS GRANTED</span>
+            <div className="admin-config-badge-row">
+              <div className="admin-config-badge">
+                <span className="admin-status-dot" />
+                <span>ADMIN ACCESS GRANTED</span>
+              </div>
+              <div
+                className="admin-sync-badge"
+                title="Changes persist globally across all users and browsers via shared backend synchronization"
+              >
+                <span className={`admin-sync-dot ${syncStatus === 'syncing' ? 'syncing' : syncStatus === 'error' ? 'error' : 'synced'}`} />
+                <span>{syncStatus === 'syncing' ? 'SYNCING...' : syncStatus === 'error' ? 'SYNC WARNING' : 'GLOBAL SYNC ACTIVE'}</span>
+              </div>
             </div>
             <h2 id="config-modal-title" className="admin-config-title">
               Dashboard Module Configuration
@@ -616,6 +644,7 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
               type="button"
               className="admin-btn admin-btn-danger-ghost"
               onClick={handleReset}
+              disabled={isSubmitting}
               title="Revert all 10 modules to hardcoded default values"
             >
               <svg
@@ -630,7 +659,7 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
                 <path d="M3 3v5h5" />
               </svg>
-              <span>Reset All to Defaults</span>
+              <span>{isSubmitting ? 'Resetting...' : 'Reset All to Defaults'}</span>
             </button>
           </div>
 
@@ -639,6 +668,7 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
               type="button"
               className="admin-btn admin-btn-ghost"
               onClick={onClose}
+              disabled={isSubmitting}
             >
               Cancel
             </button>
@@ -646,21 +676,31 @@ export const AdminConfigModal: React.FC<AdminConfigModalProps> = ({
               type="button"
               className="admin-btn admin-btn-primary admin-btn-save"
               onClick={handleSave}
+              disabled={isSubmitting}
             >
-              <svg
-                className="ui-icon-xs"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                <polyline points="17 21 17 13 7 13 7 21" />
-                <polyline points="7 3 7 8 15 8" />
-              </svg>
-              <span>Save & Apply Changes</span>
+              {isSubmitting ? (
+                <>
+                  <span className="admin-btn-spinner" />
+                  <span>Saving Globally...</span>
+                </>
+              ) : (
+                <>
+                  <svg
+                    className="ui-icon-xs"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                  </svg>
+                  <span>Save & Apply Changes</span>
+                </>
+              )}
             </button>
           </div>
         </div>

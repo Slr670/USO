@@ -121,35 +121,87 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isConfigModalOpen, setIsConfigModalOpen] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'synced' | 'error'>('idle');
+  const [lastSyncedAt, setLastSyncedAt] = useState<Date | null>(null);
 
-  // Load persisted configuration from localStorage on mount
+  // Helper to merge stored/remote config with authoritative defaults
+  const mergeRemoteConfig = useCallback((remote: any): ModulesCustomConfigMap => {
+    const defaults = getDefaultModuleConfigs();
+    if (!remote || typeof remote !== 'object') return defaults;
+    const merged: ModulesCustomConfigMap = { ...defaults };
+    for (const key of Object.keys(defaults)) {
+      const id = Number(key);
+      if (remote[id]) {
+        merged[id] = {
+          ...defaults[id],
+          ...remote[id],
+          en: { ...defaults[id].en, ...(remote[id].en || {}) },
+          th: { ...defaults[id].th, ...(remote[id].th || {}) }
+        };
+      }
+    }
+    return merged;
+  }, []);
+
+  // Fetch latest configuration from shared backend endpoint
+  const refreshConfig = useCallback(async () => {
+    try {
+      setSyncStatus('syncing');
+      const res = await fetch('/api/v1/modules/config', {
+        cache: 'no-store',
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (res.ok) {
+        const payload = await res.json();
+        const remoteData = payload?.data || payload;
+        if (remoteData && typeof remoteData === 'object') {
+          const merged = mergeRemoteConfig(remoteData);
+          setConfig(merged);
+          setLastSyncedAt(new Date());
+          setSyncStatus('synced');
+          try {
+            localStorage.setItem(LOCAL_STORAGE_CONFIG_KEY, JSON.stringify(merged));
+          } catch (e) {
+            console.warn('Failed to cache modules config in localStorage:', e);
+          }
+        }
+      } else {
+        setSyncStatus('error');
+      }
+    } catch (e) {
+      console.warn('Network error while fetching shared modules config:', e);
+      setSyncStatus('error');
+    }
+  }, [mergeRemoteConfig]);
+
+  // Initial load: instant hydration from localStorage followed by backend fetch
   useEffect(() => {
     try {
       const stored = localStorage.getItem(LOCAL_STORAGE_CONFIG_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && typeof parsed === 'object') {
-          // Merge defaults with stored custom configs to preserve missing keys
-          const defaults = getDefaultModuleConfigs();
-          const merged: ModulesCustomConfigMap = { ...defaults };
-          for (const key of Object.keys(defaults)) {
-            const id = Number(key);
-            if (parsed[id]) {
-              merged[id] = {
-                ...defaults[id],
-                ...parsed[id],
-                en: { ...defaults[id].en, ...(parsed[id].en || {}) },
-                th: { ...defaults[id].th, ...(parsed[id].th || {}) }
-              };
-            }
-          }
-          setConfig(merged);
+          setConfig(mergeRemoteConfig(parsed));
         }
       }
     } catch (e) {
       console.warn('Failed to read modules config from localStorage:', e);
     }
-  }, []);
+
+    // Always fetch authoritative configuration from shared backend on page load
+    refreshConfig();
+
+    // Re-synchronize when window gains focus (multi-tab/multi-user real-time sync)
+    const handleFocus = () => {
+      refreshConfig();
+    };
+
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [mergeRemoteConfig, refreshConfig]);
 
   const openAuthModal = useCallback(() => {
     setIsAuthenticated(false);
@@ -179,44 +231,106 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
     setIsAuthModalOpen(false);
   }, []);
 
-  const updateModuleConfig = useCallback((id: number, updates: Partial<ModuleItemCustomConfig>) => {
-    setConfig((prev) => {
-      const current = prev[id] || getDefaultModuleConfigs()[id];
-      const updatedItem: ModuleItemCustomConfig = {
-        ...current,
-        ...updates,
-        en: { ...current.en, ...(updates.en || {}) },
-        th: { ...current.th, ...(updates.th || {}) }
-      };
-      const newMap: ModulesCustomConfigMap = {
-        ...prev,
-        [id]: updatedItem
-      };
+  const saveAllConfig = useCallback(
+    async (newConfig: ModulesCustomConfigMap): Promise<boolean> => {
+      // 1. Optimistic local update & client storage cache
+      setConfig(newConfig);
       try {
-        localStorage.setItem(LOCAL_STORAGE_CONFIG_KEY, JSON.stringify(newMap));
+        localStorage.setItem(LOCAL_STORAGE_CONFIG_KEY, JSON.stringify(newConfig));
       } catch (e) {
-        console.warn('Failed to persist module config:', e);
+        console.warn('Failed to persist module config to localStorage:', e);
       }
-      return newMap;
-    });
-  }, []);
 
-  const saveAllConfig = useCallback((newConfig: ModulesCustomConfigMap) => {
-    setConfig(newConfig);
-    try {
-      localStorage.setItem(LOCAL_STORAGE_CONFIG_KEY, JSON.stringify(newConfig));
-    } catch (e) {
-      console.warn('Failed to persist all modules config:', e);
-    }
-  }, []);
+      // 2. Global shared backend synchronization
+      try {
+        setSyncStatus('syncing');
+        const res = await fetch('/api/v1/modules/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-passcode': ADMIN_PASSCODE
+          },
+          body: JSON.stringify({
+            config: newConfig,
+            passcode: ADMIN_PASSCODE
+          })
+        });
 
-  const resetToDefaults = useCallback(() => {
+        if (res.ok) {
+          setSyncStatus('synced');
+          setLastSyncedAt(new Date());
+          return true;
+        } else {
+          console.error('Failed to save to shared backend. HTTP status:', res.status);
+          setSyncStatus('error');
+          return false;
+        }
+      } catch (err) {
+        console.error('Network error during shared backend persistence:', err);
+        setSyncStatus('error');
+        return false;
+      }
+    },
+    []
+  );
+
+  const updateModuleConfig = useCallback(
+    (id: number, updates: Partial<ModuleItemCustomConfig>) => {
+      setConfig((prev) => {
+        const current = prev[id] || getDefaultModuleConfigs()[id];
+        const updatedItem: ModuleItemCustomConfig = {
+          ...current,
+          ...updates,
+          en: { ...current.en, ...(updates.en || {}) },
+          th: { ...current.th, ...(updates.th || {}) }
+        };
+        const newMap: ModulesCustomConfigMap = {
+          ...prev,
+          [id]: updatedItem
+        };
+        // Trigger global persistence
+        saveAllConfig(newMap);
+        return newMap;
+      });
+    },
+    [saveAllConfig]
+  );
+
+  const resetToDefaults = useCallback(async (): Promise<boolean> => {
     const defaults = getDefaultModuleConfigs();
     setConfig(defaults);
+
+    // Clear client storage
     try {
       localStorage.removeItem(LOCAL_STORAGE_CONFIG_KEY);
     } catch (e) {
       console.warn('Failed to remove custom config from localStorage:', e);
+    }
+
+    // Reset shared backend storage
+    try {
+      setSyncStatus('syncing');
+      const res = await fetch('/api/v1/modules/config', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-passcode': ADMIN_PASSCODE
+        },
+        body: JSON.stringify({ passcode: ADMIN_PASSCODE })
+      });
+
+      if (res.ok) {
+        setSyncStatus('synced');
+        setLastSyncedAt(new Date());
+        return true;
+      } else {
+        setSyncStatus('error');
+        return false;
+      }
+    } catch (err) {
+      console.error('Network error during shared backend reset:', err);
+      setSyncStatus('error');
+      return false;
     }
   }, []);
 
@@ -247,6 +361,10 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
       isAuthenticated,
       authenticate,
       logout,
+      isSyncing: syncStatus === 'syncing',
+      syncStatus,
+      lastSyncedAt,
+      refreshConfig,
       translationOverrides
     }),
     [
@@ -264,6 +382,9 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
       isAuthenticated,
       authenticate,
       logout,
+      syncStatus,
+      lastSyncedAt,
+      refreshConfig,
       translationOverrides
     ]
   );
@@ -296,6 +417,10 @@ export function useModulesConfig(): ModulesConfigContextType & {
       isAuthenticated: false,
       authenticate: (code: string) => code.trim() === ADMIN_PASSCODE,
       logout: () => {},
+      isSyncing: false,
+      syncStatus: 'synced',
+      lastSyncedAt: null,
+      refreshConfig: async () => {},
       translationOverrides: getTranslationOverrides(defaults)
     };
   }
