@@ -150,7 +150,10 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
       const res = await fetch('/api/v1/modules/config', {
         cache: 'no-store',
         headers: {
-          Accept: 'application/json'
+          Accept: 'application/json',
+          Authorization: `Bearer ${ADMIN_PASSCODE}`,
+          'x-admin-key': ADMIN_PASSCODE,
+          'x-passcode': ADMIN_PASSCODE
         }
       });
 
@@ -169,6 +172,7 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
           }
         }
       } else {
+        console.warn(`[modules-config] Backend returned non-200 status (${res.status}) on config fetch.`);
         setSyncStatus('error');
       }
     } catch (e) {
@@ -248,11 +252,15 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${ADMIN_PASSCODE}`,
+            'x-admin-key': ADMIN_PASSCODE,
             'x-passcode': ADMIN_PASSCODE
           },
           body: JSON.stringify({
             config: newConfig,
-            passcode: ADMIN_PASSCODE
+            passcode: ADMIN_PASSCODE,
+            adminKey: ADMIN_PASSCODE,
+            token: ADMIN_PASSCODE
           })
         });
 
@@ -314,9 +322,15 @@ export const ModulesConfigProvider: React.FC<{ children: ReactNode }> = ({ child
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${ADMIN_PASSCODE}`,
+          'x-admin-key': ADMIN_PASSCODE,
           'x-passcode': ADMIN_PASSCODE
         },
-        body: JSON.stringify({ passcode: ADMIN_PASSCODE })
+        body: JSON.stringify({
+          passcode: ADMIN_PASSCODE,
+          adminKey: ADMIN_PASSCODE,
+          token: ADMIN_PASSCODE
+        })
       });
 
       if (res.ok) {

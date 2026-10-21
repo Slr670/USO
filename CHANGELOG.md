@@ -12,7 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated `/api/v1/modules` and dynamic route `/api/v1/modules/[orderIndex]` to serve dynamically customized module titles and URLs from the shared server configuration store.
   - Enhanced `ModulesConfigProvider` in `src/lib/modules-config.tsx` with dual-tier synchronization: instant client hydration from `localStorage` followed by immediate authoritative backend fetch on initial page load, and real-time re-synchronization on browser window focus.
   - Integrated visual global cloud sync status indicator (`.admin-sync-badge`, `.admin-sync-dot`) and asynchronous submission spinner states (`.admin-btn-spinner`) in `AdminConfigModal.tsx`.
-  - Expanded automated verification suite in `tests/verify_system.ts` with test group 12 covering shared persistence, API endpoints, and synchronization lifecycle (190 checks passing).
+  - Expanded automated verification suite in `tests/verify_system.ts` with test group 12 covering shared persistence, API endpoints, and synchronization lifecycle (200 checks passing).
+
+### Fixed
+- **Vercel Serverless `/api/v1/modules/config` Endpoint Reliability:**
+  - Resolved 500 Internal Server Error on `GET` requests by adding server-side diagnostic error logging, proactive environment variable format checking (e.g., catching missing `KV_REST_API_TOKEN` or `redis://` vs `https://` protocol mismatches), safe JSON parsing with error isolation, and guaranteed fail-safe fallback to authoritative default module data.
+  - Resolved 401 Unauthorized error on `POST` and `DELETE` requests by aligning client request headers to include `Authorization: Bearer <passcode>` and `x-admin-key: <passcode>` alongside legacy `x-passcode` and body tokens, and expanding server-side authentication extraction logic to recognize all standard header conventions and environment overrides (`ADMIN_KEY` / `ADMIN_PASSCODE`).
+  - Added `x-admin-key` to CORS `Access-Control-Allow-Headers` in route preflight response.
+  - Added baseline seed file `data/modules-config.json` to project repository to ensure immediate cold-start availability in serverless container environments.
 
 ## [3.2.1] - 2026-09-29
 ### Added

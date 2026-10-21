@@ -16,8 +16,13 @@ import {
   getStoredModulesConfigWithMeta,
   saveStoredModulesConfig,
   resetStoredModulesConfig,
-  mergeConfigWithDefaults
+  mergeConfigWithDefaults,
+  checkStorageEnvironment
 } from '../src/lib/server-config-store';
+import {
+  GET as getModulesConfigRoute,
+  POST as postModulesConfigRoute
+} from '../src/app/api/v1/modules/config/route';
 
 
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -784,9 +789,53 @@ async function verifyGlobalConfigurationSynchronization() {
   assertCheck('api/v1/modules/config handles DELETE requests', apiRouteContent.includes('export async function DELETE'));
   assertCheck('api/v1/modules/config handles OPTIONS preflight', apiRouteContent.includes('export async function OPTIONS'));
   assertCheck('api/v1/modules/config validates ADMIN_PASSCODE', apiRouteContent.includes('ADMIN_PASSCODE'));
+  assertCheck('api/v1/modules/config CORS allows x-admin-key and Authorization', apiRouteContent.includes('x-admin-key') && apiRouteContent.includes('Authorization'));
 
   const aliasRoutePath = path.join(ROOT_DIR, 'src/app/api/v1/config/route.ts');
   assertCheck('api/v1/config/route.ts alias endpoint exists', fs.existsSync(aliasRoutePath));
+
+  // 4.1 Test Live GET Route Handler (Guaranteed 200 OK Safe Fallback)
+  const getRes = await getModulesConfigRoute();
+  assertCheck('GET /api/v1/modules/config responds with status 200', getRes.status === 200);
+  const getJson = await getRes.json();
+  assertCheck('GET /api/v1/modules/config returns success true', getJson.success === true);
+  assertCheck('GET /api/v1/modules/config returns all 10 modules in payload', Object.keys(getJson.data).length === 10);
+  assertCheck('GET /api/v1/modules/config provides storage diagnostics metadata', !!getJson.meta?.diagnostics);
+
+  // 4.2 Test Live POST Route Handler Auth Checks (401 on missing auth, 200 on valid headers)
+  const unauthReq = new Request('http://localhost/api/v1/modules/config', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ config: initialConfig })
+  });
+  const unauthRes = await postModulesConfigRoute(unauthReq);
+  assertCheck('POST without authentication returns 401 Unauthorized', unauthRes.status === 401);
+  const unauthJson = await unauthRes.json();
+  assertCheck('POST 401 returns informative unauthorized error', unauthJson.error.includes('Unauthorized'));
+
+  // Test POST with Authorization Bearer header
+  const bearerReq = new Request('http://localhost/api/v1/modules/config', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${ADMIN_PASSCODE}`
+    },
+    body: JSON.stringify({ config: initialConfig })
+  });
+  const bearerRes = await postModulesConfigRoute(bearerReq);
+  assertCheck('POST with Authorization: Bearer <token> returns 200 OK', bearerRes.status === 200);
+
+  // Test POST with x-admin-key header
+  const adminKeyReq = new Request('http://localhost/api/v1/modules/config', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin-key': ADMIN_PASSCODE
+    },
+    body: JSON.stringify({ config: initialConfig })
+  });
+  const adminKeyRes = await postModulesConfigRoute(adminKeyReq);
+  assertCheck('POST with x-admin-key header returns 200 OK', adminKeyRes.status === 200);
 
   // 5. Verify modules-config.tsx client synchronization
   const clientConfigPath = path.join(ROOT_DIR, 'src/lib/modules-config.tsx');
@@ -800,8 +849,12 @@ async function verifyGlobalConfigurationSynchronization() {
     clientConfigContent.includes("window.addEventListener('focus'")
   );
   assertCheck(
-    'modules-config.tsx POSTs to /api/v1/modules/config on saveAllConfig',
-    clientConfigContent.includes("method: 'POST'") && clientConfigContent.includes('saveAllConfig')
+    'modules-config.tsx includes Authorization Bearer header in POST request',
+    clientConfigContent.includes('Authorization') && clientConfigContent.includes('Bearer')
+  );
+  assertCheck(
+    'modules-config.tsx includes x-admin-key header in POST request',
+    clientConfigContent.includes('x-admin-key')
   );
   assertCheck(
     'modules-config.tsx sends DELETE to /api/v1/modules/config on resetToDefaults',

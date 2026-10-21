@@ -1,0 +1,162 @@
+{
+  "1": {
+    "id": 1,
+    "externalUrl": "https://pm-5year.vercel.app/",
+    "en": {
+      "shortTitle": "1. Perform PM",
+      "fullTitle": "1. Perform Preventive Maintenance (PM)",
+      "badge": "Category: Preventive Maintenance",
+      "description": "Schedule and record periodic inspection logs for SHF repeater base stations, measure radio frequency (RF) signal levels, inspect feeder cables, antennas, and verify backup power systems across all sites."
+    },
+    "th": {
+      "shortTitle": "1. Perform PM",
+      "fullTitle": "1. ปฏิบัติการบำรุงรักษาเชิงป้องกัน (Preventive Maintenance — PM)",
+      "badge": "หมวดหมู่งาน: บำรุงรักษาเชิงป้องกัน",
+      "description": "บันทึกแผนและรายงานการตรวจสอบอุปกรณ์ทวนสัญญาณ SHF ประจำรอบ, ตรวจวัดระดับความแรงสัญญาณ, ตรวจสอบสายนำสัญญาณ เสาอากาศ และระบบไฟฟ้าสำรองในแต่ละสถานีฐาน"
+    }
+  },
+  "2": {
+    "id": 2,
+    "externalUrl": "https://dtrs-app-uat.forth.co.th/public/report",
+    "en": {
+      "shortTitle": "2. Handle CM",
+      "fullTitle": "2. Handle Corrective Maintenance (CM)",
+      "badge": "Category: Corrective Maintenance & Emergency Response",
+      "description": "Open, track, and resolve incident tickets for SHF repeater equipment malfunctions and microwave link interruptions, dispatching technical teams within SLA-governed recovery windows."
+    },
+    "th": {
+      "shortTitle": "2. Handle CM",
+      "fullTitle": "2. ปฏิบัติการแก้ไขเหตุขัดข้อง (Corrective Maintenance — CM)",
+      "badge": "หมวดหมู่งาน: แก้ไขเหตุขัดข้องฉุกเฉิน",
+      "description": "การเปิดและติดตามใบแจ้งเหตุขัดข้อง (Incident Ticket) เมื่ออุปกรณ์ SHF ขัดข้อง หรือสัญญาณขาดหาย เพื่อให้ทีมวิศวกรและช่างเทคนิคเข้าพื้นที่แก้ไขตามกรอบเวลา SLA"
+    }
+  },
+  "3": {
+    "id": 3,
+    "externalUrl": "https://pub-bc30fda8b7654fa09add325ab0f468e0.r2.dev/index.html",
+    "en": {
+      "shortTitle": "3. Quarterly Visits",
+      "fullTitle": "3. Conduct Quarterly Site Inspection Visits",
+      "badge": "Category: Quarterly Site Inspections",
+      "description": "Coordinate and manage quarterly on-site inspection visits to regional stations, consolidate stakeholder feedback, resolve operational issues, and evaluate network user satisfaction."
+    },
+    "th": {
+      "shortTitle": "3. Quarterly Visits",
+      "fullTitle": "3. ดำเนินการตรวจเยี่ยมทุก 3 เดือน (Conduct Quarterly Visits)",
+      "badge": "หมวดหมู่งาน: แผนลงพื้นที่ตรวจติดตาม",
+      "description": "ตารางนัดหมายการเข้าตรวจเยี่ยมหน่วยงานในพื้นที่ทุกไตรมาส รวบรวมข้อเสนอแนะ ปัญหาการใช้งาน และประเมินความพึงพอใจของผู้ใช้งานโครงข่าย"
+    }
+  },
+  "4": {
+    "id": 4,
+    "externalUrl": "https://claims-nu-taupe.vercel.app/",
+    "en": {
+      "shortTitle": "4. Process Claims",
+      "fullTitle": "4. Process Equipment & Warranty Claims",
+      "badge": "Category: Warranty & Equipment RMA",
+      "description": "Manage Return Merchandise Authorization (RMA) workflows for defective SHF transceiver modules, microwave feedhorns, and power supply units with equipment vendors, maintaining complete replacement audit trails."
+    },
+    "th": {
+      "shortTitle": "4. Process Claims",
+      "fullTitle": "4. จัดการและยื่นเคลมอุปกรณ์ (Process Claims)",
+      "badge": "หมวดหมู่งาน: การรับประกันและส่งซ่อม",
+      "description": "ติดตามสถานะโมดูล SHF, สายเคเบิล, หรือชุดจ่ายไฟ (Power Unit) ที่ส่งเคลมกับคู่สัญญาหรือโรงงานผู้ผลิต พร้อมบันทึกประวัติการเปลี่ยนอะไหล่"
+    }
+  },
+  "5": {
+    "id": 5,
+    "externalUrl": "https://bssc-nine.vercel.app/",
+    "en": {
+      "shortTitle": "5. Monitor System",
+      "fullTitle": "5. Monitor System & Radio Telemetry",
+      "badge": "Category: Network Telemetry & Real-Time Monitoring",
+      "description": "Real-time telemetry dashboard displaying network uptime, SHF radio link degradation (Link Down events), received signal level (RSL) thresholds, and centralized alert event logs."
+    },
+    "th": {
+      "shortTitle": "5. Monitor System",
+      "fullTitle": "5. ตรวจสอบและเฝ้าระวังสถานะระบบ (Monitor System)",
+      "badge": "หมวดหมู่งาน: ตรวจสอบสถานะโครงข่าย",
+      "description": "แดชบอร์ดแสดงสถานะเวลาทำงานต่อเนื่อง (Uptime), ลิงก์สัญญาณ SHF ขาดหาย (Link Down), ระดับความแรงของคลื่นความถี่ SHF แบบเรียลไทม์ และบันทึกประวัติการแจ้งเตือน"
+    }
+  },
+  "6": {
+    "id": 6,
+    "externalUrl": "https://wara5year.vercel.app/",
+    "en": {
+      "shortTitle": "6. DOPA Tenure",
+      "fullTitle": "6. Track DOPA Officials' Tenure",
+      "badge": "Category: DOPA Tenure Tracking",
+      "description": "Track the remaining tenure and operational missions of DOPA officials across the 181 USO stations network."
+    },
+    "th": {
+      "shortTitle": "6. DOPA Tenure",
+      "fullTitle": "6. ติดตามวาระเจ้าหน้าที่รัฐ กรมการปกครอง (Track DOPA Tenure)",
+      "badge": "หมวดหมู่งาน: วาระคงเหลือ (DOPA)",
+      "description": "ระบบติดตามวาระและภารกิจของเจ้าหน้าที่รัฐ กรมการปกครอง ประจำสถานีเครือข่าย USO รวม 181 สถานี"
+    }
+  },
+  "7": {
+    "id": 7,
+    "externalUrl": "https://www.stockflowth.online/dashboard",
+    "en": {
+      "shortTitle": "7. Manage Inventory",
+      "fullTitle": "7. Manage Spare Parts & Inventory",
+      "badge": "Category: Spare Parts & Inventory Management",
+      "description": "Manage reserve inventory levels for SHF repeater spare parts, parabolic antennas, RF amplifiers, power converters, and auxiliary components, auditing requisition logs for PM and CM dispatches."
+    },
+    "th": {
+      "shortTitle": "7. Manage Inventory",
+      "fullTitle": "7. บริหารจัดการคลังสินค้าและสต็อกอะไหล่ (Manage Inventory)",
+      "badge": "หมวดหมู่งาน: วัสดุและอุปกรณ์คงคลัง",
+      "description": "ตรวจนับจำนวนสต็อกอุปกรณ์ทวนสัญญาณ SHF สำรอง (Spare Parts), เสาอากาศ, ตัวแปลงไฟ, และอุปกรณ์เสริม พร้อมประวัติการเบิก-จ่ายสำหรับงานบำรุงรักษาเชิงป้องกัน (PM) และงานแก้ไขเหตุขัดข้อง (CM)"
+    }
+  },
+  "8": {
+    "id": 8,
+    "externalUrl": "https://contion.vercel.app/",
+    "en": {
+      "shortTitle": "8. Assets & Equipment",
+      "fullTitle": "8. Track Assets & Equipment Registry",
+      "badge": "Category: Asset & Equipment Registry",
+      "description": "Maintain comprehensive fixed-asset registration records for SHF telecommunication infrastructure, tracking Asset IDs, serial numbers, operational readiness, handover certificates, and equipment relocation histories."
+    },
+    "th": {
+      "shortTitle": "8. Assets & Equipment",
+      "fullTitle": "8. ติดตามและจัดการทะเบียนครุภัณฑ์ (Track Assets & Equipment)",
+      "badge": "หมวดหมู่งาน: ทะเบียนครุภัณฑ์และทรัพย์สิน",
+      "description": "ระบบบันทึกและจัดการทะเบียนครุภัณฑ์ อุปกรณ์สื่อสาร SHF หมายเลขครุภัณฑ์ (รหัสทรัพย์สิน/หมายเลขประจำเครื่อง), สถานะการใช้งาน, ประวัติการส่งมอบและโอนย้ายทรัพย์สิน"
+    }
+  },
+  "9": {
+    "id": 9,
+    "externalUrl": "https://antenna-inky.vercel.app/",
+    "en": {
+      "shortTitle": "9. Calculate Antenna Spacing",
+      "fullTitle": "9. Calculate Antenna Spacing (Antenna Separation System)",
+      "badge": "Category: Antenna Spacing Calculation",
+      "description": "Calculate vertical and horizontal isolation distances, antenna separation spacing, and colocation interference mitigation for radio towers and SHF repeater stations."
+    },
+    "th": {
+      "shortTitle": "9. Calculate Antenna Spacing",
+      "fullTitle": "9. ระบบคำนวณระยะติดตั้งสายอากาศ (Calculate Antenna Spacing)",
+      "badge": "หมวดหมู่งาน: คำนวณระยะติดตั้งสายอากาศ",
+      "description": "ระบบคำนวณระยะห่างการติดตั้งสายอากาศ (Vertical and Horizontal Spacing) ระยะแยกตามแนวดิ่งและแนวราบเพื่อป้องกันการรบกวนของสัญญาณคลื่นความถี่สูงสำหรับสถานีทวนสัญญาณและเสาสื่อสาร"
+    }
+  },
+  "10": {
+    "id": 10,
+    "externalUrl": "https://azmuth-kappa.vercel.app/",
+    "en": {
+      "shortTitle": "10. Calculate Antenna Azimuth",
+      "fullTitle": "10. Calculate Antenna Azimuth (Antenna Direction & Bearing)",
+      "badge": "Category: Antenna Azimuth Calculation",
+      "description": "Calculate directional azimuth, compass bearing, tilt angles, and optimal orientation alignment for SHF repeater parabolic antennas and RF microwave links."
+    },
+    "th": {
+      "shortTitle": "10. Calculate Antenna Azimuth",
+      "fullTitle": "10. ระบบคำนวณทิศทางองศาของสายอากาศ (Calculate Antenna Azimuth)",
+      "badge": "หมวดหมู่งาน: คำนวณทิศทางองศาของสายอากาศ",
+      "description": "ระบบคำนวณทิศทางองศาของสายอากาศ (Azimuth Calculation) คำนวณมุมทิศ องศาเข็มทิศ มุมก้ม-เงย (Tilt Angle) และการปรับทิศทางจานพาราโบลาทวนสัญญาณ SHF เพื่อประสิทธิภาพการเชื่อมโยงสัญญาณสูงสุด"
+    }
+  }
+}
