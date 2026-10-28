@@ -147,7 +147,7 @@ export const MENU_MODULES_DATA: readonly OperationalModule[] = [
     icon: "fa-solid fa-triangle-exclamation",
     svgIcon: ICONS.cm,
     description: "Emergency incident dispatch ticketing, Root Cause Analysis (RCA), corrective repair action tracking, and Mean Time to Repair (MTTR) monitoring for unscheduled link outages.",
-    externalUrl: "https://dtrs-app-uat.forth.co.th/public/report",
+    externalUrl: "https://dtrs-app.forth.co.th/public/report",
     isExternal: true
   },
   {
