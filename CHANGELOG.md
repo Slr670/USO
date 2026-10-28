@@ -15,11 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Expanded automated verification suite in `tests/verify_system.ts` with test group 12 covering shared persistence, API endpoints, and synchronization lifecycle (200 checks passing).
 
 ### Fixed
-- **Vercel Serverless `/api/v1/modules/config` Endpoint Reliability:**
-  - Resolved 500 Internal Server Error on `GET` requests by adding server-side diagnostic error logging, proactive environment variable format checking (e.g., catching missing `KV_REST_API_TOKEN` or `redis://` vs `https://` protocol mismatches), safe JSON parsing with error isolation, and guaranteed fail-safe fallback to authoritative default module data.
-  - Resolved 401 Unauthorized error on `POST` and `DELETE` requests by aligning client request headers to include `Authorization: Bearer <passcode>` and `x-admin-key: <passcode>` alongside legacy `x-passcode` and body tokens, and expanding server-side authentication extraction logic to recognize all standard header conventions and environment overrides (`ADMIN_KEY` / `ADMIN_PASSCODE`).
-  - Added `x-admin-key` to CORS `Access-Control-Allow-Headers` in route preflight response.
-  - Added baseline seed file `data/modules-config.json` to project repository to ensure immediate cold-start availability in serverless container environments.
+- **Vercel Serverless `/api/v1/modules/config` Endpoint Reliability & Safe Fallback:**
+  - Fixed persistent 500 Internal Server Error in serverless runtime caused by server code importing `I18N_RESOURCES` from `'use client'` module `i18n.ts`, which evaluated to undefined during Next.js production server bundling (`Cannot read properties of undefined (reading 'translation')`).
+  - Extracted shared dictionary data to `src/lib/i18n-resources.ts` and administrative constants to `src/lib/config-constants.ts`, decoupling serverless Route Handlers from React client components.
+  - Implemented guaranteed status 200 fallback response on `GET /api/v1/modules/config` when backend storage (KV / Supabase / local filesystem) is uninitialized or offline.
+  - Added request timeouts (`AbortSignal.timeout(3000)`) on all remote storage fetches to prevent serverless function invocation timeout hangs.
+  - Explicitly declared `dynamic = 'force-dynamic'`, `runtime = 'nodejs'`, and `revalidate = 0` route segment configuration on API route handlers.
+  - Updated `tests/verify_system.ts` and `data/modules-config.json` to synchronize Module 2 and Module 3 production external URLs.
 
 ## [3.2.1] - 2026-09-29
 ### Added

@@ -86,8 +86,8 @@ function verifyModulesDataAndUrls() {
 
   const expectedUrls: Record<number, string> = {
     0: 'https://pm-5year.vercel.app/',
-    1: 'https://dtrs-app-uat.forth.co.th/public/report',
-    2: 'https://pub-bc30fda8b7654fa09add325ab0f468e0.r2.dev/index.html',
+    1: 'https://dtrs-app.forth.co.th/public/report',
+    2: 'https://thaidimaru.github.io/Pre_PM2/dashboard',
     3: 'https://claims-nu-taupe.vercel.app/',
     4: 'https://bssc-nine.vercel.app/',
     5: 'https://wara5year.vercel.app/',
@@ -801,6 +801,8 @@ async function verifyGlobalConfigurationSynchronization() {
   assertCheck('GET /api/v1/modules/config returns success true', getJson.success === true);
   assertCheck('GET /api/v1/modules/config returns all 10 modules in payload', Object.keys(getJson.data).length === 10);
   assertCheck('GET /api/v1/modules/config provides storage diagnostics metadata', !!getJson.meta?.diagnostics);
+  assertCheck('GET fallback returns status 200 when storage is uninitialized', getRes.status === 200);
+  assertCheck('GET fallback returns 10 modules fallback without crashing', Object.keys(getJson.data).length === 10);
 
   // 4.2 Test Live POST Route Handler Auth Checks (401 on missing auth, 200 on valid headers)
   const unauthReq = new Request('http://localhost/api/v1/modules/config', {

@@ -17,7 +17,7 @@
   },
   "2": {
     "id": 2,
-    "externalUrl": "https://dtrs-app-uat.forth.co.th/public/report",
+    "externalUrl": "https://dtrs-app.forth.co.th/public/report",
     "en": {
       "shortTitle": "2. Handle CM",
       "fullTitle": "2. Handle Corrective Maintenance (CM)",
@@ -33,7 +33,7 @@
   },
   "3": {
     "id": 3,
-    "externalUrl": "https://pub-bc30fda8b7654fa09add325ab0f468e0.r2.dev/index.html",
+    "externalUrl": "https://thaidimaru.github.io/Pre_PM2/dashboard",
     "en": {
       "shortTitle": "3. Quarterly Visits",
       "fullTitle": "3. Conduct Quarterly Site Inspection Visits",

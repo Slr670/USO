@@ -17,15 +17,10 @@ import type {
   ModulesConfigContextType
 } from './types';
 import { MENU_MODULES_DATA } from './modules-data';
-import { I18N_RESOURCES } from './i18n';
+import { I18N_RESOURCES } from './i18n-resources';
+import { ADMIN_PASSCODE, LOCAL_STORAGE_CONFIG_KEY } from './config-constants';
 
-/**
- * Administrative Passcode Requirement
- * Authenticates administrators to edit module metadata and URLs
- */
-export const ADMIN_PASSCODE = '258025';
-
-export const LOCAL_STORAGE_CONFIG_KEY = 'shf_modules_custom_config_v1';
+export { ADMIN_PASSCODE, LOCAL_STORAGE_CONFIG_KEY };
 
 /**
  * Generate default module configuration from authoritative datasets
@@ -35,8 +30,8 @@ export function getDefaultModuleConfigs(): ModulesCustomConfigMap {
 
   for (const mod of MENU_MODULES_DATA) {
     const key = `m${mod.id}`;
-    const enMod = I18N_RESOURCES.en.translation.modules[key];
-    const thMod = I18N_RESOURCES.th.translation.modules[key];
+    const enMod = I18N_RESOURCES?.en?.translation?.modules?.[key as keyof typeof I18N_RESOURCES['en']['translation']['modules']];
+    const thMod = I18N_RESOURCES?.th?.translation?.modules?.[key as keyof typeof I18N_RESOURCES['th']['translation']['modules']];
 
     defaults[mod.id] = {
       id: mod.id,

@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { MENU_MODULES_DATA } from './modules-data';
-import { I18N_RESOURCES } from './i18n';
+import { I18N_RESOURCES } from './i18n-resources';
 import type { ModulesCustomConfigMap } from './types';
 
 declare global {
@@ -13,27 +13,69 @@ declare global {
 }
 
 /**
+ * Storage Path Resolver
+ */
+function getStorageFilePaths() {
+  const projectDataDir = path.join(process.cwd(), 'data');
+  const primaryPath = path.join(projectDataDir, 'modules-config.json');
+  const fallbackPath = path.join(os.tmpdir(), 'shf_modules_config.json');
+  return { projectDataDir, primaryPath, fallbackPath };
+}
+
+/**
  * Diagnostics and environment variable validation
  */
 export function checkStorageEnvironment() {
   const kvUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
   const kvToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const rawKvUrl = process.env.KV_URL || process.env.REDIS_URL;
   const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
   const adminKey = process.env.ADMIN_KEY || process.env.ADMIN_PASSCODE;
 
   const kvValidUrl = kvUrl ? kvUrl.startsWith('http://') || kvUrl.startsWith('https://') : false;
 
+  let hasFileSystemAccess = false;
+  try {
+    const { fallbackPath } = getStorageFilePaths();
+    fs.writeFileSync(fallbackPath + '.probe', 'ok', 'utf8');
+    fs.unlinkSync(fallbackPath + '.probe');
+    hasFileSystemAccess = true;
+  } catch {
+    hasFileSystemAccess = false;
+  }
+
+  const kvReady = !!(kvUrl && kvToken && kvValidUrl);
+  const supabaseReady = !!(supabaseUrl && supabaseKey);
+  const isVercel = !!process.env.VERCEL;
+  const nodeEnv = process.env.NODE_ENV || 'development';
+
+  let storageBackend: 'vercel-kv' | 'supabase' | 'filesystem' | 'memory' | 'uninitialized-fallback' = 'uninitialized-fallback';
+  if (kvReady) {
+    storageBackend = 'vercel-kv';
+  } else if (supabaseReady) {
+    storageBackend = 'supabase';
+  } else if (hasFileSystemAccess) {
+    storageBackend = 'filesystem';
+  } else if (globalThis.__shf_modules_config__) {
+    storageBackend = 'memory';
+  }
+
+  const storageStatus = (kvReady || supabaseReady || hasFileSystemAccess) ? 'ready' : 'uninitialized';
+
   const diagnostics = {
     hasKvUrl: !!kvUrl,
     hasKvToken: !!kvToken,
-    kvReady: !!(kvUrl && kvToken && kvValidUrl),
+    kvReady,
     hasSupabaseUrl: !!supabaseUrl,
     hasSupabaseKey: !!supabaseKey,
-    supabaseReady: !!(supabaseUrl && supabaseKey),
+    supabaseReady,
     hasCustomAdminKey: !!adminKey,
-    isVercel: !!process.env.VERCEL,
-    nodeEnv: process.env.NODE_ENV || 'development'
+    hasFileSystemAccess,
+    storageBackend,
+    storageStatus,
+    isVercel,
+    nodeEnv
   };
 
   // Proactive logging of missing or mismatched credentials
@@ -46,11 +88,17 @@ export function checkStorageEnvironment() {
   if (kvUrl && !kvValidUrl) {
     console.warn(`[server-config-store] Warning: KV URL does not start with http:// or https:// ("${kvUrl.substring(0, 12)}..."). If you configured KV_URL with redis:// protocol, please set KV_REST_API_URL with https:// REST endpoint instead.`);
   }
+  if (rawKvUrl && !kvUrl) {
+    console.info(`[server-config-store] Info: KV_URL / REDIS_URL detected. For serverless HTTP execution, configure KV_REST_API_URL and KV_REST_API_TOKEN.`);
+  }
   if (supabaseUrl && !supabaseKey) {
     console.warn('[server-config-store] Warning: SUPABASE_URL is configured, but SUPABASE API key is missing.');
   }
   if (!supabaseUrl && supabaseKey) {
     console.warn('[server-config-store] Warning: SUPABASE key is present, but SUPABASE_URL is missing.');
+  }
+  if (!kvReady && !supabaseReady) {
+    console.info('[server-config-store] Info: Remote persistent storage (KV/Supabase) is uninitialized. Running in resilient local/fallback mode.');
   }
 
   return diagnostics;
@@ -62,27 +110,32 @@ export function checkStorageEnvironment() {
 export function getDefaultModuleConfigs(): ModulesCustomConfigMap {
   const defaults: ModulesCustomConfigMap = {};
 
-  for (const mod of MENU_MODULES_DATA) {
-    const key = `m${mod.id}`;
-    const enMod = I18N_RESOURCES.en.translation.modules[key];
-    const thMod = I18N_RESOURCES.th.translation.modules[key];
+  try {
+    for (const mod of MENU_MODULES_DATA) {
+      if (!mod) continue;
+      const key = `m${mod.id}`;
+      const enMod = I18N_RESOURCES?.en?.translation?.modules?.[key as keyof typeof I18N_RESOURCES['en']['translation']['modules']];
+      const thMod = I18N_RESOURCES?.th?.translation?.modules?.[key as keyof typeof I18N_RESOURCES['th']['translation']['modules']];
 
-    defaults[mod.id] = {
-      id: mod.id,
-      externalUrl: mod.externalUrl,
-      en: {
-        shortTitle: enMod?.shortTitle || mod.shortTitle,
-        fullTitle: enMod?.fullTitle || mod.fullTitle,
-        badge: enMod?.badge || mod.badge,
-        description: enMod?.description || mod.description
-      },
-      th: {
-        shortTitle: thMod?.shortTitle || mod.shortTitle,
-        fullTitle: thMod?.fullTitle || mod.fullTitle,
-        badge: thMod?.badge || mod.badge,
-        description: thMod?.description || mod.description
-      }
-    };
+      defaults[mod.id] = {
+        id: mod.id,
+        externalUrl: mod.externalUrl || '',
+        en: {
+          shortTitle: enMod?.shortTitle || mod.shortTitle || `Module ${mod.id}`,
+          fullTitle: enMod?.fullTitle || mod.fullTitle || `Module ${mod.id}`,
+          badge: enMod?.badge || mod.badge || '',
+          description: enMod?.description || mod.description || ''
+        },
+        th: {
+          shortTitle: thMod?.shortTitle || mod.shortTitle || `โมดูล ${mod.id}`,
+          fullTitle: thMod?.fullTitle || mod.fullTitle || `โมดูล ${mod.id}`,
+          badge: thMod?.badge || mod.badge || '',
+          description: thMod?.description || mod.description || ''
+        }
+      };
+    }
+  } catch (err) {
+    console.warn('[server-config-store] Exception in getDefaultModuleConfigs, falling back:', err);
   }
 
   return defaults;
@@ -130,16 +183,6 @@ export function mergeConfigWithDefaults(stored: any): ModulesCustomConfigMap {
 }
 
 /**
- * Storage Path Resolver
- */
-function getStorageFilePaths() {
-  const projectDataDir = path.join(process.cwd(), 'data');
-  const primaryPath = path.join(projectDataDir, 'modules-config.json');
-  const fallbackPath = path.join(os.tmpdir(), 'shf_modules_config.json');
-  return { projectDataDir, primaryPath, fallbackPath };
-}
-
-/**
  * Adapter 1: Vercel KV / Upstash Redis REST API
  */
 async function getFromVercelKv(): Promise<ModulesCustomConfigMap | null> {
@@ -161,7 +204,8 @@ async function getFromVercelKv(): Promise<ModulesCustomConfigMap | null> {
       headers: {
         Authorization: `Bearer ${kvToken}`
       },
-      cache: 'no-store'
+      cache: 'no-store',
+      signal: AbortSignal.timeout(3000)
     });
 
     if (!res.ok) {
@@ -184,7 +228,7 @@ async function getFromVercelKv(): Promise<ModulesCustomConfigMap | null> {
 
     return mergeConfigWithDefaults(data);
   } catch (err: any) {
-    console.error('[server-config-store] Exception during Vercel KV read:', err?.message || err);
+    console.warn('[server-config-store] Exception during Vercel KV read:', err?.message || err);
     return null;
   }
 }
@@ -210,7 +254,8 @@ async function saveToVercelKv(config: ModulesCustomConfigMap): Promise<boolean> 
         Authorization: `Bearer ${kvToken}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(JSON.stringify(config))
+      body: JSON.stringify(JSON.stringify(config)),
+      signal: AbortSignal.timeout(3000)
     });
 
     if (!res.ok) {
@@ -220,7 +265,7 @@ async function saveToVercelKv(config: ModulesCustomConfigMap): Promise<boolean> 
 
     return true;
   } catch (err: any) {
-    console.error('[server-config-store] Exception during Vercel KV save:', err?.message || err);
+    console.warn('[server-config-store] Exception during Vercel KV save:', err?.message || err);
     return false;
   }
 }
@@ -243,12 +288,13 @@ async function resetVercelKv(): Promise<boolean> {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${kvToken}`
-      }
+      },
+      signal: AbortSignal.timeout(3000)
     });
 
     return res.ok;
   } catch (err: any) {
-    console.error('[server-config-store] Exception during Vercel KV reset:', err?.message || err);
+    console.warn('[server-config-store] Exception during Vercel KV reset:', err?.message || err);
     return false;
   }
 }
@@ -278,7 +324,8 @@ async function getFromSupabase(): Promise<ModulesCustomConfigMap | null> {
           apikey: supabaseKey,
           Authorization: `Bearer ${supabaseKey}`
         },
-        cache: 'no-store'
+        cache: 'no-store',
+        signal: AbortSignal.timeout(3000)
       }
     );
 
@@ -293,7 +340,7 @@ async function getFromSupabase(): Promise<ModulesCustomConfigMap | null> {
     }
     return null;
   } catch (err: any) {
-    console.error('[server-config-store] Exception during Supabase read:', err?.message || err);
+    console.warn('[server-config-store] Exception during Supabase read:', err?.message || err);
     return null;
   }
 }
@@ -324,12 +371,13 @@ async function saveToSupabase(config: ModulesCustomConfigMap): Promise<boolean> 
         key: 'shf_modules_config',
         value: config,
         updated_at: new Date().toISOString()
-      })
+      }),
+      signal: AbortSignal.timeout(3000)
     });
 
     return res.ok;
   } catch (err: any) {
-    console.error('[server-config-store] Exception during Supabase save:', err?.message || err);
+    console.warn('[server-config-store] Exception during Supabase save:', err?.message || err);
     return false;
   }
 }
@@ -426,7 +474,7 @@ export async function getStoredModulesConfigWithMeta(): Promise<StoredConfigResu
   try {
     // 1. Try Vercel KV / Upstash
     const kvConfig = await getFromVercelKv();
-    if (kvConfig) {
+    if (kvConfig && Object.keys(kvConfig).length > 0) {
       globalThis.__shf_modules_config__ = kvConfig;
       return {
         config: kvConfig,
@@ -437,7 +485,7 @@ export async function getStoredModulesConfigWithMeta(): Promise<StoredConfigResu
 
     // 2. Try Supabase
     const supabaseConfig = await getFromSupabase();
-    if (supabaseConfig) {
+    if (supabaseConfig && Object.keys(supabaseConfig).length > 0) {
       globalThis.__shf_modules_config__ = supabaseConfig;
       return {
         config: supabaseConfig,
@@ -447,7 +495,7 @@ export async function getStoredModulesConfigWithMeta(): Promise<StoredConfigResu
     }
 
     // 3. Try In-Memory Cache (if updated during current process lifetime)
-    if (globalThis.__shf_modules_config__) {
+    if (globalThis.__shf_modules_config__ && Object.keys(globalThis.__shf_modules_config__).length > 0) {
       return {
         config: globalThis.__shf_modules_config__,
         source: 'memory',
@@ -457,7 +505,7 @@ export async function getStoredModulesConfigWithMeta(): Promise<StoredConfigResu
 
     // 4. Try File System Storage
     const fsConfig = getFromFileSystem();
-    if (fsConfig) {
+    if (fsConfig && Object.keys(fsConfig).length > 0) {
       globalThis.__shf_modules_config__ = fsConfig;
       return {
         config: fsConfig,
@@ -466,10 +514,10 @@ export async function getStoredModulesConfigWithMeta(): Promise<StoredConfigResu
       };
     }
   } catch (err: any) {
-    console.error('[server-config-store] Critical error during configuration lookup. Safely falling back to defaults:', err?.message || err);
+    console.warn('[server-config-store] Configuration lookup warning, safely falling back to defaults:', err?.message || err);
   }
 
-  // 5. Fallback to Authoritative System Defaults (Guaranteed Safe)
+  // 5. Fallback to Authoritative System Defaults (Guaranteed Safe - Status 200)
   const defaults = getDefaultModuleConfigs();
   return {
     config: defaults,
@@ -506,20 +554,32 @@ export async function saveStoredModulesConfig(
   persistedTo.push('memory');
 
   // Persist to File System
-  if (saveToFileSystem(validMerged)) {
-    persistedTo.push('filesystem');
+  try {
+    if (saveToFileSystem(validMerged)) {
+      persistedTo.push('filesystem');
+    }
+  } catch (err) {
+    console.warn('[server-config-store] File system save failed:', err);
   }
 
   // Persist to Vercel KV if available
-  const kvSaved = await saveToVercelKv(validMerged);
-  if (kvSaved) {
-    persistedTo.push('vercel-kv');
+  try {
+    const kvSaved = await saveToVercelKv(validMerged);
+    if (kvSaved) {
+      persistedTo.push('vercel-kv');
+    }
+  } catch (err) {
+    console.warn('[server-config-store] Vercel KV save failed:', err);
   }
 
   // Persist to Supabase if available
-  const supabaseSaved = await saveToSupabase(validMerged);
-  if (supabaseSaved) {
-    persistedTo.push('supabase');
+  try {
+    const supabaseSaved = await saveToSupabase(validMerged);
+    if (supabaseSaved) {
+      persistedTo.push('supabase');
+    }
+  } catch (err) {
+    console.warn('[server-config-store] Supabase save failed:', err);
   }
 
   return {
@@ -543,10 +603,18 @@ export async function resetStoredModulesConfig(): Promise<{
   globalThis.__shf_modules_config_updated_at__ = undefined;
 
   // Reset file system
-  resetFileSystem();
+  try {
+    resetFileSystem();
+  } catch (err) {
+    console.warn('[server-config-store] File system reset failed:', err);
+  }
 
   // Reset KV
-  await resetVercelKv();
+  try {
+    await resetVercelKv();
+  } catch (err) {
+    console.warn('[server-config-store] Vercel KV reset failed:', err);
+  }
 
   return {
     success: true,
