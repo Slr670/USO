@@ -35,7 +35,8 @@
 6. **Policy-Aware HTML5 Video Showcase:** ฝังวิดีโอสาธิตการปฏิบัติการระบบ FORTH Master (`FORTH_MASTER_Video_Final-Additional.mp4`) รองรับการเล่นวนซ้ำอัตโนมัติ (`loop`), Byte-range streaming, ตั้งค่าระดับเสียงเริ่มต้นที่ 50% และระบบสลับ Muted Fallback อัตโนมัติตามนโยบายเบราว์เซอร์
 7. **Full Bilingual Engine (EN / TH) + Runtime Overrides:** สลับภาษาอังกฤษ/ไทยได้ทันทีผ่าน Header พร้อมจดจำค่าภาษาใน `localStorage` และรองรับการเขียนทับคำแปลแบบไดนามิกจาก Admin Config
 8. **UI Icon Policy & Micro-Interactions:** ใช้ Scalable Vector SVGs บริสุทธิ์ 100% (Zero Unicode Emojis) พร้อมอนิเมชัน Spring Bounce, แสงออร่าเมื่อ Hover และรองรับ `prefers-reduced-motion`
-9. **Automated Verification Suite (202 Checks):** ชุดทดสอบอัตโนมัติ 202 รายการ (12 หมวดการทดสอบ) เขียนด้วย TypeScript ตรวจสอบความถูกต้องของเวอร์ชัน, ลิงก์ทั้ง 10 โมดูล, i18n, UI Interactions, ระบบยืนยันตัวตน และการซิงโครไนซ์ API
+9. **Progressive Web App (PWA v2.0.0) & Offline Caching:** รองรับการติดตั้งเป็นแอปพลิเคชัน Standalone บน Desktop, Android และ iOS พร้อมไฟล์ `public/manifest.json`, ชุดไอคอนครบทุกขนาด (`72x72`–`512x512`, Maskable Icons, Apple Touch Icon), PWA Meta Tags ใน `<head>` และ Service Worker (`/sw.js` ผ่าน TypeScript Route Handler) สำหรับแคช App Shell, Static Assets และ API แบบออฟไลน์โดยไม่กระทบการสตรีมวิดีโอ
+10. **Automated Verification Suite (238 Checks):** ชุดทดสอบอัตโนมัติ 238 รายการ (13 หมวดการทดสอบ) เขียนด้วย TypeScript ตรวจสอบความถูกต้องของเวอร์ชัน, ลิงก์ทั้ง 10 โมดูล, i18n, UI Interactions, ระบบยืนยันตัวตน, การซิงโครไนซ์ API และระบบ PWA v2.0.0
 
 ---
 

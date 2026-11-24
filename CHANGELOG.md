@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- **Progressive Web App (PWA v2.0.0) Support & Offline Caching Architecture:**
+  - Generated W3C-compliant Web App Manifest (`public/manifest.json`, `v2.0.0`) with standalone display mode, Window Controls Overlay display override, Deep Navy theme/background colors (`#060d1d`), quick app shortcuts (`#systems`, `#video-section`), and full multi-resolution icon definitions.
+  - Generated 13 crisp high-DPI PNG app icons (`72x72` through `512x512`, W3C safe-zone `maskable-icon-192x192.png` & `maskable-icon-512x512.png`, and `180x180` `apple-touch-icon.png`) in `public/assets/icons/` and `public/apple-touch-icon.png`.
+  - Implemented multi-strategy Service Worker (`src/lib/pwa-sw.ts` served dynamically via Next.js TypeScript Route Handler `src/app/sw.js/route.ts` to preserve 100% TypeScript-only zero-`.js` source tree compliance) featuring App Shell precaching, Stale-While-Revalidate static asset caching, Network-First API/navigation caching with styled offline fallback, and automatic MP4/Byte-Range bypass for uninterrupted video streaming.
+  - Added `PwaRegistrar.tsx` client component mounted in `AppProviders.tsx` for automatic `/sw.js` registration and seamless `SKIP_WAITING` lifecycle updates.
+  - Configured comprehensive PWA meta tags, viewport `themeColor`, and Apple/Microsoft web app headers in `src/app/layout.tsx` and `vercel.json`.
+  - Expanded automated verification suite in `tests/verify_system.ts` with Test Group 13 validating PWA v2.0.0 manifest, icon binaries, `/sw.js` route handler, and `<head>` meta tags.
 - **Global Shared Backend/Database Configuration Synchronization:**
   - Implemented multi-tier server-side configuration store (`src/lib/server-config-store.ts`) supporting Vercel KV / Upstash Redis REST API (`KV_REST_API_URL` & `KV_REST_API_TOKEN`), Supabase REST API (`SUPABASE_URL`), local filesystem persistence (`data/modules-config.json` & `/tmp/`), and global in-memory singleton cache.
   - Added RESTful API endpoints at `/api/v1/modules/config` and `/api/v1/config` supporting `GET` (fetch shared config), `POST`/`PUT` (persist global config updates with passcode authorization), `DELETE` (revert to defaults), and `OPTIONS` (CORS preflight).

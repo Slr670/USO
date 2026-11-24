@@ -1,4 +1,9 @@
 export const APP_VERSION = '3.2.1';
+export const PWA_VERSION = '2.0.0';
+export const PWA_THEME_COLOR = '#060d1d';
+export const PWA_BACKGROUND_COLOR = '#060d1d';
+export const PWA_MANIFEST_URL = '/manifest.json';
+export const PWA_SW_URL = '/sw.js';
 export const APP_TITLE_EN = 'Super High Frequency (SHF) Repeater Network Optimization Project';
 export const APP_TITLE_TH = 'โครงการเพิ่มประสิทธิภาพโครงข่ายสื่อสารด้วยอุปกรณ์ทวนสัญญาณผ่านคลื่นความถี่สูง (SHF)';
 export const APP_SUBTITLE_EN = 'Operations & Maintenance Dashboard';

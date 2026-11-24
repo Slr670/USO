@@ -1,6 +1,20 @@
 import fs from 'fs';
 import path from 'path';
-import { APP_VERSION, HERO_BG_VIDEO_SRC } from '../src/lib/constants';
+import {
+  APP_VERSION,
+  HERO_BG_VIDEO_SRC,
+  PWA_VERSION,
+  PWA_THEME_COLOR,
+  PWA_MANIFEST_URL,
+  PWA_SW_URL
+} from '../src/lib/constants';
+import {
+  PWA_STATIC_CACHE,
+  PWA_DYNAMIC_CACHE,
+  PWA_API_CACHE,
+  buildServiceWorkerScript
+} from '../src/lib/pwa-sw';
+import { GET as getSwRoute } from '../src/app/sw.js/route';
 import { MENU_MODULES_DATA, ICONS } from '../src/lib/modules-data';
 import { dashboardService } from '../src/lib/modules-service';
 import { I18N_RESOURCES, MODULE_KEYS, resolveTranslation } from '../src/lib/i18n';
@@ -883,6 +897,129 @@ async function verifyGlobalConfigurationSynchronization() {
   assertCheck('dashboard.styles.ts defines .admin-btn-spinner keyframes', stylesContent.includes('.admin-btn-spinner') && stylesContent.includes('@keyframes adminSpin'));
 }
 
+async function verifyProgressiveWebAppSupport() {
+  console.log('\n--- 13. Progressive Web App (PWA v2.0.0) Manifest, Icons, Service Worker & Head Tags ---');
+
+  // 1. Verify PWA Constants
+  assertCheck('constants.ts PWA_VERSION is 2.0.0', PWA_VERSION === '2.0.0', `Found: ${PWA_VERSION}`);
+  assertCheck('constants.ts PWA_MANIFEST_URL is /manifest.json', PWA_MANIFEST_URL === '/manifest.json');
+  assertCheck('constants.ts PWA_SW_URL is /sw.js', PWA_SW_URL === '/sw.js');
+
+  // 2. Verify public/manifest.json
+  const manifestPath = path.join(ROOT_DIR, 'public/manifest.json');
+  assertCheck('public/manifest.json exists', fs.existsSync(manifestPath));
+
+  let manifestJson: any = null;
+  try {
+    manifestJson = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  } catch (e: any) {
+    assertCheck('public/manifest.json is valid JSON', false, e.message);
+  }
+
+  if (manifestJson) {
+    assertCheck('manifest.json version is 2.0.0', manifestJson.version === '2.0.0');
+    assertCheck('manifest.json display is standalone', manifestJson.display === 'standalone');
+    assertCheck('manifest.json start_url is / and scope is /', manifestJson.start_url === '/' && manifestJson.scope === '/');
+    assertCheck(
+      'manifest.json defines matching theme_color and background_color',
+      manifestJson.theme_color === PWA_THEME_COLOR && manifestJson.background_color === PWA_THEME_COLOR
+    );
+    assertCheck('manifest.json contains icons array (>= 10 entries)', Array.isArray(manifestJson.icons) && manifestJson.icons.length >= 10);
+
+    const has192Any = manifestJson.icons.some((ic: any) => ic.sizes === '192x192' && ic.purpose === 'any');
+    const has512Any = manifestJson.icons.some((ic: any) => ic.sizes === '512x512' && ic.purpose === 'any');
+    const hasMaskable = manifestJson.icons.some((ic: any) => ic.purpose === 'maskable');
+    assertCheck('manifest.json includes 192x192, 512x512, and maskable icons', has192Any && has512Any && hasMaskable);
+
+    const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    for (const icon of manifestJson.icons) {
+      const iconDiskPath = path.join(ROOT_DIR, 'public', icon.src.replace(/^\//, ''));
+      const exists = fs.existsSync(iconDiskPath);
+      let validFormat = false;
+      if (exists) {
+        const buf = fs.readFileSync(iconDiskPath);
+        if (icon.type === 'image/png') {
+          validFormat = buf.length > 8 && buf.subarray(0, 8).equals(pngSignature);
+        } else if (icon.type === 'image/svg+xml') {
+          validFormat = buf.toString('utf8').includes('<svg');
+        }
+      }
+      assertCheck(`Manifest icon [${icon.src}] (${icon.sizes}) exists & valid`, exists && validFormat);
+    }
+
+    const appleIconPath = path.join(ROOT_DIR, 'public/apple-touch-icon.png');
+    const appleIconValid =
+      fs.existsSync(appleIconPath) &&
+      fs.readFileSync(appleIconPath).subarray(0, 8).equals(pngSignature);
+    assertCheck('public/apple-touch-icon.png exists with valid PNG header', appleIconValid);
+  }
+
+  // 3. Verify Service Worker Route Handler & Offline Caching Script
+  const swRoutePath = path.join(ROOT_DIR, 'src/app/sw.js/route.ts');
+  const swLibPath = path.join(ROOT_DIR, 'src/lib/pwa-sw.ts');
+  assertCheck('src/app/sw.js/route.ts TypeScript Route Handler exists', fs.existsSync(swRoutePath));
+  assertCheck('src/lib/pwa-sw.ts Service Worker builder exists', fs.existsSync(swLibPath));
+
+  const swRes = await getSwRoute();
+  assertCheck('GET /sw.js responds with status 200', swRes.status === 200);
+  assertCheck(
+    'GET /sw.js serves Content-Type application/javascript',
+    (swRes.headers.get('content-type') || '').includes('application/javascript')
+  );
+  assertCheck(
+    'GET /sw.js sets Service-Worker-Allowed: / header',
+    swRes.headers.get('service-worker-allowed') === '/'
+  );
+
+  const swBody = await swRes.text();
+  assertCheck(
+    'Service Worker script matches buildServiceWorkerScript() and version 2.0.0',
+    swBody === buildServiceWorkerScript() &&
+      swBody.includes(PWA_STATIC_CACHE) &&
+      swBody.includes(PWA_DYNAMIC_CACHE) &&
+      swBody.includes(PWA_API_CACHE)
+  );
+  assertCheck(
+    'Service Worker implements install, activate, fetch, and message lifecycle handlers',
+    swBody.includes("self.addEventListener('install'") &&
+      swBody.includes("self.addEventListener('activate'") &&
+      swBody.includes("self.addEventListener('fetch'") &&
+      swBody.includes("self.addEventListener('message'")
+  );
+  assertCheck(
+    'Service Worker bypasses byte-range and MP4 video streaming requests',
+    swBody.includes("request.headers.has('range')") && swBody.includes('mp4|mov')
+  );
+
+  // 4. Verify Client Registrar & HTML <head> PWA Meta Tags
+  const registrarPath = path.join(ROOT_DIR, 'src/components/PwaRegistrar.tsx');
+  assertCheck('PwaRegistrar.tsx component exists', fs.existsSync(registrarPath));
+  const registrarContent = fs.readFileSync(registrarPath, 'utf8');
+  assertCheck(
+    'PwaRegistrar.tsx registers serviceWorker at PWA_SW_URL',
+    registrarContent.includes('navigator.serviceWorker.register(PWA_SW_URL')
+  );
+
+  const providersContent = fs.readFileSync(path.join(ROOT_DIR, 'src/components/AppProviders.tsx'), 'utf8');
+  assertCheck('AppProviders.tsx mounts <PwaRegistrar />', providersContent.includes('<PwaRegistrar />'));
+
+  const layoutContent = fs.readFileSync(path.join(ROOT_DIR, 'src/app/layout.tsx'), 'utf8');
+  assertCheck(
+    'layout.tsx configures manifest link, themeColor, and apple-touch-icon',
+    layoutContent.includes('manifest: PWA_MANIFEST_URL') &&
+      layoutContent.includes('rel="manifest"') &&
+      layoutContent.includes('themeColor: PWA_THEME_COLOR') &&
+      layoutContent.includes('rel="apple-touch-icon"')
+  );
+  assertCheck(
+    'layout.tsx includes mobile-web-app-capable, apple-mobile-web-app-capable, msapplication-TileColor, and pwa-version meta tags',
+    layoutContent.includes('name="mobile-web-app-capable"') &&
+      layoutContent.includes('name="apple-mobile-web-app-capable"') &&
+      layoutContent.includes('name="msapplication-TileColor"') &&
+      layoutContent.includes('name="pwa-version"')
+  );
+}
+
 export async function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -901,6 +1038,7 @@ export async function runSuite() {
   verifyViewPresentationButtonAction();
   verifyAdminPasscodeAndModuleConfig();
   await verifyGlobalConfigurationSynchronization();
+  await verifyProgressiveWebAppSupport();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);
