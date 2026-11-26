@@ -14,6 +14,12 @@ import {
   PWA_API_CACHE,
   buildServiceWorkerScript
 } from '../src/lib/pwa-sw';
+import {
+  isReceivingEndMissingError,
+  safePostMessage,
+  safeSendServiceWorkerMessage,
+  safeSendExternalMessage
+} from '../src/lib/safe-messaging';
 import { GET as getSwRoute } from '../src/app/sw.js/route';
 import { MENU_MODULES_DATA, ICONS } from '../src/lib/modules-data';
 import { dashboardService } from '../src/lib/modules-service';
@@ -1020,6 +1026,137 @@ async function verifyProgressiveWebAppSupport() {
   );
 }
 
+async function verifySafeMessagingAndServiceWorkerLifecycle() {
+  console.log('\n--- 14. Safe Messaging, Service Worker Listener Init & Unhandled Rejection Guards ---');
+
+  // 1. Verify error matcher accurately identifies disconnected receiver errors
+  assertCheck(
+    'isReceivingEndMissingError detects "Could not establish connection. Receiving end does not exist."',
+    isReceivingEndMissingError(new Error('Could not establish connection. Receiving end does not exist.')) === true
+  );
+  assertCheck(
+    'isReceivingEndMissingError detects "Extension context invalidated"',
+    isReceivingEndMissingError('Extension context invalidated.') === true
+  );
+  assertCheck(
+    'isReceivingEndMissingError detects closed message port errors',
+    isReceivingEndMissingError({ message: 'The message port closed before a response was received.' }) === true
+  );
+  assertCheck(
+    'isReceivingEndMissingError does not suppress unrelated application errors',
+    isReceivingEndMissingError(new Error('Database connection timeout')) === false
+  );
+
+  // 2. Verify safePostMessage guards null, redundant, and throwing targets
+  assertCheck('safePostMessage returns false safely for null target', safePostMessage(null, { type: 'TEST' }) === false);
+  assertCheck(
+    'safePostMessage refuses to post to a redundant Service Worker',
+    safePostMessage({ state: 'redundant', postMessage: () => {} }, { type: 'SKIP_WAITING' }) === false
+  );
+  assertCheck(
+    'safePostMessage catches synchronous postMessage errors without throwing',
+    safePostMessage(
+      {
+        state: 'activated',
+        postMessage: () => {
+          throw new Error('Could not establish connection. Receiving end does not exist.');
+        }
+      },
+      { type: 'SKIP_WAITING' }
+    ) === false
+  );
+
+  let postedPayload: unknown = null;
+  const sentOk = safePostMessage(
+    {
+      state: 'installed',
+      postMessage: (msg) => {
+        postedPayload = msg;
+      }
+    },
+    { type: 'SKIP_WAITING' }
+  );
+  assertCheck(
+    'safePostMessage delivers payload to active/installed worker',
+    sentOk === true && (postedPayload as { type?: string })?.type === 'SKIP_WAITING'
+  );
+
+  // 3. Verify safeSendExternalMessage never rejects on disconnected extension receivers
+  const extRejectedResult = await safeSendExternalMessage(
+    { type: 'PING' },
+    'test-extension-id',
+    {
+      sendMessage: () =>
+        Promise.reject(new Error('Could not establish connection. Receiving end does not exist.'))
+    }
+  );
+  assertCheck(
+    'safeSendExternalMessage suppresses rejected receiving-end promises and resolves to null',
+    extRejectedResult === null
+  );
+
+  const extThrownResult = await safeSendExternalMessage(
+    { type: 'PING' },
+    'test-extension-id',
+    {
+      sendMessage: () => {
+        throw new Error('Extension context invalidated.');
+      }
+    }
+  );
+  assertCheck(
+    'safeSendExternalMessage catches synchronous extension runtime exceptions safely',
+    extThrownResult === null
+  );
+
+  const extSuccessResult = await safeSendExternalMessage<{ ok: boolean }>(
+    { type: 'PING' },
+    'test-extension-id',
+    {
+      sendMessage: () => Promise.resolve({ ok: true })
+    }
+  );
+  assertCheck(
+    'safeSendExternalMessage returns response when external receiver responds',
+    extSuccessResult?.ok === true
+  );
+
+  // 4. Verify safeSendServiceWorkerMessage gracefully handles non-browser environment
+  const swMsgResult = await safeSendServiceWorkerMessage({ type: 'PWA_PING' });
+  assertCheck('safeSendServiceWorkerMessage resolves to null safely when SW unavailable', swMsgResult === null);
+
+  // 5. Verify SW script registers message listener BEFORE install/activate/fetch & guards postMessage
+  const swScript = buildServiceWorkerScript();
+  const msgListenerIdx = swScript.indexOf("self.addEventListener('message'");
+  const installListenerIdx = swScript.indexOf("self.addEventListener('install'");
+  assertCheck(
+    'Service Worker registers message listener synchronously before install lifecycle listener',
+    msgListenerIdx !== -1 && installListenerIdx !== -1 && msgListenerIdx < installListenerIdx
+  );
+  assertCheck(
+    'Service Worker wraps postMessage replies and cache writes in safe error handlers',
+    swScript.includes('function safeReply(') &&
+      swScript.includes('function safeCachePut(') &&
+      swScript.includes("event.data.type === 'PWA_PING'")
+  );
+
+  // 6. Verify PwaRegistrar initializes message listener before registration and guards unhandledrejection
+  const registrarContent = fs.readFileSync(path.join(ROOT_DIR, 'src/components/PwaRegistrar.tsx'), 'utf8');
+  const clientMsgListenerIdx = registrarContent.indexOf("navigator.serviceWorker.addEventListener('message'");
+  const clientRegisterIdx = registrarContent.indexOf('navigator.serviceWorker.register(PWA_SW_URL');
+  assertCheck(
+    'PwaRegistrar initializes serviceWorker message listener before calling register()',
+    clientMsgListenerIdx !== -1 && clientRegisterIdx !== -1 && clientMsgListenerIdx < clientRegisterIdx
+  );
+  assertCheck(
+    'PwaRegistrar uses safePostMessage, navigator.serviceWorker.ready, and unhandledrejection guard',
+    registrarContent.includes('safePostMessage(') &&
+      registrarContent.includes('navigator.serviceWorker.ready') &&
+      registrarContent.includes("window.addEventListener('unhandledrejection'") &&
+      registrarContent.includes('isReceivingEndMissingError(')
+  );
+}
+
 export async function runSuite() {
   console.log('===================================================================');
   console.log('SHF Dashboard - TypeScript-Only Stack Verification Suite');
@@ -1039,6 +1176,7 @@ export async function runSuite() {
   verifyAdminPasscodeAndModuleConfig();
   await verifyGlobalConfigurationSynchronization();
   await verifyProgressiveWebAppSupport();
+  await verifySafeMessagingAndServiceWorkerLifecycle();
 
   console.log('\n===================================================================');
   console.log(`Summary: ${passedChecks}/${totalChecks} Checks Passed.`);

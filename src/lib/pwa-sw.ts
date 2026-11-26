@@ -70,6 +70,48 @@ const OFFLINE_FALLBACK_DOCUMENT = [
   '</html>'
 ].join('\\n');
 
+function safeReply(event, payload) {
+  try {
+    if (event && event.ports && event.ports[0] && typeof event.ports[0].postMessage === 'function') {
+      event.ports[0].postMessage(payload);
+      return;
+    }
+    if (event && event.source && typeof event.source.postMessage === 'function') {
+      event.source.postMessage(payload);
+    }
+  } catch {
+    // Receiver port closed or disconnected; ignore safely
+  }
+}
+
+function safeCachePut(cacheName, request, response) {
+  return caches
+    .open(cacheName)
+    .then((cache) => cache.put(request, response))
+    .catch(() => undefined);
+}
+
+// Register message listener synchronously during initial script evaluation
+// so incoming postMessage calls always have an initialized receiving end.
+self.addEventListener('message', (event) => {
+  try {
+    if (!event || !event.data || typeof event.data !== 'object') {
+      return;
+    }
+
+    if (event.data.type === 'SKIP_WAITING') {
+      Promise.resolve(self.skipWaiting()).catch(() => undefined);
+      safeReply(event, { type: 'SKIP_WAITING_ACK', version: PWA_VERSION });
+    } else if (event.data.type === 'GET_PWA_VERSION') {
+      safeReply(event, { type: 'PWA_VERSION', version: PWA_VERSION });
+    } else if (event.data.type === 'PWA_PING') {
+      safeReply(event, { type: 'PWA_PONG', version: PWA_VERSION });
+    }
+  } catch {
+    // Prevent unhandled exceptions in message dispatch
+  }
+});
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
@@ -77,16 +119,19 @@ self.addEventListener('install', (event) => {
       .then((cache) =>
         Promise.allSettled(
           PRECACHE_ASSETS.map((assetUrl) =>
-            fetch(assetUrl, { cache: 'reload' }).then((response) => {
-              if (response && response.ok && response.status === 200) {
-                return cache.put(assetUrl, response);
-              }
-              return undefined;
-            })
+            fetch(assetUrl, { cache: 'reload' })
+              .then((response) => {
+                if (response && response.ok && response.status === 200) {
+                  return cache.put(assetUrl, response);
+                }
+                return undefined;
+              })
+              .catch(() => undefined)
           )
         )
       )
       .then(() => self.skipWaiting())
+      .catch(() => undefined)
   );
 });
 
@@ -102,16 +147,8 @@ self.addEventListener('activate', (event) => {
         )
       )
       .then(() => self.clients.claim())
+      .catch(() => undefined)
   );
-});
-
-self.addEventListener('message', (event) => {
-  if (!event.data) return;
-  if (event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  } else if (event.data.type === 'GET_PWA_VERSION' && event.ports && event.ports[0]) {
-    event.ports[0].postMessage({ type: 'PWA_VERSION', version: PWA_VERSION });
-  }
 });
 
 self.addEventListener('fetch', (event) => {
@@ -151,12 +188,12 @@ self.addEventListener('fetch', (event) => {
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const clone = networkResponse.clone();
-            caches.open(API_CACHE).then((cache) => cache.put(request, clone));
+            safeCachePut(API_CACHE, request, clone);
           }
           return networkResponse;
         })
         .catch(async () => {
-          const cachedApi = await caches.match(request);
+          const cachedApi = await caches.match(request).catch(() => undefined);
           if (cachedApi) return cachedApi;
           return new Response(
             JSON.stringify({
@@ -181,15 +218,15 @@ self.addEventListener('fetch', (event) => {
         .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const clone = networkResponse.clone();
-            caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, clone));
+            safeCachePut(DYNAMIC_CACHE, request, clone);
           }
           return networkResponse;
         })
         .catch(async () => {
-          const cachedPage = await caches.match(request);
+          const cachedPage = await caches.match(request).catch(() => undefined);
           if (cachedPage) return cachedPage;
 
-          const cachedRoot = await caches.match('/');
+          const cachedRoot = await caches.match('/').catch(() => undefined);
           if (cachedRoot) return cachedRoot;
 
           return new Response(OFFLINE_FALLBACK_DOCUMENT, {
@@ -208,23 +245,26 @@ self.addEventListener('fetch', (event) => {
 
   if (isSameOrigin || isFontOrigin) {
     event.respondWith(
-      caches.match(request).then((cachedResponse) => {
-        const fetchPromise = fetch(request)
-          .then((networkResponse) => {
-            if (
-              networkResponse &&
-              networkResponse.status === 200 &&
-              (networkResponse.type === 'basic' || networkResponse.type === 'cors')
-            ) {
-              const clone = networkResponse.clone();
-              caches.open(DYNAMIC_CACHE).then((cache) => cache.put(request, clone));
-            }
-            return networkResponse;
-          })
-          .catch(() => cachedResponse);
+      caches
+        .match(request)
+        .then((cachedResponse) => {
+          const fetchPromise = fetch(request)
+            .then((networkResponse) => {
+              if (
+                networkResponse &&
+                networkResponse.status === 200 &&
+                (networkResponse.type === 'basic' || networkResponse.type === 'cors')
+              ) {
+                const clone = networkResponse.clone();
+                safeCachePut(DYNAMIC_CACHE, request, clone);
+              }
+              return networkResponse;
+            })
+            .catch(() => cachedResponse);
 
-        return cachedResponse || fetchPromise;
-      })
+          return cachedResponse || fetchPromise;
+        })
+        .catch(() => fetch(request).catch(() => new Response('', { status: 504 })))
     );
   }
 });

@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Expanded automated verification suite in `tests/verify_system.ts` with test group 12 covering shared persistence, API endpoints, and synchronization lifecycle (200 checks passing).
 
 ### Fixed
+- **PWA Service Worker Messaging Lifecycle & Unhandled Rejection Guard (`Receiving end does not exist`):**
+  - Created `src/lib/safe-messaging.ts` providing `isReceivingEndMissingError`, `safePostMessage`, `safeSendServiceWorkerMessage`, and `safeSendExternalMessage` to wrap all Service Worker and browser extension/external communication in safe `try...catch` and `.catch()` handlers.
+  - Updated `src/lib/pwa-sw.ts` to register `self.addEventListener('message', ...)` synchronously at the top of the Service Worker before lifecycle listeners, wrap `postMessage` replies in `safeReply()`, guard background `cache.put()` calls with `safeCachePut()`, and support `PWA_PING` / `PWA_PONG` readiness handshakes.
+  - Hardened `src/components/PwaRegistrar.tsx` to initialize `navigator.serviceWorker.addEventListener('message', ...)` prior to registration, check `window.isSecureContext`, await `navigator.serviceWorker.ready`, guard waiting/installing worker `postMessage` calls with `safePostMessage()`, clean up event listeners on unmount, and install an `unhandledrejection` guard preventing disconnected extension messaging errors from surfacing as uncaught promise rejections.
+  - Added Test Group 14 in `tests/verify_system.ts` verifying safe messaging guards and Service Worker listener initialization order.
 - **Vercel Serverless `/api/v1/modules/config` Endpoint Reliability & Safe Fallback:**
   - Fixed persistent 500 Internal Server Error in serverless runtime caused by server code importing `I18N_RESOURCES` from `'use client'` module `i18n.ts`, which evaluated to undefined during Next.js production server bundling (`Cannot read properties of undefined (reading 'translation')`).
   - Extracted shared dictionary data to `src/lib/i18n-resources.ts` and administrative constants to `src/lib/config-constants.ts`, decoupling serverless Route Handlers from React client components.
